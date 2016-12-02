@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="CPP_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/SamplePluginPA10-4ee19889/4ee19889/Debug/qrc_resources.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/SamplePluginPA10-4ee19889/4ee19889/Debug/qrc_resources.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/SamplePluginPA10-4ee19889/4ee19889/Debug/src/moc_SamplePlugin.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/SamplePluginPA10-4ee19889/4ee19889/Debug/src/moc_SamplePlugin.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/SamplePluginPA10-4ee19889/4ee19889/MinSizeRel/qrc_resources.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/SamplePluginPA10-4ee19889/4ee19889/MinSizeRel/qrc_resources.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/SamplePluginPA10-4ee19889/4ee19889/MinSizeRel/src/moc_SamplePlugin.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/SamplePluginPA10-4ee19889/4ee19889/MinSizeRel/src/moc_SamplePlugin.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/SamplePluginPA10-4ee19889/4ee19889/RelWithDebInfo/qrc_resources.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/SamplePluginPA10-4ee19889/4ee19889/RelWithDebInfo/qrc_resources.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/SamplePluginPA10-4ee19889/4ee19889/RelWithDebInfo/src/moc_SamplePlugin.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/SamplePluginPA10-4ee19889/4ee19889/RelWithDebInfo/src/moc_SamplePlugin.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/SamplePluginPA10-4ee19889/4ee19889/Release/qrc_resources.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/SamplePluginPA10-4ee19889/4ee19889/Release/qrc_resources.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/SamplePluginPA10-4ee19889/4ee19889/Release/src/moc_SamplePlugin.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/SamplePluginPA10-4ee19889/4ee19889/Release/src/moc_SamplePlugin.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/SamplePlugin.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/inverseKinematics.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/inverseKinematics.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SamplePlugin.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SamplePlugin.ui" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/resources.qrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="Header Search Paths">
+        <CLASSES>
+          <root url="file:///usr/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include" />
+          <root url="file:///usr/local/include" />
+          <root url="file:///opt/RobWork/RobWork/ext/csgjs/src" />
+          <root url="file:///opt/RobWork/RobWork/ext/eigen3" />
+          <root url="file:///opt/RobWork/RobWork/ext/qhull/src" />
+          <root url="file:///opt/RobWork/RobWork/ext/unzip" />
+          <root url="file:///opt/RobWork/RobWork/ext/rwyaobi" />
+          <root url="file:///opt/RobWork/RobWork/ext/lua/src" />
+          <root url="file:///opt/RobWork/RobWork/ext/assimp/include" />
+          <root url="file:///opt/RobWork/RobWork/ext/rwpqp" />
+          <root url="file:///opt/RobWork/RobWork/ext/boostbindings" />
+          <root url="file:///opt/RobWork/RobWork/src" />
+          <root url="file:///opt/RobWork/RobWorkStudio/ext/qtpropertybrowser/src" />
+          <root url="file:///opt/RobWork/RobWorkStudio/src" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file:///usr/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include" />
+          <root url="file:///usr/local/include" />
+          <root url="file:///opt/RobWork/RobWork/ext/csgjs/src" />
+          <root url="file:///opt/RobWork/RobWork/ext/eigen3" />
+          <root url="file:///opt/RobWork/RobWork/ext/qhull/src" />
+          <root url="file:///opt/RobWork/RobWork/ext/unzip" />
+          <root url="file:///opt/RobWork/RobWork/ext/rwyaobi" />
+          <root url="file:///opt/RobWork/RobWork/ext/lua/src" />
+          <root url="file:///opt/RobWork/RobWork/ext/assimp/include" />
+          <root url="file:///opt/RobWork/RobWork/ext/rwpqp" />
+          <root url="file:///opt/RobWork/RobWork/ext/boostbindings" />
+          <root url="file:///opt/RobWork/RobWork/src" />
+          <root url="file:///opt/RobWork/RobWorkStudio/ext/qtpropertybrowser/src" />
+          <root url="file:///opt/RobWork/RobWorkStudio/src" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+  </component>
+</module>

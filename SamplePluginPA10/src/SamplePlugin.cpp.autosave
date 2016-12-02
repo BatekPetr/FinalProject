@@ -1,0 +1,633 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <rw/rw.hpp>
+#include <rw/math/Transform3D.hpp>
+
+#include "SamplePlugin.hpp"
+
+#include <rws/RobWorkStudio.hpp>
+#include <rw/kinematics/MovableFrame.hpp>
+#include <QPushButton>
+
+#include <rw/loaders/ImageLoader.hpp>
+#include <rw/loaders/WorkCellFactory.hpp>
+
+#include <QTimer>
+
+#include <boost/bind.hpp>
+#include <QtPlugin>
+
+using namespace rw::common;
+using namespace rw::graphics;
+using namespace rw::kinematics;
+using namespace rw::loaders;
+using namespace rw::models;
+using namespace rw::sensor;
+using namespace rwlibs::opengl;
+using namespace rwlibs::simulation;
+
+using namespace rws;
+
+using namespace cv;
+
+std::string file;
+std::ifstream infile;
+std::stringstream ss;
+
+const string deviceName = "PA10";
+Device::Ptr device;
+
+const double deltaT =  0.1;
+
+//Frame* base;
+//Frame* world;
+
+
+SamplePlugin::SamplePlugin():
+    RobWorkStudioPlugin("SamplePluginUI", QIcon("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/pa_icon.png"))
+{
+	setupUi(this);
+
+	_timer = new QTimer(this);
+    connect(_timer, SIGNAL(timeout()), this, SLOT(timer()));
+
+	// now connect stuff from the ui component
+	connect(_btn0    ,SIGNAL(pressed()), this, SLOT(btnPressed()) );
+	connect(_btn1    ,SIGNAL(pressed()), this, SLOT(btnPressed()) );
+	connect(_spinBox  ,SIGNAL(valueChanged(int)), this, SLOT(btnPressed()) );
+
+	Image textureImage(300,300,Image::GRAY,Image::Depth8U);
+	_textureRender = new RenderImage(textureImage);
+	Image bgImage(0,0,Image::GRAY,Image::Depth8U);
+	_bgRender = new RenderImage(bgImage,2.5/1000.0);
+	_framegrabber = NULL;
+}
+
+SamplePlugin::~SamplePlugin()
+{
+    /* deallocate used memory */
+	delete _textureRender;
+	delete _bgRender;
+}
+
+void SamplePlugin::initialize() {
+    /* do something when plugin is initialized */
+    
+	log().info() << "INITALIZE" << "\n";
+
+	getRobWorkStudio()->stateChangedEvent().add(boost::bind(&SamplePlugin::stateChangedListener, this, _1), this);
+
+	// Auto load workcell
+	WorkCell::Ptr wc = WorkCellLoader::Factory::load("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/PA10WorkCell/ScenePA10RoVi1.wc.xml");
+	getRobWorkStudio()->setWorkCell(wc);
+
+	// Load Lena image
+	Mat im, image;
+	im = imread("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/lena.bmp", CV_LOAD_IMAGE_COLOR); // Read the file
+	cvtColor(im, image, CV_BGR2RGB); // Switch the red and blue color channels
+	if(! image.data ) {
+		RW_THROW("Could not open or find the image: please modify the file path in the source code!");
+	}
+	QImage img(image.data, image.cols, image.rows, image.step, QImage::Format_RGB888); // Create QImage from the OpenCV image
+	_label->setPixmap(QPixmap::fromImage(img)); // Show the image at the label in the plugin
+}
+
+void SamplePlugin::open(WorkCell* workcell)
+{
+    /* do something when workcell is openned */
+    
+	log().info() << "OPEN" << "\n";
+	_wc = workcell;
+	_state = _wc->getDefaultState();
+    //base = _wc->findFrame("Base");
+    //world = _wc->findFrame("WORLD");
+
+	log().info() << workcell->getFilename() << "\n";
+
+	if (_wc != NULL) {
+     	// Add the texture render to this workcell if there is a frame for texture
+		textureFrame = _wc->findFrame("MarkerTexture");
+		if (textureFrame != NULL) {
+
+			getRobWorkStudio()->getWorkCellScene()->addRender("TextureImage",_textureRender,textureFrame);
+		}
+		// Add the background render to this workcell if there is a frame for texture
+		Frame* bgFrame = _wc->findFrame("Background");
+		if (bgFrame != NULL) {
+			getRobWorkStudio()->getWorkCellScene()->addRender("BackgroundImage",_bgRender,bgFrame);
+		}
+
+		// Create a GLFrameGrabber if there is a camera frame with a Camera property set
+		cameraFrame = _wc->findFrame("CameraSim");
+		if (cameraFrame != NULL) {
+			if (cameraFrame->getPropertyMap().has("Camera")) {
+				// Read the dimensions and field of view
+				double fovy;
+				int width,height;
+				std::string camParam = cameraFrame->getPropertyMap().get<std::string>("Camera");
+				std::istringstream iss (camParam, std::istringstream::in);
+				iss >> fovy >> width >> height;
+				// Create a frame grabber
+				_framegrabber = new GLFrameGrabber(width,height,fovy);
+				SceneViewer::Ptr gldrawer = getRobWorkStudio()->getView()->getSceneViewer();
+				_framegrabber->init(gldrawer);
+			}
+		}
+        // Find manipulator Device
+        device = _wc->findDevice(deviceName);
+        if (device == NULL) {
+            log().info() << "Device: " << deviceName << " not found!\n";
+        }
+        // Get Manipulator to the initial state
+        rw::math::Q from(7, 0, -0.65, 0, 1.80, 0, 0.42, 0);
+        device->setQ(from, _state);
+        // Compute target position of MarkerOrigin in CameraSim Frame
+        markerFrame = (MovableFrame*) _wc->findFrame("Marker");
+        rw::math::Transform3D<double> cameraTtexture = rw::kinematics::Kinematics::frameTframe(cameraFrame, textureFrame, _state);
+        // Transform targetOnmarket to corresponding pixel positions
+        rw::math::Vector3D<double> targetOnTexture(0, 0, 0);
+        rw::math::Vector3D<double> targetOnTexture2(0.1, 0, 0);
+        rw::math::Vector3D<double> targetOnTexture3(0, 0.1, 0);
+
+        // Push all of the target points into vector
+        std::vector<rw::math::Vector3D<double>> multipleTargOnTexture;
+        multipleTargOnTexture.push_back(targetOnTexture);
+        multipleTargOnTexture.push_back(targetOnTexture2);
+        multipleTargOnTexture.push_back(targetOnTexture3);
+        // Get vector of target points coordinates in camera frame
+        std::vector<rw::math::Vector3D<double>> targetsInCameraFrame = getTargetsInCameraFrame(cameraTtexture, multipleTargOnTexture);
+
+        // class variable storing pixel target position
+        targetPixels = SamplePlugin::cameraModel(targetsInCameraFrame);
+        log().info() << "Targets in Cam Frame: " << targetsInCameraFrame[0] <<  ", ";
+        //log().info() << targetsInCameraFrame[1] << ", ";
+        //log().info() << targetsInCameraFrame[2];
+        log().info() << "\n";
+
+        log().info() << "Target pixel: " << targetPixels[0] << ", ";
+        //log().info() << targetPixels[1] << ", ";
+        //log().info() << targetPixels[2];
+        log().info() << "\n";
+        // Save velocity limits
+        velocity_limits = device->getVelocityLimits();
+        log().info() << "Velocity Limits: " << velocity_limits << "\n";
+
+        // open stream for reading from file
+        file = "/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/motions/MarkerMotionMedium.txt";
+        infile = std::ifstream(file);
+	}
+}
+
+void SamplePlugin::close() {
+    /* do something when the workcell is closed */
+    
+	log().info() << "CLOSE" << "\n";
+
+	// Stop the timer
+	_timer->stop();
+	// Remove the texture render
+	//Frame* textureFrame = _wc->findFrame("MarkerTexture");
+	if (textureFrame != NULL) {
+		getRobWorkStudio()->getWorkCellScene()->removeDrawable("TextureImage",textureFrame);
+	}
+	// Remove the background render
+	Frame* bgFrame = _wc->findFrame("Background");
+	if (bgFrame != NULL) {
+		getRobWorkStudio()->getWorkCellScene()->removeDrawable("BackgroundImage",bgFrame);
+	}
+	// Delete the old framegrabber
+	if (_framegrabber != NULL) {
+		delete _framegrabber;
+	}
+	_framegrabber = NULL;
+	_wc = NULL;
+}
+
+
+Mat SamplePlugin::toOpenCVImage(const Image& img) {
+	Mat res(img.getHeight(),img.getWidth(), CV_8SC3);
+	res.data = (uchar*)img.getImageData();
+	return res;
+}
+
+void SamplePlugin::btnPressed() {   // clickEvent
+	QObject *obj = sender();
+	if(obj==_btn0){
+		log().info() << "Button 0\n";
+		// Set a new texture (one pixel = 1 mm)
+		Image::Ptr image;
+		image = ImageLoader::Factory::load("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/markers/Marker1.ppm");
+		_textureRender->setImage(*image);
+		image = ImageLoader::Factory::load("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/backgrounds/color1.ppm");
+		_bgRender->setImage(*image);
+		getRobWorkStudio()->updateAndRepaint();
+	} else if(obj==_btn1){
+		log().info() << "Button 1\n";
+		// Toggle the timer on and off
+		if (!_timer->isActive())
+        {
+            _timer->start(deltaT*1000); // 100 -> run 10 Hz
+            log().info() << "Timer started\n";
+        }
+		else
+        {
+            _timer->stop();
+            log().info() << "Timer stopped\n";
+        }
+	} else if(obj==_spinBox){
+		log().info() << "spin value:" << _spinBox->value() << "\n";
+	}
+}
+
+std::vector<rw::math::Vector3D<double>> SamplePlugin::getTargetsInCameraFrame(rw::math::Transform3D<double> cameraTtexture, std::vector<rw::math::Vector3D<double>> multipleTargOnTexture)
+{
+    std::vector<rw::math::Vector3D<double>> targetsInCameraFrame;
+    int noPts = multipleTargOnTexture.size();
+    for (int i = 0; i < noPts; ++i)
+        targetsInCameraFrame.push_back(cameraTtexture * multipleTargOnTexture[i]);
+
+    return targetsInCameraFrame;
+}
+
+std::vector<rw::math::Vector2D<int>> SamplePlugin::cameraModel(std::vector<rw::math::Vector3D<double>> pointsInCameraFrame)
+{
+    int f = 823; //focal length of camera in pixels
+    int size = pointsInCameraFrame.size();
+
+    rw::math::Vector3D<double> onePt;
+    rw::math::Vector2D<int> pixelCoordinates;
+
+    std::vector<rw::math::Vector2D<int>> pixCoordinatesVector;
+
+    for (int i = 0; i < size; ++i)
+    {
+        onePt = pointsInCameraFrame[i];
+        // Use camera model to calculate pixel coordinates of target point
+        pixelCoordinates[0] = (f*onePt[0]) / onePt[2];
+        pixelCoordinates[1] = (f*onePt[1]) / onePt[2];
+        pixCoordinatesVector.push_back(pixelCoordinates);
+    }
+
+    return pixCoordinatesVector;
+}
+
+rw::math::VelocityScrew6D<double> calculateDeltaU(rw::math::Transform3D<double> baseTtool, rw::math::Transform3D<double> baseTtool_desired) {
+    // Calculate dp
+    rw::math::Vector3D<double> dp = baseTtool_desired.P() - baseTtool.P();
+
+    // Calculate dw
+    rw::math::EAA<double> dw(baseTtool_desired.R() * baseTtool.R().inverse());
+
+    return rw::math::VelocityScrew6D<double>(dp, dw);
+}
+
+rw::math::Jacobian calculateImageJ(std::vector<rw::math::Vector2D<int>> targetRealPixels, int focal_L, double z = -0.5)
+{
+    int f = focal_L;
+    rw::math::Jacobian J(2*targetRealPixels.size(),6);
+
+    for (int i = 0; i< targetRealPixels.size(); ++i)
+    {
+        int u = targetRealPixels[i][0];
+        int v = targetRealPixels[i][1];
+
+        int tempI = 2*i;
+
+        J(tempI, 0) = -f / z;
+        J(tempI, 1) = 0;
+        J(tempI, 2) = u / z;
+        J(tempI, 3) = (u * v) / f;
+        J(tempI, 4) = -(std::pow(f, 2) + std::pow(u, 2)) / f;
+        J(tempI, 5) = v;
+
+        J(tempI + 1, 0) = 0;
+        J(tempI + 1, 1) = -f / z;
+        J(tempI + 1, 2) = v / z;
+        J(tempI + 1, 3) = (std::pow(f, 2) + std::pow(v, 2)) / f;
+        J(tempI + 1, 4) = -(u * v) / f;
+        J(tempI + 1, 5) = -u;
+    }
+    return J;
+}
+
+boost::numeric::ublas::matrix<double> createS(rw::math::Rotation3D<double> R)
+{
+    boost::numeric::ublas::matrix<double> S(6,6,0);
+
+    // fill S entries with transposed R on the diagonal
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j)
+        {
+            S(j, i) = R(i, j);
+            S(j+3, i+3) = R(i, j);
+        }
+
+    return S;
+}
+
+std::vector<rw::math::Vector2D<int>> SamplePlugin::cameraSimulation()
+{
+    // Simulate the image pixel location with transformations
+    rw::math::Transform3D<double> cameraTtexture = rw::kinematics::Kinematics::frameTframe(cameraFrame, textureFrame, _state);
+
+
+    // Transform targetOnmarket to corresponding pixel positions
+    rw::math::Vector3D<double> targetOnTexture(0, 0, 0);
+    rw::math::Vector3D<double> targetOnTexture2(0.1, 0, 0);
+    rw::math::Vector3D<double> targetOnTexture3(0, 0.1, 0);
+
+    // Push all of the target points into vector
+    std::vector<rw::math::Vector3D<double>> multipleTargOnTexture;
+    multipleTargOnTexture.push_back(targetOnTexture);
+    multipleTargOnTexture.push_back(targetOnTexture2);
+    multipleTargOnTexture.push_back(targetOnTexture3);
+    // Get vector of target points coordinates in camera frame
+    std::vector<rw::math::Vector3D<double>> targetsInCameraFrame = getTargetsInCameraFrame(cameraTtexture, multipleTargOnTexture);
+
+    //log().info() << "Target In cam Frame: " << targetsInCameraFrame[0] << ",  ";
+    //log().info() << targetsInCameraFrame[1] << ", ";
+    //log().info() << targetsInCameraFrame[2];
+    //log().info() << "\n";
+    // class variable storing pixel target position
+    std::vector<rw::math::Vector2D<int>> targetRealPixels = SamplePlugin::cameraModel(targetsInCameraFrame);
+    //log().info() << "Target Real Pixels: " << targetRealPixels[0] << ", ";
+    //log().info() << targetRealPixels[1] << ", ";
+    //log().info() << targetRealPixels[2];
+    //log().info() << "\n";
+
+    return targetRealPixels;
+}
+
+rw::math::Q SamplePlugin::algorithm1(const rw::models::Device::Ptr device, rw::kinematics::State state, const rw::kinematics::Frame* tool,
+                       const rw::math::Transform3D<double> baseTtool_desired) {
+    auto baseTtool = device->baseTframe(tool, state);
+    auto deltaU = calculateDeltaU(baseTtool, baseTtool_desired);
+    rw::math::Q q = device->getQ(state);
+    log().info() << "state of manip. joints: " << q << "\n";
+    const double epsilon = 0.01;
+    while(deltaU.norm2() > epsilon) {
+        auto J = device->baseJframe(tool, state);
+        /*
+         * Example, that J.e().inverse() doesn't work
+        log().info() << "Jacobian: " << J << "\n";
+        log().info() << "Jacobian Inverse: " << J.e().inverse() << "\n";
+        log().info() << "deltaU: " << deltaU.e() << "\n";
+        */
+        // Calculate PseudoInverse of Jacobian; J.m() returns boost matrix type -> on this type it is possible to apply PSeudoinverse
+        auto Jinv = rw::math::LinearAlgebra::pseudoInverse(J.m());
+        boost::numeric::ublas::vector<double> boost_dU = deltaU.m();
+        // Create new boost vector for change in joints dQ
+        boost::numeric::ublas::vector<double> boost_dQ = boost::numeric::ublas::prod(Jinv, boost_dU );
+        // Construct Q state from RW lib
+        rw::math::Q deltaQ(boost_dQ);
+        /*
+         * Check that boost inverse works OK
+        log().info() << "Jacobian Inverse2: " << Jinv << "\n";
+        log().info() << "deltaU: " << deltaU.m() << "\n";
+        log().info() << "Velocity: " << deltaQ << "\n";
+        */
+        q += deltaQ;
+        device->setQ(q, state);
+        baseTtool = device->baseTframe(tool, state);
+        deltaU = calculateDeltaU(baseTtool, baseTtool_desired);
+        log().info() << "deltaU norm = " << deltaU.norm2() << "\ncomputing new Q configuration\n";
+    }
+
+    return q;
+}
+
+boost::numeric::ublas::vector<double> calculate_dUImage(std::vector<rw::math::Vector2D<int>> targetRealPixels, std::vector<rw::math::Vector2D<int>> targetPixels)
+{
+    boost::numeric::ublas::vector<double> dU(2*targetPixels.size());
+    for (int i = 0; i < targetPixels.size(); ++i)
+    {
+        dU[2*i] = - ( targetRealPixels[i][0] - targetPixels[i][0] );
+        dU[2*i + 1] = - ( targetRealPixels[i][1] - targetPixels[i][1] );
+    }
+
+    return dU;
+}
+
+rw::math::Q saturateDQ(rw::math::Q deltaQ, rw::math::Q velocityLimits, double deltaT)
+{
+    int size = deltaQ.size();
+    for ( int i = 0; i < size; ++i)
+    {
+        if ( (std::abs(deltaQ[i])/deltaT) > (velocityLimits[i]) )
+        {
+            if( deltaQ[i] > 0)
+                deltaQ[i] = velocityLimits[i] * deltaT;
+            else
+                deltaQ[i] = - velocityLimits[i] * deltaT;
+        }
+    }
+
+    return deltaQ;
+}
+
+rw::math::Q SamplePlugin::algorithm2()
+{
+    // Simulate camera using homogeneous transforms
+    std::vector<rw::math::Vector2D<int>> targetRealPixels = SamplePlugin::cameraSimulation();
+    //log().info() << "Size of targetRealPixels: " << targetRealPixels.size() << ", Size of targetPixels: " << targetPixels.size() << "\n";
+    boost::numeric::ublas::vector<double> dU_Image = calculate_dUImage(targetRealPixels, targetPixels);
+    //log().info() << "dU: " << dU_Image << "\n";
+
+    // Calculate image Jacobian
+    auto J_image = calculateImageJ(targetRealPixels, 823);
+    //log().info() << J_image << "\n";
+
+
+    rw::math::Q q;
+
+    //log().info() << "deltaU norm = " << dU_Image.norm2() << "\ncomputing new Q configuration\n";
+
+    const int epsilon = 50;
+    //while(dU_Image.norm2() > epsilon)
+    {
+        // Calculate Manipulator Jacobian
+        auto J = device->baseJframe(cameraFrame, _state);
+
+        // Create matrix S
+        auto baseRcamera = device->baseTframe(cameraFrame, _state).R(); //Retrieve rotational matrix from transformation of cameraFrame
+        //log().info() << "baseRcamera: " << baseRcamera << "\n";
+        //log().info() << "base -> camera RPY" << rw::math::RPY<double>(baseRcamera) << "\n";
+        auto S = createS(baseRcamera);
+
+        // Compute Z matrix for image
+        boost::numeric::ublas::matrix<double> temp = boost::numeric::ublas::prod(S, J.m());
+        boost::numeric::ublas::matrix<double> Z_image = boost::numeric::ublas::prod(J_image.m(), temp);
+        boost::numeric::ublas::matrix<double> Z_imageT = boost::numeric::ublas::trans(Z_image);
+        // Compute matrix product (ZZ')Z
+        boost::numeric::ublas::matrix<double> ZZTproduct = boost::numeric::ublas::prod(Z_image, Z_imageT);
+        boost::numeric::ublas::matrix<double> ZZTproduct_inverse = rw::math::LinearAlgebra::pseudoInverse(ZZTproduct);
+        //boost::numeric::ublas::matrix<double> Z3 = boost::numeric::ublas::prod(temp2, rw::math::LinearAlgebra::pseudoInverse(Z_imageT));
+        boost::numeric::ublas::matrix<double> Z3inv = boost::numeric::ublas::prod(Z_imageT, ZZTproduct_inverse);
+        // Find solution for dq
+        //auto Z3inv = rw::math::LinearAlgebra::pseudoInverse(Z3);
+        // Create new boost vector for change in joints dQ
+        boost::numeric::ublas::vector<double> boost_dQ = boost::numeric::ublas::prod(Z3inv, dU_Image);
+        // Construct Q state from RW lib
+        rw::math::Q dQ(boost_dQ);
+        dQ = saturateDQ(dQ, velocity_limits, deltaT);
+        log().info() << "dQ/dT: " << dQ/deltaT << "\n";
+        q = device->getQ(_state);
+        //log().info() << "qOld: " << q << "\n";
+        q += dQ;
+        //log().info() << "qNew: " << q << "\n";
+        device->setQ(q, _state);
+
+        //targetRealPixels = SamplePlugin::cameraSimulation();
+        //dU_Image = calculate_dUImage(targetRealPixels, targetPixels);
+        //log().info() << "deltaU norm = " << dU_Image.norm2() << "\ncomputing new Q configuration\n";
+    }
+
+    return q;
+}
+
+rw::math::Transform3D<double> SamplePlugin::moveMarker(rw::kinematics::MovableFrame* markerFrame, std::string line)
+{
+    ss = std::stringstream(line);
+    rw::math::Vector3D<double> position;
+    rw::math::RPY<double> rotation;
+    // get position
+    for( int i = 0; i < 3; i++)
+        ss >> position[i];
+    // get rotation EEA angles
+    for( int i = 0; i < 3; i++)
+        ss >> rotation[i];
+    //log().info() << "New Pos and Rot of the Marker: " << position << ", " << rotation << "\n";
+
+    // create transformation matrix
+    const rw::math::Transform3D<double> worldTmarker(position, rotation);
+    //log().info() << "New T for World to Marker: \n" << worldTmarker << "\n";
+
+    // move the Marker in Simulator World
+    markerFrame->setTransform(worldTmarker, _state);
+
+    // update RWStudio visualization
+    this->setState(_state);
+
+    return worldTmarker;
+}
+
+void SamplePlugin::timer() {
+	if (_framegrabber != NULL) {
+		// Get the image as a RW image
+		//Frame* cameraFrame = _wc->findFrame("CameraSim");
+		_framegrabber->grab(cameraFrame, _state);
+		const Image& image = _framegrabber->getImage();
+
+		// Convert to OpenCV image
+		Mat im = toOpenCVImage(image);
+		Mat imflip;
+		cv::flip(im, imflip, 0);
+
+        // Simulation of Tracking
+        //-----------------------------------------------------------------------------
+        // find and cast Marker MovableFrame
+        //MovableFrame* markerFrame = (MovableFrame*) _wc->findFrame("Marker");
+        //Frame* textureFrame = _wc->findFrame("MarkerTexture");
+        if(markerFrame == nullptr) {
+            RW_THROW("marker frame not found!");
+            log().info() << "Marker not found\n";
+        }
+        // load transformation from the file
+        std::string line;
+        if(std::getline(infile, line))
+        {
+            // Move the Marker in the scene and Return Transformation Matrix
+            const rw::math::Transform3D<double> worldTmarker = SamplePlugin::moveMarker(markerFrame, line);
+            auto q = SamplePlugin::algorithm2();
+            //device->setQ(q, _state);
+            /*
+            // Simulate camera using homogeneous transforms
+            rw::math::Vector2D<int> targetRealPixels = SamplePlugin::cameraSimulation();
+
+            auto dU_Image = targetRealPixels - targetPixels;
+
+            // Calculate image Jacobian
+            auto J_image = calculateImageJ(targetRealPixels, 823);
+            //log().info() << J_image << "\n";
+
+            // Calculate Manipulator Jacobian
+            auto J = device->baseJframe(cameraFrame, _state);
+
+            // Create matrix S
+            auto baseRcamera = cameraFrame->getTransform(_state).R(); //Retrieve rotational matrix from transformation of cameraFrame
+            auto S = createS(baseRcamera);
+
+            // Compute Z matrix for image
+            boost::numeric::ublas::matrix<double> temp = boost::numeric::ublas::prod(S, J.m());
+            boost::numeric::ublas::matrix<double> Z_image = boost::numeric::ublas::prod(J_image.m(), temp);
+
+            // Compute matrix product (ZZ')Z
+            temp = boost::numeric::ublas::prod( Z_image, boost::numeric::ublas::trans(Z_image) );
+            boost::numeric::ublas::matrix<double> Z3 = boost::numeric::ublas::prod( temp, Z_image );
+
+            // Find solution for dq
+            auto Z3inv = rw::math::LinearAlgebra::pseudoInverse(Z3);
+            // Create new boost vector for change in joints dQ
+            boost::numeric::ublas::vector<double> boost_dQ = boost::numeric::ublas::prod(Z3inv, dU_Image.m() );
+            // Construct Q state from RW lib
+            rw::math::Q dQ(boost_dQ);
+            log().info() << "dQ: " << dQ << "\n";
+            rw::math::Q q = device->getQ(_state);
+            log().info() << "qOld: " << q << "\n";
+            q += dQ;
+            log().info() << "qNew: " << q << "\n";
+            device->setQ(q, _state);
+            */
+            /*
+            // get Marker Pos and Rot in Base Frame
+            auto worldTbase = device->worldTbase(_state);
+            auto baseTworld = rw::math::inverse(worldTbase);
+
+            // target position is in front of the marker
+            rw::math::Vector3D<double> posTarget = {0, 0, 0.5};
+            const rw::math::Transform3D<double> target(posTarget);
+            // find desired Transformation for following Marker Texture
+            auto correctOrientationOfMarker = textureFrame->getTransform(_state);
+            const auto desiredTcamera = baseTworld * worldTmarker * correctOrientationOfMarker * target ;
+            log().info() << "Desired Cam T: \n" << desiredTcamera << "\n";
+            // find transformation matrix from Base to Camera in the current state
+            const auto baseTcamera = device->baseTframe(cameraFrame, _state);
+            log().info() << "Old cam T: \n" << baseTcamera << "\n";
+            */
+            /*
+            rw::math::Q newConfig = SamplePlugin::algorithm1(device, _state, cameraFrame, desiredTcamera);
+            log().info() << "Old config: " << device->getQ(_state) << "\n";
+            log().info() << "New config: " << newConfig << "\n";
+            device->setQ(newConfig, _state);
+            */
+            // update RWStudio visualization
+            this->setState(_state);
+        }
+
+
+
+
+
+        // Show in QLabel
+		QImage img(imflip.data, imflip.cols, imflip.rows, imflip.step, QImage::Format_RGB888);
+		QPixmap p = QPixmap::fromImage(img);
+		unsigned int maxW = 400;
+		unsigned int maxH = 800;
+		_label->setPixmap(p.scaled(maxW,maxH,Qt::KeepAspectRatio));
+	}
+}
+
+void SamplePlugin::stateChangedListener(const State& state) {
+	_state = state;
+}
+
+
+//Q_EXPORT_PLUGIN(SamplePlugin);
+
+// Workaround or fix when using qt5 for compilation
+// - copied from SamplePlugin in the example dir of RWStudio -> doesn't function properly
+//#if !RWS_USE_QT5
+//#include <QtCore/qplugin.h>
+//#endif
+//Q_EXPORT_PLUGIN(SamplePlugin);

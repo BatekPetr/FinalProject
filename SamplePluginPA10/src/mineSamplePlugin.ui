@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SamplePlugin</class>
+ <widget class="QDockWidget" name="SamplePlugin">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>428</width>
+    <height>420</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>366</width>
+    <height>400</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Doc&amp;kWidget</string>
+  </property>
+  <widget class="QWidget" name="dockWidgetContents">
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>11</y>
+      <width>341</width>
+      <height>37</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="_btn_Start">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Start Visual Servoing</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="_btn_Restart">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Restart</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>54</y>
+      <width>331</width>
+      <height>56</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QCheckBox" name="_checkBox_MultPt">
+         <property name="text">
+          <string>Follow Multiple points</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="_checkBox_1Pt">
+         <property name="text">
+          <string>Follow 1 point</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="_spinBox"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QSlider" name="_slider">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>116</y>
+      <width>331</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="_label">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>141</y>
+      <width>400</width>
+      <height>400</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Label</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>_btn_Start</tabstop>
+  <tabstop>_btn_Restart</tabstop>
+  <tabstop>_spinBox</tabstop>
+  <tabstop>_slider</tabstop>
+  <tabstop>_checkBox_1Pt</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
