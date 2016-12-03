@@ -116,7 +116,7 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=main
+CMAKE_PROJECT_NAME:STATIC=Markers
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -166,6 +166,12 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//Value Computed by CMake
+Markers_BINARY_DIR:STATIC=/media/petr/WD_HDD/SDU/RoVi1/FinalProject/markers/build
+
+//Value Computed by CMake
+Markers_SOURCE_DIR:STATIC=/media/petr/WD_HDD/SDU/RoVi1/FinalProject/markers
+
 //Path where debug 3rdpaty OpenCV dependencies are located
 OpenCV_3RDPARTY_LIB_DIR_DBG:PATH=
 
@@ -193,12 +199,6 @@ RW_CXX_FLAGS:STRING=-Wall;-Wno-strict-aliasing;-Wno-unused-function;-Wno-pragmas
 //Change this to force using your own linker
 //\n                  flags and not those of RobWork
 RW_LINKER_FLAGS:STRING=
-
-//Value Computed by CMake
-main_BINARY_DIR:STATIC=/media/petr/WD_HDD/SDU/RoVi1/FinalProject/markers/build
-
-//Value Computed by CMake
-main_SOURCE_DIR:STATIC=/media/petr/WD_HDD/SDU/RoVi1/FinalProject/markers
 
 //Path to a library.
 tmp:FILEPATH=tmp-NOTFOUND

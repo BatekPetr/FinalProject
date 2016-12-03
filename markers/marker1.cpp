@@ -2,11 +2,34 @@
 
 using namespace cv;
 using namespace std;
+using namespace rw::math;
 
-Point2f* marker1(string filename) {
 
-    /// Read image from file
-    Mat src = imread(filename, 1);
+double euclDist(int x1, int y1, int x2, int y2) {
+    return sqrt( pow( x1-x2, 2) + pow( y1-y2, 2) );
+}
+
+void sortTriangle(std::vector<rw::math::Vector2D<int> >& vec) {
+    double maxDist = 0, curDist;
+    size_t maxIndex, maxJndex;
+    for (size_t i = 0; i < 3; ++i) {
+        for (size_t j = i; j < 3; ++j) {
+            curDist = euclDist(vec[i][0], vec[i][1], vec[j][0], vec[j][1]);
+            if (curDist > maxDist) {
+                maxDist = curDist;
+                maxIndex = i;
+                maxJndex = j;
+            }
+        }
+    }
+    size_t first = (3 - maxIndex - maxJndex) % 3;
+    swap(vec[0], vec[first]);
+
+    int xprod = (vec[1][0] - vec[0][0]) * (vec[2][1] - vec[0][1]) - (vec[2][0] - vec[0][0]) * (vec[1][1] - vec[0][1]);
+    if (xprod < 0) swap(vec[1], vec[2]);
+}
+
+std::vector<rw::math::Vector2D<int> > marker1(Mat src, NoOfTargets No) {
 
     /// Extract hue information
     Mat hsvTemp, hsv[3];
@@ -48,8 +71,7 @@ Point2f* marker1(string filename) {
     /// Find the 3 most circular contours in the binary image
     double maxRatio[3],
             curRatio;
-    Point2f* maxCenter;
-    maxCenter = new Point2f[3];
+    Point2f maxCenter[3];
     Point2f curCenter;
     for (size_t i = 0; i < 3; ++i) {
         maxRatio[i] = 0;
@@ -72,18 +94,35 @@ Point2f* marker1(string filename) {
 
     }
 
+    vector<Vector2D<int> > tri;
+    for (size_t i = 0; i < 3; ++i) {
+        tri.push_back(rw::math::Vector2D<int>(maxCenter[i].x, maxCenter[i].y));
+    }
+    sortTriangle(tri);
+
+    for(int i = 0; i < 3; ++i){
+        maxCenter[i] = Point2f(tri[i][0], tri[i][1]);
+    }
+    vector<Scalar> color;
+    color.push_back(Scalar(255, 0, 0));
+    color.push_back(Scalar(0, 255, 0));
+    color.push_back(Scalar(0, 0, 255));
     /// Draw marker positions onto original image and display
     for(int i = 0; i < 3; ++i){
         circle( src,
                  maxCenter[i],
                  3,
-                 Scalar( 0, 255, 0 ),
+                 color[i],
                  5,
                  8 );
     }
-    //namedWindow("points", WINDOW_NORMAL);
-    //resizeWindow("points", 640, 480);
-    //imshow("points", src);
+    namedWindow("points", WINDOW_NORMAL);
+    resizeWindow("points", 640, 480);
+    imshow("points", src);
 
-    return maxCenter;
+    // Return specified noOfTargs coordinates
+    std::vector<Vector2D<int> >::const_iterator first = tri.begin();
+    std::vector<Vector2D<int> >::const_iterator last = tri.begin() + static_cast<int>(No);
+
+    return std::vector<Vector2D<int> >(first, last);
 }

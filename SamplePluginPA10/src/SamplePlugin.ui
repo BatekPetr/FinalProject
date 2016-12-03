@@ -59,7 +59,7 @@
       <x>10</x>
       <y>60</y>
       <width>391</width>
-      <height>61</height>
+      <height>85</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -89,6 +89,13 @@
          <attribute name="buttonGroup">
           <string notr="true">buttonGroup</string>
          </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="_imgRec">
+         <property name="text">
+          <string>Use Image Recognition</string>
+         </property>
         </widget>
        </item>
       </layout>
@@ -137,34 +144,6 @@
     </property>
     <property name="text">
      <string>Label</string>
-    </property>
-   </widget>
-   <widget class="QSlider" name="_slider">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>120</y>
-      <width>400</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="maximum">
-     <number>1000</number>
-    </property>
-    <property name="singleStep">
-     <number>50</number>
-    </property>
-    <property name="pageStep">
-     <number>50</number>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-    <property name="invertedAppearance">
-     <bool>true</bool>
     </property>
    </widget>
   </widget>

@@ -1,6 +1,10 @@
 # Test CMake version
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6.0)
 
+# Set C and C++ compiler to version 5
+set(CMAKE_C_COMPILER "gcc-5")
+set(CMAKE_CXX_COMPILER "/usr/bin/g++-5")
+
 # The name of the project.
 PROJECT(RoVi1PluginPA10)
 MESSAGE(${PROJECT_NAME} ":")
@@ -63,7 +67,7 @@ QT4_WRAP_CPP(MocSrcFiles src/SamplePlugin.hpp)
 QT4_ADD_RESOURCES(RccSrcFiles src/resources.qrc)
 
 # Add the source files to build (besides the Qt generated source files)
-SET(SrcFiles src/SamplePlugin.cpp src/inverseKinematics.cpp src/inverseKinematics.hpp)
+SET(SrcFiles src/SamplePlugin.cpp src/inverseKinematics.cpp src/inverseKinematics.hpp src/marker1.cpp src/marker1.h src/helperFunctions.h src/helperFunctions.cpp)
 
 # The shared library to build:
 ADD_LIBRARY(SamplePlugin MODULE ${SrcFiles} ${UIS_OUT_H} ${MocSrcFiles} ${RccSrcFiles})

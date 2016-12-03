@@ -13,13 +13,13 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QCheckBox>
 #include <QtGui/QDockWidget>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
 #include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
@@ -40,10 +40,10 @@ public:
     QVBoxLayout *verticalLayout_4;
     QRadioButton *_trackMPt;
     QRadioButton *_track1Pt;
+    QCheckBox *_imgRec;
     QSpinBox *_spinBox;
     QPushButton *_btn_Restart;
     QLabel *_label;
-    QSlider *_slider;
     QButtonGroup *buttonGroup;
 
     void setupUi(QDockWidget *SamplePlugin)
@@ -77,7 +77,7 @@ public:
 
         horizontalLayoutWidget_2 = new QWidget(dockWidgetContents);
         horizontalLayoutWidget_2->setObjectName(QString::fromUtf8("horizontalLayoutWidget_2"));
-        horizontalLayoutWidget_2->setGeometry(QRect(10, 60, 391, 61));
+        horizontalLayoutWidget_2->setGeometry(QRect(10, 60, 391, 85));
         horizontalLayout_5 = new QHBoxLayout(horizontalLayoutWidget_2);
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
         horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
@@ -98,6 +98,11 @@ public:
         _track1Pt->setChecked(false);
 
         verticalLayout_4->addWidget(_track1Pt);
+
+        _imgRec = new QCheckBox(horizontalLayoutWidget_2);
+        _imgRec->setObjectName(QString::fromUtf8("_imgRec"));
+
+        verticalLayout_4->addWidget(_imgRec);
 
 
         horizontalLayout_5->addLayout(verticalLayout_4);
@@ -124,15 +129,6 @@ public:
         font.setItalic(true);
         font.setWeight(75);
         _label->setFont(font);
-        _slider = new QSlider(dockWidgetContents);
-        _slider->setObjectName(QString::fromUtf8("_slider"));
-        _slider->setGeometry(QRect(0, 120, 400, 20));
-        _slider->setAutoFillBackground(false);
-        _slider->setMaximum(1000);
-        _slider->setSingleStep(50);
-        _slider->setPageStep(50);
-        _slider->setOrientation(Qt::Horizontal);
-        _slider->setInvertedAppearance(true);
         SamplePlugin->setWidget(dockWidgetContents);
 
         retranslateUi(SamplePlugin);
@@ -148,6 +144,7 @@ public:
         _btn_dT_Sim->setText(QApplication::translate("SamplePlugin", "dT Simulation", 0, QApplication::UnicodeUTF8));
         _trackMPt->setText(QApplication::translate("SamplePlugin", "Track Mu&ltiple Points", 0, QApplication::UnicodeUTF8));
         _track1Pt->setText(QApplication::translate("SamplePlugin", "Track &1 Point", 0, QApplication::UnicodeUTF8));
+        _imgRec->setText(QApplication::translate("SamplePlugin", "Use Image Recognition", 0, QApplication::UnicodeUTF8));
         _spinBox->setSuffix(QApplication::translate("SamplePlugin", " ms", 0, QApplication::UnicodeUTF8));
         _btn_Restart->setText(QApplication::translate("SamplePlugin", "Restart", 0, QApplication::UnicodeUTF8));
         _label->setText(QApplication::translate("SamplePlugin", "Label", 0, QApplication::UnicodeUTF8));

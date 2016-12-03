@@ -27,11 +27,15 @@
     </content>
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/SamplePlugin.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/inverseKinematics.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/inverseKinematics.hpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/SamplePlugin.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/marker1.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/SamplePlugin.ui" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/inverseKinematics.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/marker1.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/helperFunctions.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/inverseKinematics.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/helperFunctions.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/resources.qrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SamplePlugin.hpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />

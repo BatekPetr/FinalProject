@@ -4,6 +4,8 @@ file(REMOVE_RECURSE
   "qrc_resources.cxx"
   "CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.o"
   "CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.o"
+  "CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o"
+  "CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o"
   "CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.o"
   "CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.o"
   "../libs/release/libSamplePlugin.pdb"

@@ -23,6 +23,8 @@ QtGui/QApplication
 -
 QtGui/QButtonGroup
 -
+QtGui/QCheckBox
+-
 QtGui/QDockWidget
 -
 QtGui/QHBoxLayout
@@ -34,8 +36,6 @@ QtGui/QLabel
 QtGui/QPushButton
 -
 QtGui/QRadioButton
--
-QtGui/QSlider
 -
 QtGui/QSpinBox
 -
@@ -85,12 +85,16 @@ chrono
 -
 inverseKinematics.hpp
 /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/inverseKinematics.hpp
+marker1.h
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/marker1.h
 QtCore/qplugin.h
 -
 
 /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/SamplePlugin.hpp
 ../build/ui_SamplePlugin.h
 /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/ui_SamplePlugin.h
+helperFunctions.h
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/helperFunctions.h
 opencv2/opencv.hpp
 -
 rw/models/WorkCell.hpp
@@ -110,6 +114,20 @@ fstream
 sstream
 -
 
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/helperFunctions.cpp
+helperFunctions.h
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/helperFunctions.h
+
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/helperFunctions.h
+opencv2/opencv.hpp
+-
+rw/math.hpp
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/rw/math.hpp
+rw/kinematics.hpp
+-
+../build/ui_SamplePlugin.h
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/ui_SamplePlugin.h
+
 /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/inverseKinematics.cpp
 inverseKinematics.hpp
 /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/inverseKinematics.hpp
@@ -119,6 +137,28 @@ rw/rw.hpp
 -
 iostream
 -
+
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/marker1.cpp
+marker1.h
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/marker1.h
+marker1.h
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/marker1.h
+
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/marker1.h
+opencv2/opencv.hpp
+-
+rw/math.hpp
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/rw/math.hpp
+algorithm
+-
+helperFunctions.h
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/helperFunctions.h
+opencv2/opencv.hpp
+-
+rw/math.hpp
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/rw/math.hpp
+helperFunctions.h
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/helperFunctions.h
 
 /opt/RobWork/RobWork/cmake/../ext/boostbindings/boost/numeric/bindings/lapack/geev.hpp
 boost/numeric/bindings/traits/traits.hpp
@@ -5922,6 +5962,10 @@ qapplication.h
 qbuttongroup.h
 /usr/include/qt4/QtGui/qbuttongroup.h
 
+/usr/include/qt4/QtGui/QCheckBox
+qcheckbox.h
+/usr/include/qt4/QtGui/qcheckbox.h
+
 /usr/include/qt4/QtGui/QDockWidget
 qdockwidget.h
 /usr/include/qt4/QtGui/qdockwidget.h
@@ -5957,10 +6001,6 @@ qpushbutton.h
 /usr/include/qt4/QtGui/QRadioButton
 qradiobutton.h
 /usr/include/qt4/QtGui/qradiobutton.h
-
-/usr/include/qt4/QtGui/QSlider
-qslider.h
-/usr/include/qt4/QtGui/qslider.h
 
 /usr/include/qt4/QtGui/QSpinBox
 qspinbox.h
@@ -6082,6 +6122,10 @@ QtGui/qpixmap.h
 
 /usr/include/qt4/QtGui/qbuttongroup.h
 QtCore/qobject.h
+-
+
+/usr/include/qt4/QtGui/qcheckbox.h
+QtGui/qabstractbutton.h
 -
 
 /usr/include/qt4/QtGui/qcolor.h

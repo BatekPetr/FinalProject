@@ -6,7 +6,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/qrc_resources.cxx" "/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.o"
   "/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/SamplePlugin.cpp" "/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.o"
+  "/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/helperFunctions.cpp" "/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o"
   "/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/inverseKinematics.cpp" "/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.o"
+  "/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/marker1.cpp" "/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o"
   "/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/src/moc_SamplePlugin.cxx" "/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

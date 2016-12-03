@@ -177,6 +177,33 @@ src/SamplePlugin.cpp.s:
 	$(MAKE) -f CMakeFiles/SamplePlugin.dir/build.make CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.s
 .PHONY : src/SamplePlugin.cpp.s
 
+src/helperFunctions.o: src/helperFunctions.cpp.o
+
+.PHONY : src/helperFunctions.o
+
+# target to build an object file
+src/helperFunctions.cpp.o:
+	$(MAKE) -f CMakeFiles/SamplePlugin.dir/build.make CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o
+.PHONY : src/helperFunctions.cpp.o
+
+src/helperFunctions.i: src/helperFunctions.cpp.i
+
+.PHONY : src/helperFunctions.i
+
+# target to preprocess a source file
+src/helperFunctions.cpp.i:
+	$(MAKE) -f CMakeFiles/SamplePlugin.dir/build.make CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.i
+.PHONY : src/helperFunctions.cpp.i
+
+src/helperFunctions.s: src/helperFunctions.cpp.s
+
+.PHONY : src/helperFunctions.s
+
+# target to generate assembly for a file
+src/helperFunctions.cpp.s:
+	$(MAKE) -f CMakeFiles/SamplePlugin.dir/build.make CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.s
+.PHONY : src/helperFunctions.cpp.s
+
 src/inverseKinematics.o: src/inverseKinematics.cpp.o
 
 .PHONY : src/inverseKinematics.o
@@ -203,6 +230,33 @@ src/inverseKinematics.s: src/inverseKinematics.cpp.s
 src/inverseKinematics.cpp.s:
 	$(MAKE) -f CMakeFiles/SamplePlugin.dir/build.make CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.s
 .PHONY : src/inverseKinematics.cpp.s
+
+src/marker1.o: src/marker1.cpp.o
+
+.PHONY : src/marker1.o
+
+# target to build an object file
+src/marker1.cpp.o:
+	$(MAKE) -f CMakeFiles/SamplePlugin.dir/build.make CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o
+.PHONY : src/marker1.cpp.o
+
+src/marker1.i: src/marker1.cpp.i
+
+.PHONY : src/marker1.i
+
+# target to preprocess a source file
+src/marker1.cpp.i:
+	$(MAKE) -f CMakeFiles/SamplePlugin.dir/build.make CMakeFiles/SamplePlugin.dir/src/marker1.cpp.i
+.PHONY : src/marker1.cpp.i
+
+src/marker1.s: src/marker1.cpp.s
+
+.PHONY : src/marker1.s
+
+# target to generate assembly for a file
+src/marker1.cpp.s:
+	$(MAKE) -f CMakeFiles/SamplePlugin.dir/build.make CMakeFiles/SamplePlugin.dir/src/marker1.cpp.s
+.PHONY : src/marker1.cpp.s
 
 src/moc_SamplePlugin.o: src/moc_SamplePlugin.cxx.o
 
@@ -246,9 +300,15 @@ help:
 	@echo "... src/SamplePlugin.o"
 	@echo "... src/SamplePlugin.i"
 	@echo "... src/SamplePlugin.s"
+	@echo "... src/helperFunctions.o"
+	@echo "... src/helperFunctions.i"
+	@echo "... src/helperFunctions.s"
 	@echo "... src/inverseKinematics.o"
 	@echo "... src/inverseKinematics.i"
 	@echo "... src/inverseKinematics.s"
+	@echo "... src/marker1.o"
+	@echo "... src/marker1.i"
+	@echo "... src/marker1.s"
 	@echo "... src/moc_SamplePlugin.o"
 	@echo "... src/moc_SamplePlugin.i"
 	@echo "... src/moc_SamplePlugin.s"

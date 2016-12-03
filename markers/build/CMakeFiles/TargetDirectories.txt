@@ -1,0 +1,3 @@
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/markers/build/CMakeFiles/rebuild_cache.dir
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/markers/build/CMakeFiles/edit_cache.dir
+/media/petr/WD_HDD/SDU/RoVi1/FinalProject/markers/build/CMakeFiles/Markers.dir

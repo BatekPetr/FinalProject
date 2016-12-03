@@ -24,6 +24,7 @@
 #include <chrono>
 
 #include "inverseKinematics.hpp"
+#include "marker1.h"
 
 using namespace rw::common;
 using namespace rw::graphics;
@@ -71,7 +72,7 @@ SamplePlugin::SamplePlugin():
         
          // Set a new texture (one pixel = 1 mm)
         Image::Ptr image;
-        image = ImageLoader::Factory::load("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/markers/Marker2a.ppm");
+        image = ImageLoader::Factory::load("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/markers/Marker1.ppm");
         _textureRender->setImage(*image);
         image = ImageLoader::Factory::load("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/backgrounds/color1.ppm");
         _bgRender->setImage(*image);
@@ -119,7 +120,7 @@ void SamplePlugin::initialize() {
 	if(! image.data ) {
 		RW_THROW("Could not open or find the image: please modify the file path in the source code!");
 	}
-	QImage img(image.data, image.cols, image.rows, image.step, QImage::Format_RGB888); // Create QImage from the OpenCV image
+    QImage img(im.data, im.cols, im.rows, im.step, QImage::Format_RGB888);
 	_label->setPixmap(QPixmap::fromImage(img)); // Show the image at the label in the plugin
 }
 
@@ -172,60 +173,56 @@ void SamplePlugin::open(WorkCell* workcell)
                     _framegrabber = new GLFrameGrabber(width,height,fovy);
                     SceneViewer::Ptr gldrawer = getRobWorkStudio()->getView()->getSceneViewer();
                     _framegrabber->init(gldrawer);
-                    
+
                     _framegrabber->grab(cameraFrame, _state);       //grab image from simulated camera
-                    const Image& image = _framegrabber->getImage(); //save image for first image processing
-                    
+                    const Image &image = _framegrabber->getImage(); //save image for first image processing
+
                     // Convert to OpenCV image
                     Mat im = toOpenCVImage(image);
-                    Mat imflip;
-                    cv::flip(im, imflip, 0);
-                    
+                    Mat imFlipLabel;
+                    cv::flip(im, imFlipLabel, 0);
+
                     // Show in QLabel
-                    QImage img(imflip.data, imflip.cols, imflip.rows, imflip.step, QImage::Format_RGB888);
+                    QImage img(imFlipLabel.data, imFlipLabel.cols, imFlipLabel.rows, imFlipLabel.step,
+                               QImage::Format_RGB888);
                     QPixmap p = QPixmap::fromImage(img);
                     unsigned int maxW = 400;
                     unsigned int maxH = 800;
-                    _label->setPixmap(p.scaled(maxW,maxH,Qt::KeepAspectRatio));
-                        
+                    _label->setPixmap(p.scaled(maxW, maxH, Qt::KeepAspectRatio));
+
+
+
+                    // Check if option for Image Recognition use is checked
+                    if (_imgRec->isChecked() )
+                    {
+                        Mat imflip;
+                        cv::flip(im, imflip, -1);
+                        targetPixelsReference = marker1(imflip, No);
+                    } else          // If img recognision isn't enabled, use hardcoded coordinate on texture frame
+                    {
+                        // Get vector of target points coordinates in texture frame
+                        textureTargetCoordinates = hardcodedTextureTargetCoordinates(No, textureFrame, cameraFrame, _state);
+
+                        // Compute Transformation from cameraFrame to textureFrame
+                        rw::math::Transform3D<double> cameraTtexture = rw::kinematics::Kinematics::frameTframe(cameraFrame, textureFrame, _state);
+
+                        // Get vector of target points coordinates in camera frame
+                        std::vector<rw::math::Vector3D<double>> targetsInCameraFrame = SamplePlugin::getTargetsInCameraFrame(cameraTtexture, textureTargetCoordinates);
+
+                        // class variable storing pixel target position
+                        targetPixelsReference = SamplePlugin::cameraModel(targetsInCameraFrame);
+                    }
                 }
             }
-            
-
+            // Find and save reference to the Marker Frame
             markerFrame = (MovableFrame*) _wc->findFrame("Marker");
+            // Save initial Transformation of markerFrame
             worldTmarker_Default = markerFrame->getTransform(_state); // save initial transformation to be able to restart plugin
-            // Compute target position of MarkerOrigin in CameraSim Frame
-            rw::math::Transform3D<double> cameraTtexture = rw::kinematics::Kinematics::frameTframe(cameraFrame, textureFrame, _state);
-            // Transform targetOnmarket to corresponding pixel positions
-            rw::math::Vector3D<double> targetOnTexture(0, 0, 0);
-            rw::math::Vector3D<double> targetOnTexture2(0.1, 0, 0);
-            rw::math::Vector3D<double> targetOnTexture3(0, 0.1, 0);
 
-            //create vector with single target
-            singleTargOnTexture.push_back(targetOnTexture);
-
-            // Push all of the target points into vector
-            multipleTargOnTexture.push_back(targetOnTexture);
-            multipleTargOnTexture.push_back(targetOnTexture2);
-            multipleTargOnTexture.push_back(targetOnTexture3);
-
-            // Set output file mark to multiple points
-            outFileMark = "M_Targ_Pts";
-            //set pointer for current targets to multiple points vector
-            currentTargOnTexture = &multipleTargOnTexture;
-            // Get vector of target points coordinates in camera frame
-            std::vector<rw::math::Vector3D<double>> targetsInCameraFrame = getTargetsInCameraFrame(cameraTtexture, (*currentTargOnTexture));
-
-            // class variable storing pixel target position
-            targetPixels = SamplePlugin::cameraModel(targetsInCameraFrame);
-            log().info() << "Targets in Cam Frame: " << targetsInCameraFrame[0] <<  ", ";
-            //log().info() << targetsInCameraFrame[1] << ", ";
-            //log().info() << targetsInCameraFrame[2];
-            log().info() << "\n";
-
-            log().info() << "Target pixel: " << targetPixels[0] << ", ";
-            //log().info() << targetPixels[1] << ", ";
-            //log().info() << targetPixels[2];
+            log().info() << "Number of Target Pixels: " << targetPixelsReference.size() << std::endl;
+            log().info() << "Target pixel: " << targetPixelsReference[0] << ", ";
+            //log().info() << targetPixelsReference[1] << ", ";
+            //log().info() << targetPixelsReference[2];
             log().info() << "\n";
             // Save velocity limits
             velocity_limits = device->getVelocityLimits();
@@ -257,7 +254,7 @@ void SamplePlugin::restart()
     device->setQ(from, _state);
 
     // update RWStudio visualization
-    this->setState(_state);
+    getRobWorkStudio()->setState(_state);
 
     // Reload QImage and recompute target pixels
     _framegrabber->grab(cameraFrame, _state);       //grab image from simulated camera
@@ -265,24 +262,40 @@ void SamplePlugin::restart()
 
     // Convert to OpenCV image
     Mat im = toOpenCVImage(image);
-    Mat imflip;
-    cv::flip(im, imflip, 0);
+    Mat imFlipLabel;
+    cv::flip(im, imFlipLabel, 0);
 
     // Show in QLabel
-    QImage img(imflip.data, imflip.cols, imflip.rows, imflip.step, QImage::Format_RGB888);
+    //QImage img(imFlipLabel.data, imFlipLabel.cols, imFlipLabel.rows, imFlipLabel.step, QImage::Format_RGB888);
+    QImage img(imFlipLabel.data, imFlipLabel.cols, imFlipLabel.rows, imFlipLabel.step, QImage::Format_RGB888);
     QPixmap p = QPixmap::fromImage(img);
     unsigned int maxW = 400;
     unsigned int maxH = 800;
     _label->setPixmap(p.scaled(maxW,maxH,Qt::KeepAspectRatio));
 
-    // Compute target position of MarkerOrigin in CameraSim Frame
-    rw::math::Transform3D<double> cameraTtexture = rw::kinematics::Kinematics::frameTframe(cameraFrame, textureFrame, _state);
+    // Check if option for Image Recognition use is checked
+    if (_imgRec->isChecked() )
+    {
+        Mat imflip;
+        cv::flip(im, imflip, -1);
+        targetPixelsReference = marker1(imflip, No);
+    } else          // If img recognision isn't enabled, use hardcoded coordinate on texture frame
+    {
+        // Get vector of target points coordinates in texture frame
+        textureTargetCoordinates = hardcodedTextureTargetCoordinates(No, textureFrame, cameraFrame, _state);
+        // Compute Transformation from cameraFrame to textureFrame
+        rw::math::Transform3D<double> cameraTtexture = rw::kinematics::Kinematics::frameTframe(cameraFrame, textureFrame, _state);
 
-    std::vector<rw::math::Vector3D<double>> targetsInCameraFrame = getTargetsInCameraFrame(cameraTtexture, (*currentTargOnTexture));
+        // Get vector of target points coordinates in camera frame
+        std::vector<rw::math::Vector3D<double>> targetsInCameraFrame = SamplePlugin::getTargetsInCameraFrame(cameraTtexture, textureTargetCoordinates);
 
-    // class variable storing pixel target position
-    targetPixels = SamplePlugin::cameraModel(targetsInCameraFrame);
-    log().info() << currentTargOnTexture->size() << "\n";
+        // class variable storing pixel target position
+        targetPixelsReference = SamplePlugin::cameraModel(targetsInCameraFrame);
+    }
+    log().info() << "Number of Target Pixels: " << targetPixelsReference.size() << std::endl;
+
+
+    //log().info() << currentTargOnTexture->size() << "\n";
     maxEucD = 0;
     max_dU_Image = boost::numeric::ublas::vector<double> (2);
 
@@ -318,7 +331,7 @@ void SamplePlugin::close() {
 
 
 Mat SamplePlugin::toOpenCVImage(const Image& img) {
-	Mat res(img.getHeight(),img.getWidth(), CV_8SC3);
+	Mat res(img.getHeight(),img.getWidth(), CV_8UC3);
 	res.data = (uchar*)img.getImageData();
 	return res;
 }
@@ -413,15 +426,17 @@ void SamplePlugin::radioBtnToggled()
     log().info() << "Radio Btn toogled\n";
     if (_trackMPt->isChecked())
     {
-        currentTargOnTexture = &multipleTargOnTexture;
+        //currentTargOnTexture = &multipleTargOnTexture;
         log().info() << "Mult Targets selected\n";
         outFileMark = "M_Targ_Pts";
+        No = multiple;
     }
     else if(_track1Pt->isChecked())
     {
-        currentTargOnTexture = &singleTargOnTexture;
+        //currentTargOnTexture = &singleTargOnTexture;
         log().info() << "Single Target selected\n";
         outFileMark = "1_Targ_Pt";
+        No = single;
     }
 
     SamplePlugin::restart();
@@ -469,7 +484,7 @@ std::vector<rw::math::Vector2D<int>> SamplePlugin::cameraSimulation()
     rw::math::Transform3D<double> cameraTtexture = rw::kinematics::Kinematics::frameTframe(cameraFrame, textureFrame, _state);
 
     // Get vector of target points coordinates in camera frame
-    std::vector<rw::math::Vector3D<double>> targetsInCameraFrame = getTargetsInCameraFrame(cameraTtexture, (*currentTargOnTexture));
+    std::vector<rw::math::Vector3D<double>> targetsInCameraFrame = getTargetsInCameraFrame(cameraTtexture, textureTargetCoordinates);
 
     //log().info() << "Target In cam Frame: " << targetsInCameraFrame[0] << ",  ";
     //log().info() << targetsInCameraFrame[1] << ", ";
@@ -524,16 +539,15 @@ rw::math::Q SamplePlugin::algorithm1(const rw::models::Device::Ptr device, rw::k
 }
 
 
-rw::math::Q SamplePlugin::algorithm2()
+rw::math::Q SamplePlugin::algorithm2(std::vector<rw::math::Vector2D<int>> targetRealPixels)
 {
-    // Simulate camera using homogeneous transforms
-    std::vector<rw::math::Vector2D<int>> targetRealPixels = SamplePlugin::cameraSimulation();
-    //log().info() << "Size of targetRealPixels: " << targetRealPixels.size() << ", Size of targetPixels: " << targetPixels.size() << "\n";
+
+    //log().info() << "Size of targetRealPixels: " << targetRealPixels.size() << ", Size of targetPixelsReference: " << targetPixelsReference.size() << "\n";
 
     // Save start time of computations
     auto start_time = std::chrono::high_resolution_clock::now();
 
-    boost::numeric::ublas::vector<double> dU_Image = calculate_dUImage(targetRealPixels, targetPixels);
+    boost::numeric::ublas::vector<double> dU_Image = calculate_dUImage(targetRealPixels, targetPixelsReference);
     if (sim_dT_running)
     {
         double eucD = euclideanDist(dU_Image);
@@ -574,7 +588,6 @@ rw::math::Q SamplePlugin::algorithm2()
         //log().info() << "qOld: " << q << "\n";
         q += dQ;
         //log().info() << "qNew: " << q << "\n";
-        device->setQ(q, _state);
     } else
         log().info() << "Time needed for inverse kinematics is longer than deltaT.\n";
 
@@ -594,7 +607,7 @@ rw::math::Q SamplePlugin::algorithm2()
     }
 
     //targetRealPixels = SamplePlugin::cameraSimulation();
-    //dU_Image = calculate_dUImage(targetRealPixels, targetPixels);
+    //dU_Image = calculate_dUImage(targetRealPixels, targetPixelsReference);
     //log().info() << "deltaU norm = " << dU_Image.norm2() << "\ncomputing new Q configuration\n";
 
     return q;
@@ -621,12 +634,47 @@ rw::math::Transform3D<double> SamplePlugin::moveMarker(rw::kinematics::MovableFr
     markerFrame->setTransform(worldTmarker, _state);
 
     // update RWStudio visualization
-    this->setState(_state);
+    getRobWorkStudio()->setState(_state);
 
     return worldTmarker;
 }
 
-void SamplePlugin::timer() {
+void SamplePlugin::timer()
+{
+    // Move the marker in the workcell
+    //-----------------------------------------------------------------------------
+    if(markerFrame == nullptr) {
+        RW_THROW("marker frame not found!");
+        log().info() << "Marker not found\n";
+    }
+    // load transformation from the file
+    std::string line;
+    if(std::getline(infile, line))
+    {
+        // Move the Marker in the scene and Return Transformation Matrix
+        const rw::math::Transform3D<double> worldTmarker = SamplePlugin::moveMarker(markerFrame, line);
+
+    }
+    else       // End of the sequence
+    {
+        _timer->stop();
+        _btn_Start->setText("Start Visual Sevoing");
+        log().info() << "Sequence movement finished.\n";
+        if (sim_dT_running)
+        {
+            writeImCorErrors << deltaT/1000 << ", " << maxEucD;
+            for(size_t i = 0; i < max_dU_Image.size(); i += 2)
+                writeImCorErrors << ", " << max_dU_Image[0+i] << ", " << max_dU_Image[1+i];
+            //writeImCorErrors << deltaT/1000 << ", " << ", " << maxEucD << ", " << max_dU_Image[0] << ", " << max_dU_Image[1] << std::endl;
+            writeImCorErrors << std::endl;
+            deltaT -= 50;
+            SamplePlugin::sim_dTs();
+        }
+        return;
+    }
+
+    // Simulate tracking with option to use image recognition
+    //-----------------------------------------------------------------------------
 	if (_framegrabber != NULL) {
 		// Get the image as a RW image
 		//Frame* cameraFrame = _wc->findFrame("CameraSim");
@@ -635,66 +683,36 @@ void SamplePlugin::timer() {
 
 		// Convert to OpenCV image
 		Mat im = toOpenCVImage(image);
-		Mat imflip;
-		cv::flip(im, imflip, 0);
-                
+        Mat imFlipLabel;
+		cv::flip(im, imFlipLabel, 0);
+
                 // Show in QLabel
-		QImage img(imflip.data, imflip.cols, imflip.rows, imflip.step, QImage::Format_RGB888);
+		QImage img(imFlipLabel.data, imFlipLabel.cols, imFlipLabel.rows, imFlipLabel.step, QImage::Format_RGB888);
 		QPixmap p = QPixmap::fromImage(img);
 		unsigned int maxW = 400;
 		unsigned int maxH = 800;
 		_label->setPixmap(p.scaled(maxW,maxH,Qt::KeepAspectRatio));
 
-        // Simulation of Tracking
-        //-----------------------------------------------------------------------------
-        // find and cast Marker MovableFrame
-        //MovableFrame* markerFrame = (MovableFrame*) _wc->findFrame("Marker");
-        //Frame* textureFrame = _wc->findFrame("MarkerTexture");
-        if(markerFrame == nullptr) {
-            RW_THROW("marker frame not found!");
-            log().info() << "Marker not found\n";
-        }
-        // load transformation from the file
-        std::string line;
-        if(std::getline(infile, line))
+        // Get coordinates of target pixels
+        std::vector<rw::math::Vector2D<int>> targetRealPixels;
+        // Check if image recognition is enabled
+        if (_imgRec->isChecked())
         {
-            // Move the Marker in the scene and Return Transformation Matrix
-            const rw::math::Transform3D<double> worldTmarker = SamplePlugin::moveMarker(markerFrame, line);
-            auto q = SamplePlugin::algorithm2();
-            // update RWStudio visualization
-            this->setState(_state);
+            Mat imflip;
+            cv::flip(im, imflip, -1);
+            // Get target points from image
+            targetRealPixels = marker1(imflip, No);
+        } else
+        {
+            // Simulate camera using homogeneous transforms
+            targetRealPixels = SamplePlugin::cameraSimulation();
         }
 
-        else
-        {
-            _timer->stop();
-            _btn_Start->setText("Start Visual Sevoing");
-            log().info() << "Sequence movement finished.\n";
-            if (sim_dT_running)
-            {
-                writeImCorErrors << deltaT/1000 << ", " << maxEucD;
-                for(size_t i = 0; i < max_dU_Image.size(); i += 2)
-                    writeImCorErrors << ", " << max_dU_Image[0+i] << ", " << max_dU_Image[1+i];
-                //writeImCorErrors << deltaT/1000 << ", " << ", " << maxEucD << ", " << max_dU_Image[0] << ", " << max_dU_Image[1] << std::endl;
-                writeImCorErrors << std::endl;
-                deltaT -= 50;
-                SamplePlugin::sim_dTs();
-            }
-            /*
-            auto q = device->getQ(_state);
-            // Write last line into files
-            writeJoints << q[0] << ", " << q[1] << ", " << q[2] << ", " << q[3] << ", " << q[4] << ", " << q[5] << ", " << q[6] << ", " << std::endl;
-            auto worldTcamera = cameraFrame->wTf(_state);
-            auto camPosition = worldTcamera.P();
-            auto camOrientation = rw::math::RPY<double>(worldTcamera.R());
-            writeToolPose << camPosition[0] << ", " << camPosition[1] << ", " << camPosition[2] << ", "
-                          << camOrientation[0] << ", " << camOrientation[1] << ", " << camOrientation[2] << ", " << std::endl;
+        auto q = SamplePlugin::algorithm2(targetRealPixels);
+        device->setQ(q, _state);
 
-            writeJoints.close();
-            writeToolPose.close();
-            writeImCorErrors.close();
-             */
-        }
+        // update RWStudio visualization
+        getRobWorkStudio()->setState(_state);
 
 	}
 }

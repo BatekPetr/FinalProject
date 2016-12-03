@@ -75,15 +75,15 @@ qrc_resources.cxx: ../src/resources.qrc
 CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.o: CMakeFiles/SamplePlugin.dir/flags.make
 CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.o: ../src/SamplePlugin.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.o -c /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/SamplePlugin.cpp
+	/usr/bin/g++-5   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.o -c /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/SamplePlugin.cpp
 
 CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/SamplePlugin.cpp > CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.i
+	/usr/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/SamplePlugin.cpp > CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.i
 
 CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/SamplePlugin.cpp -o CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.s
+	/usr/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/SamplePlugin.cpp -o CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.s
 
 CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.o.requires:
 
@@ -99,15 +99,15 @@ CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.o.provides.build: CMakeFiles/Sa
 CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.o: CMakeFiles/SamplePlugin.dir/flags.make
 CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.o: ../src/inverseKinematics.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.o -c /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/inverseKinematics.cpp
+	/usr/bin/g++-5   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.o -c /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/inverseKinematics.cpp
 
 CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/inverseKinematics.cpp > CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.i
+	/usr/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/inverseKinematics.cpp > CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.i
 
 CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/inverseKinematics.cpp -o CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.s
+	/usr/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/inverseKinematics.cpp -o CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.s
 
 CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.o.requires:
 
@@ -120,18 +120,66 @@ CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.o.provides: CMakeFiles/Sam
 CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.o.provides.build: CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.o
 
 
+CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o: CMakeFiles/SamplePlugin.dir/flags.make
+CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o: ../src/marker1.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o"
+	/usr/bin/g++-5   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o -c /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/marker1.cpp
+
+CMakeFiles/SamplePlugin.dir/src/marker1.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SamplePlugin.dir/src/marker1.cpp.i"
+	/usr/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/marker1.cpp > CMakeFiles/SamplePlugin.dir/src/marker1.cpp.i
+
+CMakeFiles/SamplePlugin.dir/src/marker1.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SamplePlugin.dir/src/marker1.cpp.s"
+	/usr/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/marker1.cpp -o CMakeFiles/SamplePlugin.dir/src/marker1.cpp.s
+
+CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o.requires:
+
+.PHONY : CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o.requires
+
+CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o.provides: CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o.requires
+	$(MAKE) -f CMakeFiles/SamplePlugin.dir/build.make CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o.provides.build
+.PHONY : CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o.provides
+
+CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o.provides.build: CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o
+
+
+CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o: CMakeFiles/SamplePlugin.dir/flags.make
+CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o: ../src/helperFunctions.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o"
+	/usr/bin/g++-5   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o -c /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/helperFunctions.cpp
+
+CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.i"
+	/usr/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/helperFunctions.cpp > CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.i
+
+CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.s"
+	/usr/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/src/helperFunctions.cpp -o CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.s
+
+CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o.requires:
+
+.PHONY : CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o.requires
+
+CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o.provides: CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o.requires
+	$(MAKE) -f CMakeFiles/SamplePlugin.dir/build.make CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o.provides.build
+.PHONY : CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o.provides
+
+CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o.provides.build: CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o
+
+
 CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.o: CMakeFiles/SamplePlugin.dir/flags.make
 CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.o: src/moc_SamplePlugin.cxx
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.o -c /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/src/moc_SamplePlugin.cxx
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.o"
+	/usr/bin/g++-5   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.o -c /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/src/moc_SamplePlugin.cxx
 
 CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/src/moc_SamplePlugin.cxx > CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.i
+	/usr/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/src/moc_SamplePlugin.cxx > CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.i
 
 CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/src/moc_SamplePlugin.cxx -o CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.s
+	/usr/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/src/moc_SamplePlugin.cxx -o CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.s
 
 CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.o.requires:
 
@@ -146,16 +194,16 @@ CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.o.provides.build: CMakeFile
 
 CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.o: CMakeFiles/SamplePlugin.dir/flags.make
 CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.o: qrc_resources.cxx
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.o -c /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/qrc_resources.cxx
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.o"
+	/usr/bin/g++-5   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.o -c /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/qrc_resources.cxx
 
 CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/qrc_resources.cxx > CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.i
+	/usr/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/qrc_resources.cxx > CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.i
 
 CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/qrc_resources.cxx -o CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.s
+	/usr/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/qrc_resources.cxx -o CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.s
 
 CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.o.requires:
 
@@ -172,6 +220,8 @@ CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.o.provides.build: CMakeFiles/Sampl
 SamplePlugin_OBJECTS = \
 "CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.o" \
 "CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.o" \
+"CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o" \
+"CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o" \
 "CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.o" \
 "CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.o"
 
@@ -180,6 +230,8 @@ SamplePlugin_EXTERNAL_OBJECTS =
 
 ../libs/release/libSamplePlugin.so: CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.o
 ../libs/release/libSamplePlugin.so: CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.o
+../libs/release/libSamplePlugin.so: CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o
+../libs/release/libSamplePlugin.so: CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o
 ../libs/release/libSamplePlugin.so: CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.o
 ../libs/release/libSamplePlugin.so: CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.o
 ../libs/release/libSamplePlugin.so: CMakeFiles/SamplePlugin.dir/build.make
@@ -321,7 +373,7 @@ SamplePlugin_EXTERNAL_OBJECTS =
 ../libs/release/libSamplePlugin.so: /usr/lib/x86_64-linux-gnu/libQtGui.so
 ../libs/release/libSamplePlugin.so: /usr/lib/x86_64-linux-gnu/libQtCore.so
 ../libs/release/libSamplePlugin.so: CMakeFiles/SamplePlugin.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX shared module ../libs/release/libSamplePlugin.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX shared module ../libs/release/libSamplePlugin.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SamplePlugin.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -331,6 +383,8 @@ CMakeFiles/SamplePlugin.dir/build: ../libs/release/libSamplePlugin.so
 
 CMakeFiles/SamplePlugin.dir/requires: CMakeFiles/SamplePlugin.dir/src/SamplePlugin.cpp.o.requires
 CMakeFiles/SamplePlugin.dir/requires: CMakeFiles/SamplePlugin.dir/src/inverseKinematics.cpp.o.requires
+CMakeFiles/SamplePlugin.dir/requires: CMakeFiles/SamplePlugin.dir/src/marker1.cpp.o.requires
+CMakeFiles/SamplePlugin.dir/requires: CMakeFiles/SamplePlugin.dir/src/helperFunctions.cpp.o.requires
 CMakeFiles/SamplePlugin.dir/requires: CMakeFiles/SamplePlugin.dir/src/moc_SamplePlugin.cxx.o.requires
 CMakeFiles/SamplePlugin.dir/requires: CMakeFiles/SamplePlugin.dir/qrc_resources.cxx.o.requires
 
