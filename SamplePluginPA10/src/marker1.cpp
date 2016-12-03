@@ -103,8 +103,8 @@ std::vector<rw::math::Vector2D<int> > marker1(Mat src, NoOfTargets No) {
     sortTriangle(tri);
 
     for (size_t i = 0; i < 3; ++i) {
-        tri[i][1]= tri[i][1] - cols/2;
-        tri[i][2]= tri[i][2] - rows/2;
+        tri[i][0]= tri[i][0] - cols/2;
+        tri[i][1]= tri[i][1] - rows/2;
     }
     /*
     for(int i = 0; i < 3; ++i){

@@ -9,5 +9,12 @@ sudo apt-get install gcc-5.1 g++-5.1
 After that cd to SamplePlugin dir
 cd /..mypath.../SamplePluginPA10
 
+It might be necessary to give executable permissions to the file recompileProject
+- right click on the file, select properties, then Permissions tab and finally tick the checkbox Execute in the bottom of page
+
 then run recompileProject sh script
 ./recompileProject
+
+Load the sample plugin to robworkstudio like described in finalproject statement
+
+For simulation I suggest you to lower deltaT value to cca 300ms. Otherwise it is really slow. You can do it after plugin is loaded with the SpinBox

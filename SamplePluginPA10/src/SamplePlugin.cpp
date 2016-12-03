@@ -74,7 +74,7 @@ SamplePlugin::SamplePlugin():
         Image::Ptr image;
         image = ImageLoader::Factory::load("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/markers/Marker1.ppm");
         _textureRender->setImage(*image);
-        image = ImageLoader::Factory::load("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/backgrounds/color1.ppm");
+        image = ImageLoader::Factory::load("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/backgrounds/texture3.ppm");
         _bgRender->setImage(*image);
 	_framegrabber = NULL;
     
