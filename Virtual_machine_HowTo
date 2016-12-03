@@ -1,0 +1,13 @@
+- for compilation of project g++-5 is needed
+- use three commands below to install g++-5
+
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-5.1 g++-5.1 
+
+
+After that cd to SamplePlugin dir
+cd /..mypath.../SamplePluginPA10
+
+then run recompileProject sh script
+./recompileProject
