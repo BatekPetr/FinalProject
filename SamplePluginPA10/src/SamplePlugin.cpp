@@ -91,6 +91,7 @@ SamplePlugin::SamplePlugin():
 	connect(_spinBox  ,SIGNAL(valueChanged(int)), this, SLOT(btnPressed()) );
     connect(_track1Pt ,SIGNAL(toggled(bool)), this, SLOT(radioBtnToggled()) );
     connect(_trackMPt ,SIGNAL(toggled(bool)), this, SLOT(radioBtnToggled()) );
+    connect(_imgRec, SIGNAL(stateChanged(int)), this, SLOT(checkBoxStateChanged(int)));
     //connect(_slider,SIGNAL(valueChanged()), this, SLOT(sliderValueChanged()) );
         
 }
@@ -180,25 +181,19 @@ void SamplePlugin::open(WorkCell* workcell)
                     // Convert to OpenCV image
                     Mat im = toOpenCVImage(image);
                     Mat imFlipLabel;
-                    cv::flip(im, imFlipLabel, 0);
 
-                    // Show in QLabel
-                    QImage img(imFlipLabel.data, imFlipLabel.cols, imFlipLabel.rows, imFlipLabel.step,
-                               QImage::Format_RGB888);
-                    QPixmap p = QPixmap::fromImage(img);
-                    unsigned int maxW = 400;
-                    unsigned int maxH = 800;
-                    _label->setPixmap(p.scaled(maxW, maxH, Qt::KeepAspectRatio));
-
-
-
-                    // Check if option for Image Recognition use is checked
-                    if (_imgRec->isChecked() )
+                    if (useVision)
                     {
                         Mat imflip;
                         cv::flip(im, imflip, -1);
+
+                        // Get target points from image
                         targetPixelsReference = marker1(imflip, No);
-                    } else          // If img recognision isn't enabled, use hardcoded coordinate on texture frame
+
+                        // Show Image with targetPixels in Qlabel
+                        // Flip image to fit into Qlabel
+                        cv::flip(imflip, imFlipLabel, 1);
+                    } else
                     {
                         // Get vector of target points coordinates in texture frame
                         textureTargetCoordinates = hardcodedTextureTargetCoordinates(No, textureFrame, cameraFrame, _state);
@@ -211,7 +206,18 @@ void SamplePlugin::open(WorkCell* workcell)
 
                         // class variable storing pixel target position
                         targetPixelsReference = SamplePlugin::cameraModel(targetsInCameraFrame);
+
+                        // Flip image to fit into Qlabel
+                        cv::flip(im, imFlipLabel, 0);
                     }
+
+                    // Show in QLabel
+                    QImage img(imFlipLabel.data, imFlipLabel.cols, imFlipLabel.rows, imFlipLabel.step, QImage::Format_RGB888);
+                    QPixmap p = QPixmap::fromImage(img);
+                    unsigned int maxW = 400;
+                    unsigned int maxH = 800;
+                    _label->setPixmap(p.scaled(maxW,maxH,Qt::KeepAspectRatio));
+
                 }
             }
             // Find and save reference to the Marker Frame
@@ -263,26 +269,25 @@ void SamplePlugin::restart()
     // Convert to OpenCV image
     Mat im = toOpenCVImage(image);
     Mat imFlipLabel;
-    cv::flip(im, imFlipLabel, 0);
 
-    // Show in QLabel
-    //QImage img(imFlipLabel.data, imFlipLabel.cols, imFlipLabel.rows, imFlipLabel.step, QImage::Format_RGB888);
-    QImage img(imFlipLabel.data, imFlipLabel.cols, imFlipLabel.rows, imFlipLabel.step, QImage::Format_RGB888);
-    QPixmap p = QPixmap::fromImage(img);
-    unsigned int maxW = 400;
-    unsigned int maxH = 800;
-    _label->setPixmap(p.scaled(maxW,maxH,Qt::KeepAspectRatio));
-
-    // Check if option for Image Recognition use is checked
-    if (_imgRec->isChecked() )
+    if (useVision)
     {
         Mat imflip;
         cv::flip(im, imflip, -1);
+        // Necessary to convert to RGB
+        //cvtColor(imflip, imflip, CV_BGR2RGB);
+
+        // Get target points from image
         targetPixelsReference = marker1(imflip, No);
-    } else          // If img recognision isn't enabled, use hardcoded coordinate on texture frame
+
+        // Show Image with targetPixels in Qlabel
+        // Flip image to fit into Qlabel
+        cv::flip(imflip, imFlipLabel, 1);
+    } else
     {
         // Get vector of target points coordinates in texture frame
         textureTargetCoordinates = hardcodedTextureTargetCoordinates(No, textureFrame, cameraFrame, _state);
+
         // Compute Transformation from cameraFrame to textureFrame
         rw::math::Transform3D<double> cameraTtexture = rw::kinematics::Kinematics::frameTframe(cameraFrame, textureFrame, _state);
 
@@ -291,7 +296,17 @@ void SamplePlugin::restart()
 
         // class variable storing pixel target position
         targetPixelsReference = SamplePlugin::cameraModel(targetsInCameraFrame);
+
+        // Flip image to fit into Qlabel
+        cv::flip(im, imFlipLabel, 0);
     }
+
+    // Show in QLabel
+    QImage img(imFlipLabel.data, imFlipLabel.cols, imFlipLabel.rows, imFlipLabel.step, QImage::Format_RGB888);
+    QPixmap p = QPixmap::fromImage(img);
+    unsigned int maxW = 400;
+    unsigned int maxH = 800;
+    _label->setPixmap(p.scaled(maxW,maxH,Qt::KeepAspectRatio));
     log().info() << "Number of Target Pixels: " << targetPixelsReference.size() << std::endl;
 
 
@@ -336,19 +351,23 @@ Mat SamplePlugin::toOpenCVImage(const Image& img) {
 	return res;
 }
 
-void SamplePlugin::btnPressed() {   // clickEvent
-	QObject *obj = sender();
-	if(obj==_btn_Restart){
-		log().info() << "Restart Plugin\n";
+void SamplePlugin::btnPressed()
+{   // clickEvent
+    QObject *obj = sender();
+    if (obj == _btn_Restart)
+    {
+        log().info() << "Restart Plugin\n";
         SamplePlugin::restart();
-	} else if(obj==_btn_Start){
-		log().info() << "Start Visual Sevoing\n";
-		// Toggle the timer on and off
-		if (!_timer->isActive())
+    } else if (obj == _btn_Start)
+    {
+        log().info() << "Start Visual Sevoing\n";
+        // Toggle the timer on and off
+        if (!_timer->isActive())
         {
-            writeJoints.open ("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/results/joints_" + outFileMark + ".csv");
-            writeJoints << "time[s], Q0, Q1, Q2, Q3, Q4, Q5, Q6, Time for Inverse kinematics[s], Time for move[ms]" << std::endl;
-            writeToolPose.open ("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/results/tool_pose_" + outFileMark + ".csv");
+            writeJoints.open("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/results/joints_" + outFileMark + ".csv");
+            writeJoints << "time[s], Q0, Q1, Q2, Q3, Q4, Q5, Q6, Time for Inverse kinematics[s], Time for move[ms]"
+                        << std::endl;
+            writeToolPose.open("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/results/tool_pose_" + outFileMark + ".csv");
             writeToolPose << "time[s], x, y, z, R, P, Y" << std::endl;
 
 
@@ -362,7 +381,7 @@ void SamplePlugin::btnPressed() {   // clickEvent
             writeToolPose << t << ", " << camPosition[0] << ", " << camPosition[1] << ", " << camPosition[2] << ", "
                           << camOrientation[0] << ", " << camOrientation[1] << ", " << camOrientation[2] << ", "
                           << std::endl;
-            t = t + static_cast<double>(deltaT)/1000;
+            t = t + static_cast<double>(deltaT) / 1000;
 
             // open stream for reading from file
             infile = std::ifstream(inputFileName);
@@ -372,29 +391,33 @@ void SamplePlugin::btnPressed() {   // clickEvent
             log().info() << "Timer started\n";
             _btn_Start->setText("Pause");
 
-        }
-		else
+        } else
         {
             _timer->stop();
             _btn_Start->setText("Continue Visual Sevoing");
             log().info() << "Timer stopped\n";
         }
-    } else if(obj==_btn_Select)
+    } else if (obj == _btn_Select)
     {
-        QString fileName = QFileDialog::getOpenFileName(this, tr("Open Sequence File"), "/home", "Text Files (*.txt)" );
+        QString fileName = QFileDialog::getOpenFileName(this, tr("Open Sequence File"), "/home", "Text Files (*.txt)");
         inputFileName = fileName.toStdString();
-	} else if(obj==_spinBox){
+    } else if (obj == _spinBox)
+    {
         deltaT = _spinBox->value();
-		log().info() << "deltaT:" << _spinBox->value() << "\n";
-	} else if(obj==_btn_dT_Sim)
+        log().info() << "deltaT:" << _spinBox->value() << "\n";
+    } else if (obj == _btn_dT_Sim)
     {
         if (!_timer->isActive())
         {
-            writeImCorErrors.open ("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/results/img_error_" + outFileMark + ".csv", std::ios_base::app);
+            writeImCorErrors.open("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/results/img_error_" + outFileMark + ".csv",
+                                  std::ios_base::app);
             writeImCorErrors << "deltaT[s], maxEuc_dU[pixels], max_dU[pixels], max_dV[pixels]" << std::endl;
             sim_dT_running = true;
             SamplePlugin::sim_dTs();
         }
+    } else if (obj == _imgRec)
+    {
+        SamplePlugin::restart();
     }
 }
 
@@ -440,6 +463,17 @@ void SamplePlugin::radioBtnToggled()
     }
 
     SamplePlugin::restart();
+}
+
+void SamplePlugin::checkBoxStateChanged(int state)
+{
+    // clickEvent
+    QObject *obj = sender();
+    if (obj == _imgRec)
+    {
+        useVision = static_cast<bool>(state);
+        log().info() << "Image Recognition set to: " << useVision << std::endl;
+    }
 }
 
 
@@ -684,29 +718,36 @@ void SamplePlugin::timer()
 		// Convert to OpenCV image
 		Mat im = toOpenCVImage(image);
         Mat imFlipLabel;
-		cv::flip(im, imFlipLabel, 0);
-
-                // Show in QLabel
-		QImage img(imFlipLabel.data, imFlipLabel.cols, imFlipLabel.rows, imFlipLabel.step, QImage::Format_RGB888);
-		QPixmap p = QPixmap::fromImage(img);
-		unsigned int maxW = 400;
-		unsigned int maxH = 800;
-		_label->setPixmap(p.scaled(maxW,maxH,Qt::KeepAspectRatio));
 
         // Get coordinates of target pixels
         std::vector<rw::math::Vector2D<int>> targetRealPixels;
         // Check if image recognition is enabled
-        if (_imgRec->isChecked())
+        if (useVision)
         {
             Mat imflip;
             cv::flip(im, imflip, -1);
+
             // Get target points from image
             targetRealPixels = marker1(imflip, No);
+
+            // Show Image with targetPixels in Qlabel
+            // Flip image to fit into Qlabel
+            cv::flip(imflip, imFlipLabel, 1);
         } else
         {
             // Simulate camera using homogeneous transforms
             targetRealPixels = SamplePlugin::cameraSimulation();
+
+            // Flip image to fit into Qlabel
+            cv::flip(im, imFlipLabel, 0);
         }
+
+        // Show in QLabel
+        QImage img(imFlipLabel.data, imFlipLabel.cols, imFlipLabel.rows, imFlipLabel.step, QImage::Format_RGB888);
+        QPixmap p = QPixmap::fromImage(img);
+        unsigned int maxW = 400;
+        unsigned int maxH = 800;
+        _label->setPixmap(p.scaled(maxW,maxH,Qt::KeepAspectRatio));
 
         auto q = SamplePlugin::algorithm2(targetRealPixels);
         device->setQ(q, _state);

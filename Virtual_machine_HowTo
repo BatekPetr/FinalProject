@@ -3,7 +3,7 @@
 
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 sudo apt-get update
-sudo apt-get install gcc-5.1 g++-5.1 
+sudo apt-get install gcc-5 g++-5 
 
 
 After that cd to SamplePlugin dir

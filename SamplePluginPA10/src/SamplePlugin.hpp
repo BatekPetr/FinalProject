@@ -33,6 +33,7 @@ public:
 	virtual void initialize();
 
     // Needs to be public in order to use in helper cpp file
+    bool useVision;
     NoOfTargets No = multiple;
     static std::vector<rw::math::Vector2D<int>> cameraModel(std::vector<rw::math::Vector3D<double>> pointsInCameraFrame);
     static std::vector<rw::math::Vector3D<double>> getTargetsInCameraFrame
@@ -42,6 +43,7 @@ public:
 private slots:
 	void btnPressed();
     void radioBtnToggled();
+    void checkBoxStateChanged(int state);
 
 	void timer();
 
@@ -59,7 +61,7 @@ private:
     rw::math::Q from;
     std::string inputFileName;
     bool sim_dT_running;
-        
+
     rw::math::Transform3D<double> worldTmarker_Default;
 
 
