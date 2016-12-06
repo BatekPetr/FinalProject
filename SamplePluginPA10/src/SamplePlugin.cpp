@@ -53,6 +53,9 @@ const string deviceName = "PA10";
 Device::Ptr device;
 
 int max_dT = 1000, min_dT = 50;
+double computationTimeTotal = 0;
+double imgRecognitionTimeTotal = 0;
+int sequenceSteps = 0;
 double deltaT =  max_dT; // timer period in ms
 double t = 0;
 double maxEucD = 0;
@@ -132,8 +135,6 @@ void SamplePlugin::open(WorkCell* workcell)
 	log().info() << "OPEN" << "\n";
 	_wc = workcell;
 	_state = _wc->getDefaultState();
-    //base = _wc->findFrame("Base");
-    //world = _wc->findFrame("WORLD");
 
 	log().info() << workcell->getFilename() << "\n";
 
@@ -156,7 +157,6 @@ void SamplePlugin::open(WorkCell* workcell)
                 log().info() << "Device: " << deviceName << " not found!\n";
             }
             // Get Manipulator to the initial state
-            //rw::math::Q from(7, 0, -0.65, 0, 1.80, 0, 0.42, 0);
             from = rw::math::Q(7, 0, -0.65, 0, 1.80, 0, 0.42, 0);
             device->setQ(from, _state);
 
@@ -181,6 +181,11 @@ void SamplePlugin::open(WorkCell* workcell)
                     // Convert to OpenCV image
                     Mat im = toOpenCVImage(image);
                     Mat imFlipLabel;
+
+                    //After opening plugin -> initialize to follow multiple points
+                    outFileMark = "M_Targ_Pts";
+                    No = multiple;
+                    useVision = false;
 
                     if (useVision)
                     {
@@ -274,8 +279,6 @@ void SamplePlugin::restart()
     {
         Mat imflip;
         cv::flip(im, imflip, -1);
-        // Necessary to convert to RGB
-        //cvtColor(imflip, imflip, CV_BGR2RGB);
 
         // Get target points from image
         targetPixelsReference = marker1(imflip, No);
@@ -310,7 +313,7 @@ void SamplePlugin::restart()
     log().info() << "Number of Target Pixels: " << targetPixelsReference.size() << std::endl;
 
 
-    //log().info() << currentTargOnTexture->size() << "\n";
+    // Clear maximum errors variables
     maxEucD = 0;
     max_dU_Image = boost::numeric::ublas::vector<double> (2);
 
@@ -342,6 +345,10 @@ void SamplePlugin::close() {
 	}
 	_framegrabber = NULL;
 	_wc = NULL;
+
+    writeJoints.close();
+    writeToolPose.close();
+    writeImCorErrors.close();
 }
 
 
@@ -409,9 +416,20 @@ void SamplePlugin::btnPressed()
     {
         if (!_timer->isActive())
         {
-            writeImCorErrors.open("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/results/img_error_" + outFileMark + ".csv",
-                                  std::ios_base::app);
-            writeImCorErrors << "deltaT[s], maxEuc_dU[pixels], max_dU[pixels], max_dV[pixels]" << std::endl;
+            std::size_t posStart = inputFileName.find("MarkerMotion");
+            std::size_t posEnd = inputFileName.find(".txt");
+            std::string file_prefix = inputFileName.substr(posStart, posEnd - posStart);
+            log().info() << file_prefix << std::endl;
+            writeImCorErrors.open("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/results/" + file_prefix + "_img_error_" + outFileMark + ".csv");
+            if (No == single)
+            {
+                writeImCorErrors << "deltaT[s], maxEuc_dU[pixels], max_dU[pixels], max_dV[pixels], ";
+            } else
+            {
+                writeImCorErrors << "deltaT[s], maxEuc_dU_[pixels], max_dU_1[pixels], max_dV_1[pixels], ";
+                writeImCorErrors << "max_dU_2[pixels], max_dV_2[pixels], max_dU_3[pixels], max_dV_3[pixels], ";
+            }
+            writeImCorErrors << "Avg Inv Kinem Time [ms], Avg Img Rec Time [ms]" << std::endl;
             sim_dT_running = true;
             SamplePlugin::sim_dTs();
         }
@@ -426,6 +444,10 @@ void SamplePlugin::sim_dTs()
     // Return file stream to the beggining of the file
     infile.clear();
     infile.seekg(0, std::ios::beg);
+
+    computationTimeTotal = 0;
+    imgRecognitionTimeTotal = 0;
+    sequenceSteps = 0;
 
     if (deltaT >= min_dT)
     {
@@ -578,9 +600,6 @@ rw::math::Q SamplePlugin::algorithm2(std::vector<rw::math::Vector2D<int>> target
 
     //log().info() << "Size of targetRealPixels: " << targetRealPixels.size() << ", Size of targetPixelsReference: " << targetPixelsReference.size() << "\n";
 
-    // Save start time of computations
-    auto start_time = std::chrono::high_resolution_clock::now();
-
     boost::numeric::ublas::vector<double> dU_Image = calculate_dUImage(targetRealPixels, targetPixelsReference);
     if (sim_dT_running)
     {
@@ -588,7 +607,11 @@ rw::math::Q SamplePlugin::algorithm2(std::vector<rw::math::Vector2D<int>> target
         if (eucD > maxEucD)
         {
             maxEucD = eucD;
-            max_dU_Image = dU_Image;
+            // store maximum dU_image errors in max variable
+            max_dU_Image = boost::numeric::ublas::vector<double>(dU_Image);
+
+            log().info() << "maxEucDist: " << eucD << ", with points: " << dU_Image << std::endl;
+            log().info() << "maxDuSaved: " << max_dU_Image << std::endl;
         }
     }
 
@@ -603,48 +626,13 @@ rw::math::Q SamplePlugin::algorithm2(std::vector<rw::math::Vector2D<int>> target
     rw::math::Q dQ(boost_dQ);
 
 
-    // Compute Final time of inverse kinematics
-    auto end_time = std::chrono::high_resolution_clock::now();
-    auto time = end_time - start_time;
-    ulong msec = std::chrono::duration_cast<std::chrono::microseconds>(time).count();
-    log().info() << "Duration of inverse kinematics[ms]: " << msec << std::endl;
 
-    rw::math::Q q = device->getQ(_state);
-    int movementT = 0;
-    if (msec < deltaT)
-    {
-        movementT = deltaT - msec;
-        log().info() << "Time for manipulator movement[ms]: " << movementT << std::endl;
-        log().info() << "dQ/movementT: " << dQ / (static_cast<double>(movementT) / 1000) << "\n";
-        dQ = saturateDQ(dQ, velocity_limits, movementT);
-
-
-        //log().info() << "qOld: " << q << "\n";
-        q += dQ;
-        //log().info() << "qNew: " << q << "\n";
-    } else
-        log().info() << "Time needed for inverse kinematics is longer than deltaT.\n";
-
-    auto worldTcamera = cameraFrame->wTf(_state);
-    auto camPosition = worldTcamera.P();
-    auto camOrientation = rw::math::RPY<double>(worldTcamera.R());
-
-    if (!sim_dT_running)
-    {
-        // Write into the file
-        writeJoints << t << ", " << q[0] << ", " << q[1] << ", " << q[2] << ", " << q[3] << ", " << q[4] << ", " << q[5]
-                    << ", " << q[6] << ", " << msec << ", " << movementT << std::endl;
-        writeToolPose << t << ", " << camPosition[0] << ", " << camPosition[1] << ", " << camPosition[2] << ", "
-                      << camOrientation[0] << ", " << camOrientation[1] << ", " << camOrientation[2] << ", "
-                      << std::endl;
-        t = t + static_cast<double>(deltaT) / 1000;
-    }
 
     //targetRealPixels = SamplePlugin::cameraSimulation();
     //dU_Image = calculate_dUImage(targetRealPixels, targetPixelsReference);
     //log().info() << "deltaU norm = " << dU_Image.norm2() << "\ncomputing new Q configuration\n";
 
-    return q;
+    return dQ;
 }
 
 rw::math::Transform3D<double> SamplePlugin::moveMarker(rw::kinematics::MovableFrame* markerFrame, std::string line)
@@ -683,8 +671,11 @@ void SamplePlugin::timer()
     }
     // load transformation from the file
     std::string line;
+    // If stream didnt reach end of the file - getline is returns true
     if(std::getline(infile, line))
     {
+        sequenceSteps += 1;
+
         // Move the Marker in the scene and Return Transformation Matrix
         const rw::math::Transform3D<double> worldTmarker = SamplePlugin::moveMarker(markerFrame, line);
 
@@ -700,6 +691,7 @@ void SamplePlugin::timer()
             for(size_t i = 0; i < max_dU_Image.size(); i += 2)
                 writeImCorErrors << ", " << max_dU_Image[0+i] << ", " << max_dU_Image[1+i];
             //writeImCorErrors << deltaT/1000 << ", " << ", " << maxEucD << ", " << max_dU_Image[0] << ", " << max_dU_Image[1] << std::endl;
+            writeImCorErrors << ", " << computationTimeTotal/sequenceSteps << ", " << imgRecognitionTimeTotal/sequenceSteps;
             writeImCorErrors << std::endl;
             deltaT -= 50;
             SamplePlugin::sim_dTs();
@@ -719,16 +711,30 @@ void SamplePlugin::timer()
 		Mat im = toOpenCVImage(image);
         Mat imFlipLabel;
 
-        // Get coordinates of target pixels
+        // Vector for storing actual image coordinates of target points
         std::vector<rw::math::Vector2D<int>> targetRealPixels;
+
+        // variable for storing time needed for image recognition function
+        ulong imgRec_msec = 0;
+
         // Check if image recognition is enabled
         if (useVision)
         {
             Mat imflip;
             cv::flip(im, imflip, -1);
 
+            // measure time for image recognition function
+            // --------------------------------------------------------
+            auto imgRec_start_time = std::chrono::high_resolution_clock::now();
             // Get target points from image
             targetRealPixels = marker1(imflip, No);
+            auto imgRec_end_time = std::chrono::high_resolution_clock::now();
+            auto imgRec_time = imgRec_end_time - imgRec_start_time;
+            imgRec_msec = std::chrono::duration_cast<std::chrono::milliseconds>(imgRec_time).count();
+            // Store total image recognition time in order to compute mean time for the whole sequence
+            imgRecognitionTimeTotal += imgRec_msec;
+            log().info() << "Duration of image recognition[ms]: " << imgRec_msec << std::endl;
+            // --------------------------------------------------------
 
             // Show Image with targetPixels in Qlabel
             // Flip image to fit into Qlabel
@@ -749,7 +755,59 @@ void SamplePlugin::timer()
         unsigned int maxH = 800;
         _label->setPixmap(p.scaled(maxW,maxH,Qt::KeepAspectRatio));
 
-        auto q = SamplePlugin::algorithm2(targetRealPixels);
+        // Compute joint update dQ and perform saturation to satisfy velocity constarints
+        // -----------------------------------------------------------------------------------------------
+        // Save start time of computations
+        auto comp_start_time = std::chrono::high_resolution_clock::now();
+
+        auto dQ = SamplePlugin::algorithm2(targetRealPixels);
+
+        // Compute Final time of inverse kinematics
+        auto comp_end_time = std::chrono::high_resolution_clock::now();
+        auto time = comp_end_time - comp_start_time;
+        // save time duration of inverse kinematics algorithm
+        ulong comp_msec = std::chrono::duration_cast<std::chrono::milliseconds>(time).count();
+        log().info() << "Duration of inverse kinematics[ms]: " << comp_msec << std::endl;
+        // Store total inverse kinematics time in order to compute mean time for the whole sequence
+        computationTimeTotal += comp_msec;
+
+        ulong comp_and_vision_msec = comp_msec + imgRec_msec;
+        rw::math::Q q = device->getQ(_state);
+        int movementT = 0;
+        if (comp_and_vision_msec < deltaT)
+        {
+            // get the time left for manipulator movement
+            movementT = deltaT - comp_and_vision_msec;
+            log().info() << "Time for manipulator movement[ms]: " << movementT << std::endl;
+            log().info() << "dQ/movementT: " << dQ / (static_cast<double>(movementT) / 1000) << "\n";
+            dQ = saturateDQ(dQ, velocity_limits, movementT);
+
+            // get new q configuration
+            q += dQ;
+        } else
+            log().info() << "Time needed for inverse kinematics is longer than deltaT.\n";
+
+        // For simulation of single deltaT -> save joint variables and tool position into a file
+        if (!sim_dT_running)
+        {
+            // Save joint configuretion
+            writeJoints << t << ", " << q[0] << ", " << q[1] << ", " << q[2] << ", " << q[3] << ", " << q[4] << ", " << q[5]
+                        << ", " << q[6] << ", " << comp_msec << ", " << imgRec_msec << ", " << movementT << std::endl;
+
+            auto worldTcamera = cameraFrame->wTf(_state);
+            auto camPosition = worldTcamera.P();
+            auto camOrientation = rw::math::RPY<double>(worldTcamera.R());
+
+            // Save tool position and orientation
+            writeToolPose << t << ", " << camPosition[0] << ", " << camPosition[1] << ", " << camPosition[2] << ", "
+                          << camOrientation[0] << ", " << camOrientation[1] << ", " << camOrientation[2] << ", "
+                          << std::endl;
+
+            // Increase time varieble for the next loop
+            t = t + static_cast<double>(deltaT) / 1000;
+        }
+
+        // update manipulator joint variables
         device->setQ(q, _state);
 
         // update RWStudio visualization

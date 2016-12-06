@@ -33,7 +33,7 @@ public:
 	virtual void initialize();
 
     // Needs to be public in order to use in helper cpp file
-    bool useVision;
+    bool useVision = false;
     NoOfTargets No = multiple;
     static std::vector<rw::math::Vector2D<int>> cameraModel(std::vector<rw::math::Vector3D<double>> pointsInCameraFrame);
     static std::vector<rw::math::Vector3D<double>> getTargetsInCameraFrame

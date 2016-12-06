@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.8.11)  4 DEC 2016 17:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.8.11)  6 DEC 2016 11:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -785,7 +785,7 @@ File: fig/SlowSequence_tool_pose_1_Targ_Pt.jpg Graphic file (type jpg)
 
 <use fig/SlowSequence_tool_pose_1_Targ_Pt.jpg>
 Package pdftex.def Info: fig/SlowSequence_tool_pose_1_Targ_Pt.jpg used on input
- line 126.
+ line 127.
 (pdftex.def)             Requested size: 204.94751pt x 153.70313pt.
 
 <fig/SlowSequence_tool_pose_M_Targ_Pts.jpg, id=24, 1124.2pt x 843.15pt>
@@ -793,126 +793,202 @@ File: fig/SlowSequence_tool_pose_M_Targ_Pts.jpg Graphic file (type jpg)
 
 <use fig/SlowSequence_tool_pose_M_Targ_Pts.jpg>
 Package pdftex.def Info: fig/SlowSequence_tool_pose_M_Targ_Pts.jpg used on inpu
-t line 131.
+t line 132.
 (pdftex.def)             Requested size: 204.94751pt x 153.70313pt.
 
-Overfull \hbox (6.23944pt too wide) in paragraph at lines 126--132
+Overfull \hbox (6.23944pt too wide) in paragraph at lines 127--133
 [][] [] 
  []
 
-[3 <./fig/SlowSequence_joints_1_Targ_Pt.jpg> <./fig/SlowSequence_joints_M_Targ_
-Pts.jpg> <./fig/SlowSequence_tool_pose_1_Targ_Pt.jpg> <./fig/SlowSequence_tool_
-pose_M_Targ_Pts.jpg>]
-<fig/MediumSequence_joints_1_Targ_Pt.jpg, id=29, 1124.2pt x 843.15pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+Package epstopdf Info: Source file: <fig/SlowSequence_errors.eps>
+(epstopdf)                    date: 2016-12-05 10:49:42
+(epstopdf)                    size: 22827 bytes
+(epstopdf)             Output file: <fig/SlowSequence_errors-eps-converted-to.p
+df>
+(epstopdf)                    date: 2016-12-05 14:17:46
+(epstopdf)                    size: 9342 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig/SlowSequence_errors-ep
+s-converted-to.pdf fig/SlowSequence_errors.eps>
+(epstopdf)             \includegraphics on input line 142.
+Package epstopdf Info: Output file is already uptodate.
+
+<fig/SlowSequence_errors-eps-converted-to.pdf, id=25, 421.575pt x 316.18124pt>
+File: fig/SlowSequence_errors-eps-converted-to.pdf Graphic file (type pdf)
+
+<use fig/SlowSequence_errors-eps-converted-to.pdf>
+Package pdftex.def Info: fig/SlowSequence_errors-eps-converted-to.pdf used on i
+nput line 142.
+(pdftex.def)             Requested size: 292.7776pt x 219.58852pt.
+ [3 <./fig/SlowSequence_joints_1_Targ_Pt.jpg> <./fig/SlowSequence_joints_M_Targ
+_Pts.jpg>]
+<fig/MediumSequence_joints_1_Targ_Pt.jpg, id=31, 1124.2pt x 843.15pt>
 File: fig/MediumSequence_joints_1_Targ_Pt.jpg Graphic file (type jpg)
 
 <use fig/MediumSequence_joints_1_Targ_Pt.jpg>
 Package pdftex.def Info: fig/MediumSequence_joints_1_Targ_Pt.jpg used on input 
-line 144.
+line 160.
 (pdftex.def)             Requested size: 204.94751pt x 153.70313pt.
 
-<fig/MediumSequence_joints_M_Targ_Pts.jpg, id=30, 1124.2pt x 843.15pt>
+<fig/MediumSequence_joints_M_Targ_Pts.jpg, id=32, 1124.2pt x 843.15pt>
 File: fig/MediumSequence_joints_M_Targ_Pts.jpg Graphic file (type jpg)
 
 <use fig/MediumSequence_joints_M_Targ_Pts.jpg>
 Package pdftex.def Info: fig/MediumSequence_joints_M_Targ_Pts.jpg used on input
- line 149.
-(pdftex.def)             Requested size: 204.94751pt x 153.70313pt.
-
-Overfull \hbox (6.23944pt too wide) in paragraph at lines 144--150
-[][] [] 
- []
-
-<fig/MediumSequence_tool_pose_1_Targ_Pt.jpg, id=31, 1124.2pt x 843.15pt>
-File: fig/MediumSequence_tool_pose_1_Targ_Pt.jpg Graphic file (type jpg)
-
-<use fig/MediumSequence_tool_pose_1_Targ_Pt.jpg>
-Package pdftex.def Info: fig/MediumSequence_tool_pose_1_Targ_Pt.jpg used on inp
-ut line 160.
-(pdftex.def)             Requested size: 204.94751pt x 153.70313pt.
-
-<fig/MediumSequence_tool_pose_M_Targ_Pts.jpg, id=32, 1124.2pt x 843.15pt>
-File: fig/MediumSequence_tool_pose_M_Targ_Pts.jpg Graphic file (type jpg)
-
-<use fig/MediumSequence_tool_pose_M_Targ_Pts.jpg>
-Package pdftex.def Info: fig/MediumSequence_tool_pose_M_Targ_Pts.jpg used on in
-put line 165.
+ line 165.
 (pdftex.def)             Requested size: 204.94751pt x 153.70313pt.
 
 Overfull \hbox (6.23944pt too wide) in paragraph at lines 160--166
 [][] [] 
  []
 
-<fig/FastSequence_joints_1_Targ_Pt.jpg, id=33, 1124.2pt x 843.15pt>
+<fig/MediumSequence_tool_pose_1_Targ_Pt.jpg, id=33, 1124.2pt x 843.15pt>
+File: fig/MediumSequence_tool_pose_1_Targ_Pt.jpg Graphic file (type jpg)
+
+<use fig/MediumSequence_tool_pose_1_Targ_Pt.jpg>
+Package pdftex.def Info: fig/MediumSequence_tool_pose_1_Targ_Pt.jpg used on inp
+ut line 176.
+(pdftex.def)             Requested size: 204.94751pt x 153.70313pt.
+
+<fig/MediumSequence_tool_pose_M_Targ_Pts.jpg, id=34, 1124.2pt x 843.15pt>
+File: fig/MediumSequence_tool_pose_M_Targ_Pts.jpg Graphic file (type jpg)
+
+<use fig/MediumSequence_tool_pose_M_Targ_Pts.jpg>
+Package pdftex.def Info: fig/MediumSequence_tool_pose_M_Targ_Pts.jpg used on in
+put line 181.
+(pdftex.def)             Requested size: 204.94751pt x 153.70313pt.
+
+Overfull \hbox (6.23944pt too wide) in paragraph at lines 176--182
+[][] [] 
+ []
+
+Package epstopdf Info: Source file: <fig/MediumSequence_errors.eps>
+(epstopdf)                    date: 2016-12-06 11:28:15
+(epstopdf)                    size: 25048 bytes
+(epstopdf)             Output file: <fig/MediumSequence_errors-eps-converted-to
+.pdf>
+(epstopdf)                    date: 2016-12-05 12:30:20
+(epstopdf)                    size: 9702 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig/MediumSequence_errors-
+eps-converted-to.pdf fig/MediumSequence_errors.eps>
+(epstopdf)             \includegraphics on input line 190.
+runsystem(repstopdf --outfile=fig/MediumSequence_errors-eps-converted-to.pdf fi
+g/MediumSequence_errors.eps)...executed safely (allowed).
+
+Package epstopdf Info: Result file: <fig/MediumSequence_errors-eps-converted-to
+.pdf>
+(epstopdf)                    date: 2016-12-06 11:30:42
+(epstopdf)                    size: 9748 bytes.
+
+<fig/MediumSequence_errors-eps-converted-to.pdf, id=35, 488.82625pt x 384.43625
+pt>
+File: fig/MediumSequence_errors-eps-converted-to.pdf Graphic file (type pdf)
+ <use fig/MediumSequence_errors-eps-converted-to.pdf>
+Package pdftex.def Info: fig/MediumSequence_errors-eps-converted-to.pdf used on
+ input line 190.
+(pdftex.def)             Requested size: 292.7776pt x 230.25876pt.
+
+<fig/FastSequence_joints_1_Targ_Pt.jpg, id=36, 1124.2pt x 843.15pt>
 File: fig/FastSequence_joints_1_Targ_Pt.jpg Graphic file (type jpg)
 
 <use fig/FastSequence_joints_1_Targ_Pt.jpg>
 Package pdftex.def Info: fig/FastSequence_joints_1_Targ_Pt.jpg used on input li
-ne 177.
+ne 209.
 (pdftex.def)             Requested size: 204.94751pt x 153.70313pt.
 
-<fig/FastSequence_joints_M_Targ_Pts.jpg, id=34, 1124.2pt x 843.15pt>
+<fig/FastSequence_joints_M_Targ_Pts.jpg, id=37, 1124.2pt x 843.15pt>
 File: fig/FastSequence_joints_M_Targ_Pts.jpg Graphic file (type jpg)
 
 <use fig/FastSequence_joints_M_Targ_Pts.jpg>
 Package pdftex.def Info: fig/FastSequence_joints_M_Targ_Pts.jpg used on input l
-ine 182.
+ine 214.
 (pdftex.def)             Requested size: 204.94751pt x 153.70313pt.
 
-Overfull \hbox (6.23944pt too wide) in paragraph at lines 177--183
+Overfull \hbox (6.23944pt too wide) in paragraph at lines 209--215
 [][] [] 
  []
 
-<fig/FastSequence_tool_pose_1_Targ_Pt.jpg, id=35, 2569.6pt x 1503.6175pt>
+[4 <./fig/SlowSequence_tool_pose_1_Targ_Pt.jpg> <./fig/SlowSequence_tool_pose_M
+_Targ_Pts.jpg>] [5 <./fig/SlowSequence_errors-eps-converted-to.pdf> <./fig/Medi
+umSequence_joints_1_Targ_Pt.jpg> <./fig/MediumSequence_joints_M_Targ_Pts.jpg>]
+[6 <./fig/MediumSequence_tool_pose_1_Targ_Pt.jpg> <./fig/MediumSequence_tool_po
+se_M_Targ_Pts.jpg> <./fig/MediumSequence_errors-eps-converted-to.pdf>]
+<fig/FastSequence_tool_pose_1_Targ_Pt.jpg, id=63, 2569.6pt x 1503.6175pt>
 File: fig/FastSequence_tool_pose_1_Targ_Pt.jpg Graphic file (type jpg)
 
 <use fig/FastSequence_tool_pose_1_Targ_Pt.jpg>
 Package pdftex.def Info: fig/FastSequence_tool_pose_1_Targ_Pt.jpg used on input
- line 193.
+ line 225.
 (pdftex.def)             Requested size: 204.94751pt x 119.92476pt.
 
-<fig/FastSequence_tool_pose_M_Targ_Pts.jpg, id=36, 1124.2pt x 843.15pt>
+<fig/FastSequence_tool_pose_M_Targ_Pts.jpg, id=64, 1124.2pt x 843.15pt>
 File: fig/FastSequence_tool_pose_M_Targ_Pts.jpg Graphic file (type jpg)
 
 <use fig/FastSequence_tool_pose_M_Targ_Pts.jpg>
 Package pdftex.def Info: fig/FastSequence_tool_pose_M_Targ_Pts.jpg used on inpu
-t line 198.
+t line 230.
 (pdftex.def)             Requested size: 204.94751pt x 153.70313pt.
 
-Overfull \hbox (6.23944pt too wide) in paragraph at lines 193--199
+Overfull \hbox (6.23944pt too wide) in paragraph at lines 225--231
 [][] [] 
  []
 
-[4 <./fig/MediumSequence_joints_1_Targ_Pt.jpg> <./fig/MediumSequence_joints_M_T
-arg_Pts.jpg> <./fig/MediumSequence_tool_pose_1_Targ_Pt.jpg> <./fig/MediumSequen
-ce_tool_pose_M_Targ_Pts.jpg>] [5 <./fig/FastSequence_joints_1_Targ_Pt.jpg> <./f
-ig/FastSequence_joints_M_Targ_Pts.jpg> <./fig/FastSequence_tool_pose_1_Targ_Pt.
-jpg> <./fig/FastSequence_tool_pose_M_Targ_Pts.jpg>] (./report.aux) ) 
+Package epstopdf Info: Source file: <fig/FastSequence_errors.eps>
+(epstopdf)                    date: 2016-12-06 11:26:46
+(epstopdf)                    size: 25896 bytes
+(epstopdf)             Output file: <fig/FastSequence_errors-eps-converted-to.p
+df>
+(epstopdf)                    date: 2016-12-05 11:54:56
+(epstopdf)                    size: 9814 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig/FastSequence_errors-ep
+s-converted-to.pdf fig/FastSequence_errors.eps>
+(epstopdf)             \includegraphics on input line 239.
+runsystem(repstopdf --outfile=fig/FastSequence_errors-eps-converted-to.pdf fig/
+FastSequence_errors.eps)...executed safely (allowed).
+
+Package epstopdf Info: Result file: <fig/FastSequence_errors-eps-converted-to.p
+df>
+(epstopdf)                    date: 2016-12-06 11:30:43
+(epstopdf)                    size: 9833 bytes.
+
+<fig/FastSequence_errors-eps-converted-to.pdf, id=65, 475.7775pt x 374.39874pt>
+File: fig/FastSequence_errors-eps-converted-to.pdf Graphic file (type pdf)
+<use fig/FastSequence_errors-eps-converted-to.pdf>
+Package pdftex.def Info: fig/FastSequence_errors-eps-converted-to.pdf used on i
+nput line 239.
+(pdftex.def)             Requested size: 292.7776pt x 230.39954pt.
+ [7 <./fig/FastSequence_joints_1_Targ_Pt.jpg> <./fig/FastSequence_joints_M_Targ
+_Pts.jpg> <./fig/FastSequence_tool_pose_1_Targ_Pt.jpg> <./fig/FastSequence_tool
+_pose_M_Targ_Pts.jpg>]
+[8 <./fig/FastSequence_errors-eps-converted-to.pdf>] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 7781 strings out of 494346
- 118831 string characters out of 6163878
+ 7800 strings out of 494346
+ 119576 string characters out of 6163878
  272467 words of memory out of 5000000
- 10966 multiletter control sequences out of 15000+600000
+ 10981 multiletter control sequences out of 15000+600000
  56987 words of font info for 53 fonts, out of 8000000 for 9000
  360 hyphenation exceptions out of 8191
- 47i,20n,49p,731b,402s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share
-/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mat
-hsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fo
-nts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rmtt.enc
-}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/typ
-e1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></us
-r/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/pub
-lic/lm/lmmib10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/shar
-e/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm
-/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf/fo
-nts/type1/public/lm/lmssbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10
-.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/
-type1/public/lm/lmtt10.pfb>
-Output written on report.pdf (5 pages, 862462 bytes).
+ 47i,20n,49p,731b,406s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/shar
+e/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ma
+thsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/f
+onts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rmtt.en
+c}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/ty
+pe1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></u
+sr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/p
+ublic/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmmib10.pfb></usr/sh
+are/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/
+lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf
+/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf/fonts/type1/public/lm/lmssbx1
+0.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/font
+s/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb>
+
+Output written on report.pdf (8 pages, 912325 bytes).
 PDF statistics:
- 89 PDF objects out of 1000 (max. 8388607)
- 56 compressed objects within 1 object stream
+ 131 PDF objects out of 1000 (max. 8388607)
+ 85 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 76 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -89,7 +89,7 @@ rw::math::Q saturateDQ(rw::math::Q deltaQ, rw::math::Q velocityLimits, double de
 double euclideanDist(boost::numeric::ublas::vector<double> dU_Image)
 {
     int eucD = 0;
-    for (size_t i = 0; i < dU_Image.size(); ++i)
+    for (size_t i = 0; i < dU_Image.size(); i+=2)
     {
         eucD += std::sqrt( std::pow(dU_Image[0+i], 2) + std::pow(dU_Image[1+i], 2) );
     }

@@ -30,11 +30,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SamplePlugin.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SamplePlugin.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/SamplePlugin.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="594" column="31" selection-start-line="594" selection-start-column="23" selection-end-line="594" selection-end-column="31" />
+            <state relative-caret-position="-3794">
+              <caret line="457" column="0" selection-start-line="457" selection-start-column="0" selection-end-line="457" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="marker1.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/marker1.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="13" column="25" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -43,8 +53,8 @@
       <file leaf-file-name="SamplePlugin.hpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SamplePlugin.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+            <state relative-caret-position="495">
+              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
               <folding>
                 <element signature="e#51#88#0" expanded="true" />
               </folding>
@@ -55,7 +65,7 @@
       <file leaf-file-name="helperFunctions.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/helperFunctions.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
+            <state relative-caret-position="150">
               <caret line="10" column="44" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
               <folding />
             </state>
@@ -65,18 +75,18 @@
       <file leaf-file-name="helperFunctions.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/helperFunctions.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="34" column="2" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="2" />
+            <state relative-caret-position="195">
+              <caret line="13" column="29" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="inverseKinematics.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="inverseKinematics.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/inverseKinematics.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="70" column="22" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="22" />
+            <state relative-caret-position="137">
+              <caret line="70" column="47" selection-start-line="70" selection-start-column="47" selection-end-line="70" selection-end-column="69" />
               <folding />
             </state>
           </provider>
@@ -424,11 +434,15 @@
       <workItem from="1480760754735" duration="17470000" />
       <workItem from="1480789940662" duration="794000" />
       <workItem from="1480845371788" duration="11184000" />
+      <workItem from="1480931915568" duration="14490000" />
+      <workItem from="1481013514462" duration="8000" />
+      <workItem from="1481013805433" duration="1298000" />
+      <workItem from="1481033196917" duration="2333000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="178161000" />
+    <option name="totallyTimeSpent" value="196290000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -840,23 +854,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
           <caret line="27" column="2" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="2" />
-          <folding>
-            <element signature="e#38#67#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/helperFunctions.cpp">
+    <entry file="file://$PROJECT_DIR$/src/SamplePlugin.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="34" column="2" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="2" />
-          <folding />
+        <state relative-caret-position="495">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding>
+            <element signature="e#51#88#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/helperFunctions.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
+        <state relative-caret-position="150">
           <caret line="10" column="44" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
           <folding />
         </state>
@@ -870,28 +883,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SamplePlugin.hpp">
+    <entry file="file://$PROJECT_DIR$/src/helperFunctions.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding>
-            <element signature="e#51#88#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SamplePlugin.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="594" column="31" selection-start-line="594" selection-start-column="23" selection-end-line="594" selection-end-column="31" />
+        <state relative-caret-position="195">
+          <caret line="13" column="29" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/inverseKinematics.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="70" column="22" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="22" />
+        <state relative-caret-position="137">
+          <caret line="70" column="47" selection-start-line="70" selection-start-column="47" selection-end-line="70" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SamplePlugin.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3794">
+          <caret line="457" column="0" selection-start-line="457" selection-start-column="0" selection-end-line="457" selection-end-column="0" />
           <folding />
         </state>
       </provider>

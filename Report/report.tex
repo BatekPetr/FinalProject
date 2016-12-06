@@ -116,8 +116,9 @@ $\overrightarrow{\boldsymbol{dU}}_{image}$
 	\caption{Joint configurations}
 	\label{fig:SlowSequenceJoints}
 \end{figure}
+There are differences between joint coordinates for tracking single and 3 target points in the graphs \ref{fig:Slow1PointJoints} and \ref{fig:Slow3PointsJoints}. The reason behind this is following. When the manipulator is tracking single point, it just follow its position. There is no orientation information about the marker when using single tracking point. Whereas during following of 3 target points, orientation of the marker gains important role, as the manipulator is trying to rotate its tool/camera frame to align its position and orientation with the marker. 
 
-\begin{figure}[!htp]
+\begin{figure}[!h]
 	% Maximum length
 	\subfloat[Tracking Single Point]
 	{
@@ -132,9 +133,24 @@ $\overrightarrow{\boldsymbol{dU}}_{image}$
 	\caption{Tool pose transformations}
 	\label{fig:SlowSequenceToolPose}
 \end{figure}
-In figure \ref{fig:Slow1PointToolPose} and \ref{fig:Slow3PointsToolPose} are apparent jump in roll angle around $z$ axis. This however doesn't imply jumps in tool orientation. Abrupt jumps in the graphs were caused because of switching between $-\pi$ and $\pi$ rad angle. In the real world, change in orientation is small. Implementation of Robwork transformations probably keeps all orientation angles in the interval $ \langle -\pi, \; \pi \rangle $.
+In figure \ref{fig:Slow1PointToolPose} and \ref{fig:Slow3PointsToolPose} are apparent jumps in roll angle around $z$ axis. This however doesn't imply jumps in tool orientation. Abrupt jumps in the graphs were caused because of switching between $-\pi$ and $\pi$ rad angle. In the real world, change in orientation is small. Implementation of Robwork transformations probably keeps all orientation angles in the interval $ \langle -\pi, \; \pi \rangle $.
+
+\vspace{0.5cm}
+\textbf{Simulation for different $\Delta T$s} \\
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{fig/SlowSequence_errors.eps}
+	\caption{Maximum errors during Slow Sequence Marker following}
+	\label{fig:SlowSequence_errors}
+\end{figure}
+
+There are plotted maximum pixel errors on the figure \ref{fig:SlowSequence_errors}. When looking to the Tracking of 3 points figure, there should be $du$ and $dv$ line for all of the 3 tracked points. However, because they were very close to each other, we ommited the another two lines in the graph for better clarity.
+
+For timing purposes we used C++ Chrono library, for taking time instant of start of the computation of updates and the end instant. For differentiation of joint updates and subsequently getting of velocity, we used difference of these two time stamps. Due to non-real time OS, results might be different for each simulation and doesn't offer precise information. However for the purpose of the school exercise, we were able to limit joints speed velocities according to problem statement.
+
 
 \subsubsection*{Medium Marker Sequence}
+The same problems and explanation apply for the Medium marker sequence. Joint coordinates and tool positions are plotted on the graphs \ref{fig:MediumSequenceJoints} and \ref{fig:MediumSequenceToolPose}. Only difference from Slow sequence is in the time axis. Due to faster and larger movements time span is shorter.
 \begin{figure}[!htp]
 	% Maximum length
 	\subfloat[Tracking Single Point]
@@ -167,7 +183,23 @@ In figure \ref{fig:Slow1PointToolPose} and \ref{fig:Slow3PointsToolPose} are app
 	\label{fig:MediumSequenceToolPose}
 \end{figure}
 
+\vspace{0.5cm}
+\textbf{Simulation for different $\Delta T$s} \\
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{fig/MediumSequence_errors.eps}
+	\caption{Maximum errors during Medium Sequence Marker following}
+	\label{fig:MediumSequence_errors}
+\end{figure}
+There are plotted maximum pixel errors on the figure \ref{fig:MediumSequence_errors}. Again, when looking to the Tracking of 3 points figure, there should be $du$ and $dv$ line for all of the 3 tracked points. However, because they were very close to each other, we ommited the another two lines in the graph for better clarity. 
+
+From the graphs it is apparent that the manipulator wasn't able to track the sequence when \texttt{deltaT} was lower than $200\,ms$. There were experienced some difficulties with tracking even for higher \texttt{deltaT}. You can see peaks in errors at about $0.8\, s$ for single point tracking.
+
+We have to state the same as for the preceding test. All timing tests were performed on the regular laptop PC, running non-real time operating system. So results from another tests can differ.
+
 \subsubsection*{Fast Marker Sequence}
+Joint coordinates and tool positions are plotted on the graphs \ref{fig:FastSequenceJoints} and \ref{fig:FastSequenceToolPose}. Span of time axis is again shorter.
+
 \begin{figure}[!htp]
 	% Maximum length
 	\subfloat[Tracking Single Point]
@@ -199,4 +231,23 @@ In figure \ref{fig:Slow1PointToolPose} and \ref{fig:Slow3PointsToolPose} are app
 	\caption{Tool pose transformations}
 	\label{fig:FastSequenceToolPose}
 \end{figure}
+
+\vspace{0.5cm}
+\textbf{Simulation for different $\Delta T$s} \\
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{fig/FastSequence_errors.eps}
+	\caption{Maximum errors during Fast Sequence Marker following}
+	\label{fig:FastSequence_errors}
+\end{figure}
+
+There are plotted maximum pixel errors on the figure \ref{fig:FastSequence_errors}. Again, when looking to the Tracking of 3 points figure, there should be $du$ and $dv$ line for all of the 3 tracked points. However, because they were very close to each other, we ommited the another two lines in the graph for better clarity. 
+
+From the graphs it is apparent that the manipulator wasn't able to track the sequence when \texttt{deltaT} was lower than $200\,ms$. There were experience some difficulties with tracking even for higher \texttt{deltaT}. You can see peaks in errors at about $0.4\, s$ for single point tracking and around $0.7\,s$ for tracking of 3 points.
+
+We have to state the same as for 2 preceding tests. All timing tests were performed on the regular laptop PC, running non-real time operating system. 
+
+\subsubsection*{Conclusion for different speed sequences}
+Even though timing and velocity computation during test simulations wasn't precise due to non-realtime of the OS, we can conclude some final facts. 
+Manipulator was able to follow the marker for each sequence with \texttt{deltaT} $ >\, 200\,ms$. However in the faster sequences, the maximal pixel errors were larger. This is reasonable result for common sense.
 \end{document}
