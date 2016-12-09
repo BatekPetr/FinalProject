@@ -33,8 +33,8 @@
       <file leaf-file-name="SamplePlugin.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/SamplePlugin.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="818" column="121" selection-start-line="818" selection-start-column="121" selection-end-line="818" selection-end-column="121" />
+            <state relative-caret-position="324">
+              <caret line="832" column="0" selection-start-line="832" selection-start-column="0" selection-end-line="832" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -440,12 +440,12 @@
       <workItem from="1481098682747" duration="39000" />
       <workItem from="1481141199588" duration="957000" />
       <workItem from="1481196911866" duration="1567000" />
-      <workItem from="1481282799141" duration="9513000" />
+      <workItem from="1481282799141" duration="12662000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="210282000" />
+    <option name="totallyTimeSpent" value="213431000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -878,8 +878,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SamplePlugin.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="818" column="121" selection-start-line="818" selection-start-column="121" selection-end-line="818" selection-end-column="121" />
+        <state relative-caret-position="324">
+          <caret line="832" column="0" selection-start-line="832" selection-start-column="0" selection-end-line="832" selection-end-column="0" />
           <folding />
         </state>
       </provider>

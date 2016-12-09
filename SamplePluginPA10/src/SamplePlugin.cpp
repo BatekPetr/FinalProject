@@ -45,6 +45,7 @@ std::ofstream writeJoints;
 std::ofstream writeJointsVelocities;
 std::ofstream writeToolPose;
 std::ofstream writeImCorErrors;
+std::ofstream write_dU;
 std::string outFileMark;
 
 
@@ -326,6 +327,7 @@ void SamplePlugin::restart()
 
     writeJoints.close();
     writeJointsVelocities.close();
+    write_dU.close();
     writeToolPose.close();
     writeImCorErrors.close();
 }
@@ -356,6 +358,7 @@ void SamplePlugin::close() {
 
     writeJoints.close();
     writeJointsVelocities.close();
+    write_dU.close();
     writeToolPose.close();
     writeImCorErrors.close();
 }
@@ -387,6 +390,8 @@ void SamplePlugin::btnPressed()
                         << std::endl;
             writeJointsVelocities << "time[s], dQ0/dT, dQ1/dT, dQ2/dT, dQ3/dT, dQ4/dT, dQ5/dT, dQ6/dT" << std::endl;
 
+            write_dU.open("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/results/dUImage_" + outFileMark + ".csv");
+            write_dU << "time[s], Euc. Dist, dU1, dV1, dU2, dV2, dU3, dV3" << std::endl;
 
             writeToolPose.open("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/results/tool_pose_" + outFileMark + ".csv");
             writeToolPose << "time[s], x, y, z, R, P, Y" << std::endl;
@@ -397,6 +402,8 @@ void SamplePlugin::btnPressed()
             writeJoints << t << ", " << from[0] << ", " << from[1] << ", " << from[2] << ", " << from[3] << ", "
                         << from[4] << ", " << from[5] << ", " << from[6] << ", 0, 0" << std::endl;
             writeJointsVelocities << t << ", 0, 0, 0, 0, 0, 0, 0" << std::endl;
+
+            write_dU << "0, 0, 0, 0, 0, 0, 0, 0" << std::endl;
             auto worldTcamera = cameraFrame->wTf(_state);
             auto camPosition = worldTcamera.P();
             auto camOrientation = rw::math::RPY<double>(worldTcamera.R());
@@ -615,9 +622,9 @@ rw::math::Q SamplePlugin::algorithm2(std::vector<rw::math::Vector2D<int>> target
     //log().info() << "Size of targetRealPixels: " << targetRealPixels.size() << ", Size of targetPixelsReference: " << targetPixelsReference.size() << "\n";
 
     boost::numeric::ublas::vector<double> dU_Image = calculate_dUImage(targetRealPixels, targetPixelsReference);
+    double eucD = euclideanDist(dU_Image);
     if (sim_dT_running)
     {
-        double eucD = euclideanDist(dU_Image);
         if (eucD > maxEucD)
         {
             maxEucD = eucD;
@@ -628,6 +635,11 @@ rw::math::Q SamplePlugin::algorithm2(std::vector<rw::math::Vector2D<int>> target
             log().info() << "maxDuSaved: " << max_dU_Image << std::endl;
         }
     }
+    // Save errors into file
+    write_dU << eucD;
+    for(size_t i = 0; i < dU_Image.size(); i += 2)
+        write_dU << ", " << dU_Image[0+i] << ", " << dU_Image[1+i];
+    write_dU << std::endl;
 
     // Calculate image Jacobian
     auto J_image = calculateImageJ(targetRealPixels, 823);
@@ -779,6 +791,7 @@ void SamplePlugin::timer()
         // Save start time of computations
         //auto comp_start_time = std::chrono::high_resolution_clock::now();
         auto start = std::chrono::steady_clock::now();
+        write_dU << t << ", ";
         auto dQ = SamplePlugin::algorithm2(targetRealPixels);
         auto finish = std::chrono::steady_clock::now();
         // Compute Final time of inverse kinematics
@@ -815,8 +828,8 @@ void SamplePlugin::timer()
             // Save joint configuretion
             writeJoints << t << ", " << q[0] << ", " << q[1] << ", " << q[2] << ", " << q[3] << ", " << q[4] << ", " << q[5]
                         << ", " << q[6] << ", " << comp_msec << ", " << imgRec_msec << ", " << movementT << std::endl;
-            writeJointsVelocities << t << ", " << dQ[0]/deltaT << ", " << dQ[1]/deltaT << ", " << dQ[2]/deltaT << ", "
-                                  << dQ[3]/deltaT << ", " << dQ[4]/deltaT << ", " << dQ[5]/deltaT << ", " << dQ[6]/deltaT << std::endl;
+            writeJointsVelocities << t << ", " << dQ[0]/(deltaT/1000) << ", " << dQ[1]/(deltaT/1000) << ", " << dQ[2]/(deltaT/1000) << ", "
+                                  << dQ[3]/(deltaT/1000) << ", " << dQ[4]/(deltaT/1000) << ", " << dQ[5]/(deltaT/1000) << ", " << dQ[6]/(deltaT/1000) << std::endl;
             auto worldTcamera = cameraFrame->wTf(_state);
             auto camPosition = worldTcamera.P();
             auto camOrientation = rw::math::RPY<double>(worldTcamera.R());
