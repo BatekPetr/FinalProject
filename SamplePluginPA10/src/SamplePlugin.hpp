@@ -13,6 +13,7 @@
 #include <rwlibs/opengl/RenderImage.hpp>
 #include <rwlibs/simulation/GLFrameGrabber.hpp>
 
+
 #include <fstream>
 #include <sstream>
 
@@ -69,6 +70,7 @@ private:
     rw::kinematics::MovableFrame *markerFrame;
     std::vector<rw::math::Vector2D<int>> targetPixelsReference;
     rw::math::Q velocity_limits;
+    std::pair<rw::math::Q, rw::math::Q> joint_limits;
     std::vector<rw::math::Vector3D<double>> textureTargetCoordinates;
 
 

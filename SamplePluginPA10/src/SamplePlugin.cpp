@@ -77,7 +77,7 @@ SamplePlugin::SamplePlugin():
         Image::Ptr image;
         image = ImageLoader::Factory::load("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/markers/Marker1.ppm");
         _textureRender->setImage(*image);
-        image = ImageLoader::Factory::load("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/backgrounds/texture3.ppm");
+        image = ImageLoader::Factory::load("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/backgrounds/color3.ppm");
         _bgRender->setImage(*image);
 	_framegrabber = NULL;
     
@@ -235,13 +235,19 @@ void SamplePlugin::open(WorkCell* workcell)
             //log().info() << targetPixelsReference[1] << ", ";
             //log().info() << targetPixelsReference[2];
             log().info() << "\n";
+
             // Save velocity limits
             velocity_limits = device->getVelocityLimits();
+            joint_limits = device->getBounds();
             log().info() << "Velocity Limits: " << velocity_limits << "\n";
+            log().info() << "Joint Limits (-): " << joint_limits.first << "\n";
+            log().info() << "Joint Limits (+): " << joint_limits.second << "\n";
 
             // Default Sequence File
             inputFileName = "/media/petr/WD_HDD/SDU/RoVi1/FinalProject/SamplePluginPA10/motions/MarkerMotionFast.txt";
 
+            // open stream for reading from file
+            infile = std::ifstream(inputFileName);
 	}
 }
 
@@ -368,6 +374,7 @@ void SamplePlugin::btnPressed()
     } else if (obj == _btn_Start)
     {
         log().info() << "Start Visual Sevoing\n";
+        SamplePlugin::restart();
         // Toggle the timer on and off
         if (!_timer->isActive())
         {
@@ -390,11 +397,8 @@ void SamplePlugin::btnPressed()
                           << std::endl;
             t = t + static_cast<double>(deltaT) / 1000;
 
-            // open stream for reading from file
-            infile = std::ifstream(inputFileName);
-
             sim_dT_running = false;
-            _timer->start(deltaT); // 100 -> run 10 Hz
+            _timer->start(deltaT); // 100 -> run 10 Hz; or deltaT ???
             log().info() << "Timer started\n";
             _btn_Start->setText("Pause");
 
@@ -416,6 +420,7 @@ void SamplePlugin::btnPressed()
     {
         if (!_timer->isActive())
         {
+            SamplePlugin::restart();
             std::size_t posStart = inputFileName.find("MarkerMotion");
             std::size_t posEnd = inputFileName.find(".txt");
             std::string file_prefix = inputFileName.substr(posStart, posEnd - posStart);
@@ -430,6 +435,7 @@ void SamplePlugin::btnPressed()
                 writeImCorErrors << "max_dU_2[pixels], max_dV_2[pixels], max_dU_3[pixels], max_dV_3[pixels], ";
             }
             writeImCorErrors << "Avg Inv Kinem Time [ms], Avg Img Rec Time [ms]" << std::endl;
+            deltaT = 1000;
             sim_dT_running = true;
             SamplePlugin::sim_dTs();
         }
@@ -459,7 +465,7 @@ void SamplePlugin::sim_dTs()
         maxEucD = 0;
         max_dU_Image = boost::numeric::ublas::vector<double> (2);
 
-        _timer->start(deltaT);
+        _timer->start(deltaT); //100 or deltaT
 
     } else{
         writeImCorErrors.close();
@@ -725,13 +731,18 @@ void SamplePlugin::timer()
 
             // measure time for image recognition function
             // --------------------------------------------------------
-            auto imgRec_start_time = std::chrono::high_resolution_clock::now();
+            //auto imgRec_start_time = std::chrono::high_resolution_clock::now();
+
+            auto start = std::chrono::steady_clock::now();
             // Get target points from image
             targetRealPixels = marker1(imflip, No);
-            auto imgRec_end_time = std::chrono::high_resolution_clock::now();
-            auto imgRec_time = imgRec_end_time - imgRec_start_time;
-            imgRec_msec = std::chrono::duration_cast<std::chrono::milliseconds>(imgRec_time).count();
+            //auto imgRec_end_time = std::chrono::high_resolution_clock::now();
+            //auto imgRec_time = imgRec_end_time - imgRec_start_time;
+            //imgRec_msec = std::chrono::duration_cast<std::chrono::milliseconds>(imgRec_time).count();
             // Store total image recognition time in order to compute mean time for the whole sequence
+
+            auto finish = std::chrono::steady_clock::now();
+            imgRec_msec = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
             imgRecognitionTimeTotal += imgRec_msec;
             log().info() << "Duration of image recognition[ms]: " << imgRec_msec << std::endl;
             // --------------------------------------------------------
@@ -758,20 +769,22 @@ void SamplePlugin::timer()
         // Compute joint update dQ and perform saturation to satisfy velocity constarints
         // -----------------------------------------------------------------------------------------------
         // Save start time of computations
-        auto comp_start_time = std::chrono::high_resolution_clock::now();
-
+        //auto comp_start_time = std::chrono::high_resolution_clock::now();
+        auto start = std::chrono::steady_clock::now();
         auto dQ = SamplePlugin::algorithm2(targetRealPixels);
-
+        auto finish = std::chrono::steady_clock::now();
         // Compute Final time of inverse kinematics
-        auto comp_end_time = std::chrono::high_resolution_clock::now();
-        auto time = comp_end_time - comp_start_time;
+        auto time = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count();
+        //auto comp_end_time = std::chrono::high_resolution_clock::now();
+        //auto time = comp_end_time - comp_start_time;
         // save time duration of inverse kinematics algorithm
-        ulong comp_msec = std::chrono::duration_cast<std::chrono::milliseconds>(time).count();
+        ulong comp_msec = time;     // std::chrono::duration_cast<std::chrono::milliseconds>(time).count();
         log().info() << "Duration of inverse kinematics[ms]: " << comp_msec << std::endl;
         // Store total inverse kinematics time in order to compute mean time for the whole sequence
         computationTimeTotal += comp_msec;
 
         ulong comp_and_vision_msec = comp_msec + imgRec_msec;
+        log().info() << "Duration of inverse kinematics and Img rec[ms]: " << comp_and_vision_msec << std::endl;
         rw::math::Q q = device->getQ(_state);
         int movementT = 0;
         if (comp_and_vision_msec < deltaT)
@@ -781,7 +794,7 @@ void SamplePlugin::timer()
             log().info() << "Time for manipulator movement[ms]: " << movementT << std::endl;
             log().info() << "dQ/movementT: " << dQ / (static_cast<double>(movementT) / 1000) << "\n";
             dQ = saturateDQ(dQ, velocity_limits, movementT);
-
+            log().info() << "saturated dQ: " << dQ << "\n";
             // get new q configuration
             q += dQ;
         } else
