@@ -146,7 +146,7 @@ In figure \ref{fig:Slow1PointToolPose} and \ref{fig:Slow3PointsToolPose} are app
 
 There are plotted maximum pixel errors on the figure \ref{fig:SlowSequence_errors}. When looking to the Tracking of 3 points figure, there should be $du$ and $dv$ line for all of the 3 tracked points. However, because they were very close to each other, we ommited the another two lines in the graph for better clarity.
 
-For timing purposes we used C++ Chrono library, for taking time instant of start of the computation of updates and the end instant. For differentiation of joint updates and subsequently getting of velocity, we used difference of these two time stamps. Due to non-real time OS, results might be different for each simulation and doesn't offer precise information. However for the purpose of the school exercise, we were able to limit joints speed velocities according to problem statement.
+For timing purposes we used C++ Chrono library, for taking time instant of start of the computation of updates and the end instant. For differentiation of joint updates and subsequently getting of velocity, we used difference of these two time stamps divided time which left for joints update. Due to non-real time OS, results might be different for each simulation and doesn't offer precise information. However for the purpose of the school exercise, we were able to limit joints speed velocities according to problem statement.
 
 
 \subsubsection*{Medium Marker Sequence}
@@ -192,8 +192,6 @@ The same problems and explanation apply for the Medium marker sequence. Joint co
 	\label{fig:MediumSequence_errors}
 \end{figure}
 There are plotted maximum pixel errors on the figure \ref{fig:MediumSequence_errors}. Again, when looking to the Tracking of 3 points figure, there should be $du$ and $dv$ line for all of the 3 tracked points. However, because they were very close to each other, we ommited the another two lines in the graph for better clarity. 
-
-From the graphs it is apparent that the manipulator wasn't able to track the sequence when \texttt{deltaT} was lower than $200\,ms$. There were experienced some difficulties with tracking even for higher \texttt{deltaT}. You can see peaks in errors at about $0.8\, s$ for single point tracking.
 
 We have to state the same as for the preceding test. All timing tests were performed on the regular laptop PC, running non-real time operating system. So results from another tests can differ.
 
@@ -243,9 +241,6 @@ Joint coordinates and tool positions are plotted on the graphs \ref{fig:FastSequ
 
 There are plotted maximum pixel errors on the figure \ref{fig:FastSequence_errors}. Again, when looking to the Tracking of 3 points figure, there should be $du$ and $dv$ line for all of the 3 tracked points. However, because they were very close to each other, we ommited the another two lines in the graph for better clarity. 
 
-From the graphs it is apparent that the manipulator wasn't able to track the sequence when \texttt{deltaT} was lower than $200\,ms$. There were experience some difficulties with tracking even for higher \texttt{deltaT}. You can see peaks in errors at about $0.4\, s$ for single point tracking and around $0.7\,s$ for tracking of 3 points.
-
-We have to state the same as for 2 preceding tests. All timing tests were performed on the regular laptop PC, running non-real time operating system. 
 
 \subsubsection*{Conclusion for different speed sequences}
 Even though timing and velocity computation during test simulations wasn't precise due to non-realtime of the OS, we can conclude some final facts. 

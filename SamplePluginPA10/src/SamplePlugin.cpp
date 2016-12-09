@@ -807,7 +807,7 @@ void SamplePlugin::timer()
         ulong comp_and_vision_msec = comp_msec + imgRec_msec;
         log().info() << "Duration of inverse kinematics and Img rec[ms]: " << comp_and_vision_msec << std::endl;
         rw::math::Q q = device->getQ(_state);
-        int movementT = 0;
+        double movementT = 0;
         if (comp_and_vision_msec < deltaT)
         {
             // get the time left for manipulator movement
@@ -817,6 +817,7 @@ void SamplePlugin::timer()
             log().info() << "dQ: " << dQ << "\n";
             dQ = saturateDQ(dQ, velocity_limits, movementT);
             log().info() << "saturated dQ: " << dQ << "\n";
+            log().info() << movementT << std::endl;
             // get new q configuration
             q += dQ;
         } else
@@ -828,8 +829,9 @@ void SamplePlugin::timer()
             // Save joint configuretion
             writeJoints << t << ", " << q[0] << ", " << q[1] << ", " << q[2] << ", " << q[3] << ", " << q[4] << ", " << q[5]
                         << ", " << q[6] << ", " << comp_msec << ", " << imgRec_msec << ", " << movementT << std::endl;
-            writeJointsVelocities << t << ", " << dQ[0]/(deltaT/1000) << ", " << dQ[1]/(deltaT/1000) << ", " << dQ[2]/(deltaT/1000) << ", "
-                                  << dQ[3]/(deltaT/1000) << ", " << dQ[4]/(deltaT/1000) << ", " << dQ[5]/(deltaT/1000) << ", " << dQ[6]/(deltaT/1000) << std::endl;
+            writeJointsVelocities << t << ", " << dQ[0]/(movementT/1000) << ", " << dQ[1]/(movementT/1000) << ", " << dQ[2]/(movementT/1000) << ", "
+                                  << dQ[3]/(movementT/1000) << ", " << dQ[4]/(movementT/1000) << ", " << dQ[5]/(movementT/1000) << ", " << dQ[6]/(movementT/1000) << std::endl;
+
             auto worldTcamera = cameraFrame->wTf(_state);
             auto camPosition = worldTcamera.P();
             auto camOrientation = rw::math::RPY<double>(worldTcamera.R());
