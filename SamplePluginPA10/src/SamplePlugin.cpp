@@ -42,6 +42,7 @@ using namespace cv;
 std::string file;
 std::ifstream infile;
 std::ofstream writeJoints;
+std::ofstream writeJointsVelocities;
 std::ofstream writeToolPose;
 std::ofstream writeImCorErrors;
 std::string outFileMark;
@@ -324,6 +325,7 @@ void SamplePlugin::restart()
     max_dU_Image = boost::numeric::ublas::vector<double> (2);
 
     writeJoints.close();
+    writeJointsVelocities.close();
     writeToolPose.close();
     writeImCorErrors.close();
 }
@@ -353,6 +355,7 @@ void SamplePlugin::close() {
 	_wc = NULL;
 
     writeJoints.close();
+    writeJointsVelocities.close();
     writeToolPose.close();
     writeImCorErrors.close();
 }
@@ -379,8 +382,12 @@ void SamplePlugin::btnPressed()
         if (!_timer->isActive())
         {
             writeJoints.open("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/results/joints_" + outFileMark + ".csv");
+            writeJointsVelocities.open("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/results/joints_velocities_" + outFileMark + ".csv");
             writeJoints << "time[s], Q0, Q1, Q2, Q3, Q4, Q5, Q6, Time for Inverse kinematics[s], Time for move[ms]"
                         << std::endl;
+            writeJointsVelocities << "time[s], dQ0/dT, dQ1/dT, dQ2/dT, dQ3/dT, dQ4/dT, dQ5/dT, dQ6/dT" << std::endl;
+
+
             writeToolPose.open("/media/petr/WD_HDD/SDU/RoVi1/FinalProject/results/tool_pose_" + outFileMark + ".csv");
             writeToolPose << "time[s], x, y, z, R, P, Y" << std::endl;
 
@@ -389,6 +396,7 @@ void SamplePlugin::btnPressed()
             // Write into the file
             writeJoints << t << ", " << from[0] << ", " << from[1] << ", " << from[2] << ", " << from[3] << ", "
                         << from[4] << ", " << from[5] << ", " << from[6] << ", 0, 0" << std::endl;
+            writeJointsVelocities << t << ", 0, 0, 0, 0, 0, 0, 0" << std::endl;
             auto worldTcamera = cameraFrame->wTf(_state);
             auto camPosition = worldTcamera.P();
             auto camOrientation = rw::math::RPY<double>(worldTcamera.R());
@@ -792,7 +800,8 @@ void SamplePlugin::timer()
             // get the time left for manipulator movement
             movementT = deltaT - comp_and_vision_msec;
             log().info() << "Time for manipulator movement[ms]: " << movementT << std::endl;
-            log().info() << "dQ/movementT: " << dQ / (static_cast<double>(movementT) / 1000) << "\n";
+            //log().info() << "dQ/movementT: " << dQ / (static_cast<double>(movementT) / 1000) << "\n";
+            log().info() << "dQ: " << dQ << "\n";
             dQ = saturateDQ(dQ, velocity_limits, movementT);
             log().info() << "saturated dQ: " << dQ << "\n";
             // get new q configuration
@@ -806,7 +815,8 @@ void SamplePlugin::timer()
             // Save joint configuretion
             writeJoints << t << ", " << q[0] << ", " << q[1] << ", " << q[2] << ", " << q[3] << ", " << q[4] << ", " << q[5]
                         << ", " << q[6] << ", " << comp_msec << ", " << imgRec_msec << ", " << movementT << std::endl;
-
+            writeJointsVelocities << t << ", " << dQ[0]/deltaT << ", " << dQ[1]/deltaT << ", " << dQ[2]/deltaT << ", "
+                                  << dQ[3]/deltaT << ", " << dQ[4]/deltaT << ", " << dQ[5]/deltaT << ", " << dQ[6]/deltaT << std::endl;
             auto worldTcamera = cameraFrame->wTf(_state);
             auto camPosition = worldTcamera.P();
             auto camOrientation = rw::math::RPY<double>(worldTcamera.R());
