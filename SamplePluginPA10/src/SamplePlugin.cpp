@@ -54,7 +54,7 @@ std::stringstream ss;
 const string deviceName = "PA10";
 Device::Ptr device;
 
-int max_dT = 1000, min_dT = 50;
+int max_dT = 20, min_dT = 5;
 double computationTimeTotal = 0;
 double imgRecognitionTimeTotal = 0;
 int sequenceSteps = 0;
@@ -450,7 +450,7 @@ void SamplePlugin::btnPressed()
                 writeImCorErrors << "max_dU_2[pixels], max_dV_2[pixels], max_dU_3[pixels], max_dV_3[pixels], ";
             }
             writeImCorErrors << "Avg Inv Kinem Time [ms], Avg Img Rec Time [ms]" << std::endl;
-            deltaT = 1000;
+            deltaT = max_dT;
             sim_dT_running = true;
             SamplePlugin::sim_dTs();
         }
@@ -719,7 +719,7 @@ void SamplePlugin::timer()
             //writeImCorErrors << deltaT/1000 << ", " << ", " << maxEucD << ", " << max_dU_Image[0] << ", " << max_dU_Image[1] << std::endl;
             writeImCorErrors << ", " << computationTimeTotal/sequenceSteps << ", " << imgRecognitionTimeTotal/sequenceSteps;
             writeImCorErrors << std::endl;
-            deltaT -= 50;
+            deltaT -= 1;
             SamplePlugin::sim_dTs();
         }
         return;

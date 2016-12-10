@@ -92,7 +92,11 @@ For this solving of this LSM problem we have implemented function \texttt{comput
 
 We have implemented $J_{image}$ and $\overrightarrow{\boldsymbol{dU}}_{image}$ composition in a scalable way, so the same functions can be used to track one or multiple target points.
 
-Model of the robot manipulator has velocity limits on joint movements, so it was necessary to check if the limits were satisfied before joint updates. We did so by measuring time for update computations, subtracting this time from workcell update period specified by \texttt{deltaT} and finally we divided update $\boldsymbol{dq}$ by the result of subtraction. Velocity of joint movement is the result of the operation. By comparing the actual velocity with manipulator limits it was possible to find out if the limits are satisfied. If they aren't algorithm simply saturate joint movement in order to hold all conditions. For comparison and saturation, function \texttt{saturateDQ} was implemented.
+Model of the robot manipulator has velocity limits on joint movements, so it was necessary to check if the limits were satisfied before joint updates. We did so by measuring time for inverse kinematics computations $\tau_1$, subtracting this time from workcell update period specified by $\Delta T \longleftrightarrow$ \texttt{deltaT} and finally we divided update $\boldsymbol{dq}$ by the result of subtraction. Velocity of joint movement is the result of the operation:
+\begin{align}
+	\boldsymbol{\dot{q}} = \frac{\boldsymbol{dq}}{dt} = \frac{\boldsymbol{dq}}{\Delta T\, -\, \tau_1}
+\end{align}
+By comparing the actual velocity with manipulator limits it was possible to find out if the limits are satisfied. If they aren't algorithm simply saturate joint movement in order to hold all conditions. For comparison and saturation, function \texttt{saturateDQ} was implemented.
 
 In the following section we provide simulation results from tests of inverse kinematics.
 
@@ -144,9 +148,24 @@ In figure \ref{fig:Slow1PointToolPose} and \ref{fig:Slow3PointsToolPose} are app
 	\label{fig:SlowSequence_errors}
 \end{figure}
 
-There are plotted maximum pixel errors on the figure \ref{fig:SlowSequence_errors}. When looking to the Tracking of 3 points figure, there should be $du$ and $dv$ line for all of the 3 tracked points. However, because they were very close to each other, we ommited the another two lines in the graph for better clarity.
+\vspace{0.5cm}
+\textbf{Simulation for different $\Delta T$s} \\
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{fig/SlowSequence_low_dTs_errors.eps}
+	\caption{Maximum errors during Slow Sequence Marker following}
+	\label{fig:SlowSequence_low_dTs_errors}
+\end{figure}
 
-For timing purposes we used C++ Chrono library, for taking time instant of start of the computation of updates and the end instant. For differentiation of joint updates and subsequently getting of velocity, we used difference of these two time stamps divided time which left for joints update. Due to non-real time OS, results might be different for each simulation and doesn't offer precise information. However for the purpose of the school exercise, we were able to limit joints speed velocities according to problem statement.
+There are plotted maximum pixel errors on the figure \ref{fig:SlowSequence_errors}.
+
+For timing purposes we used C++ Chrono library, for taking time instant of start of the computation of updates and the end instant. For differentiation of joint updates and subsequently getting of velocity, we used difference of these two time stamps divided time which left for joints update. 
+
+As you can see on the figure \ref{fig:SlowSequence_errors} we didn't reach manipulator velocity limits in the interval $\Delta T \, \in \langle0.05, 1\rangle \, [s]$ as was described in the problem statement.
+
+For this reason we lowered the interval to the $\Delta T \, \in \langle0.005, 0.02\rangle \, [s]$. And in this case, there is apparent increase in the maximum errors for low $\Delta T$. Results are plotted in the figure \ref{fig:SlowSequence_low_dTs_errors}.
+
+Due to non-real time OS, results might be different for each simulation and doesn't offer precise information. However for the purpose of the school exercise, we were able to limit joints speed velocities according to problem statement.
 
 
 \subsubsection*{Medium Marker Sequence}
@@ -191,7 +210,13 @@ The same problems and explanation apply for the Medium marker sequence. Joint co
 	\caption{Maximum errors during Medium Sequence Marker following}
 	\label{fig:MediumSequence_errors}
 \end{figure}
-There are plotted maximum pixel errors on the figure \ref{fig:MediumSequence_errors}. Again, when looking to the Tracking of 3 points figure, there should be $du$ and $dv$ line for all of the 3 tracked points. However, because they were very close to each other, we ommited the another two lines in the graph for better clarity. 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{fig/MediumSequence_low_dTs_errors.eps}
+	\caption{Maximum errors during Medium Sequence Marker following}
+	\label{fig:MediumSequence_low_dTs_errors}
+\end{figure}
+There are plotted maximum pixel errors on the figure \ref{fig:MediumSequence_errors}. Again, we didn't reach manipulator velocity limits in the original interval. Results after lowering the interval of $\Delta T$ are plotted in the figure \ref{fig:MediumSequence_low_dTs_errors}.
 
 We have to state the same as for the preceding test. All timing tests were performed on the regular laptop PC, running non-real time operating system. So results from another tests can differ.
 
@@ -239,10 +264,124 @@ Joint coordinates and tool positions are plotted on the graphs \ref{fig:FastSequ
 	\label{fig:FastSequence_errors}
 \end{figure}
 
-There are plotted maximum pixel errors on the figure \ref{fig:FastSequence_errors}. Again, when looking to the Tracking of 3 points figure, there should be $du$ and $dv$ line for all of the 3 tracked points. However, because they were very close to each other, we ommited the another two lines in the graph for better clarity. 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{fig/FastSequence_low_dTs_errors.eps}
+	\caption{Maximum errors during Fast Sequence Marker following}
+	\label{fig:FastSequence_low_dTs_errors}
+\end{figure}
 
+There are plotted maximum pixel errors on the figure \ref{fig:FastSequence_errors} for original interval. Results from simulations for lower interval are plotted on the figure \ref{fig:FastSequence_low_dTs_errors}.
 
 \subsubsection*{Conclusion for different speed sequences}
 Even though timing and velocity computation during test simulations wasn't precise due to non-realtime of the OS, we can conclude some final facts. 
-Manipulator was able to follow the marker for each sequence with \texttt{deltaT} $ >\, 200\,ms$. However in the faster sequences, the maximal pixel errors were larger. This is reasonable result for common sense.
+Manipulator was able to follow the marker for each sequence with \texttt{deltaT} $ >\, 0.01 s$. The reason behind these results is probably very short time needed for inverse kinematics computations. We found out is in the order of microseconds, whereas simulation were performed for $\Delta T$s which were one order in magnitude larger (miliseconds). These results will be also different when simulated on different computer.
+
+\section{Combining feature extraction and tracking} 
+For the last part of the project we have chosen the Marker 1 for image recognition. Image recognition was integrated into Robwork project. All the image recognition function are in the file \texttt{marker1.cpp}. For proper tracking of multiple points, it was necessary to sort the detected points in consistent order for every detection.
+
+After performing of several tests we have found, that recognition time varies among different machines. Average time for one of our computer was around 30 ms whereas on the second one it was just around 25 ms.
+
+For further plots we have chosen one \texttt{deltaT} which don't cause any problems during following. And the second one, which is too short and unsaturated joints velocities are larger than limits.
+
+\begin{figure}[!htp]
+	% Maximum length
+	\subfloat[Tracking Single Point]
+	{
+		\label{fig:SlowSequence_dT50_1Pt_following_error_vs_time}
+		\includegraphics[width=0.49\linewidth]{fig/SlowSequence_dT50_1Pt_following_error_vs_time.eps}
+	}\hfill
+	\subfloat[Tracking 3 Points]
+	{
+		\label{fig:SlowSequence_dT50_MPt_following_error_vs_time}
+		\includegraphics[width=0.49\linewidth]{fig/SlowSequence_dT50_MPt_following_error_vs_time.eps}
+	}%
+	\caption{Slow Sequence, \texttt{deltaT = 50} ms}
+	\label{fig:SlowSequence_dT50_following_error_vs_time}
+\end{figure}
+\begin{figure}[!htp]
+	% Maximum length
+	\subfloat[Tracking Single Point]
+	{
+		\label{fig:SlowSequence_dT35_1Pt_following_error_vs_time}
+		\includegraphics[width=0.49\linewidth]{fig/SlowSequence_dT35_1Pt_following_error_vs_time.eps}
+	}\hfill
+	\subfloat[Tracking 3 Points]
+	{
+		\label{fig:SlowSequence_dT35_MPt_following_error_vs_time}
+		\includegraphics[width=0.49\linewidth]{fig/SlowSequence_dT35_MPt_following_error_vs_time.eps}
+	}%
+	\caption{Slow Sequence, \texttt{deltaT = 35} ms}
+	\label{fig:SlowSequence_dT35_following_error_vs_time}
+\end{figure}
+It is possible to see, that tracking error is generally larger on the figure \ref{fig:SlowSequence_dT35_following_error_vs_time} than on the \ref{fig:SlowSequence_dT50_following_error_vs_time}. The reason is that the velocity limits were violated several times for \texttt{deltaT} = 35 ms. Another interesting find out about errors is the shape of the errors in the figure \ref{fig:SlowSequence_dT50_following_error_vs_time}. The error signal shapes rectangular function. The error is larger during following the linear movement of the marker than during rotational times.
+
+Similar reasoning applies also for marker Medium sequence on the figures \ref{fig:MediumSequence_dT50_following_error_vs_time} and \ref{fig:MediumSequence_dT35_following_error_vs_time}.
+
+\begin{figure}[!htp]
+	% Maximum length
+	\subfloat[Tracking Single Point]
+	{
+		\label{fig:MediumSequence_dT50_1Pt_following_error_vs_time}
+		\includegraphics[width=0.49\linewidth]{fig/MediumSequence_dT50_1Pt_following_error_vs_time.eps}
+	}\hfill
+	\subfloat[Tracking 3 Points]
+	{
+		\label{fig:MediumSequence_dT50_MPt_following_error_vs_time}
+		\includegraphics[width=0.49\linewidth]{fig/MediumSequence_dT50_MPt_following_error_vs_time.eps}
+	}%
+	\caption{Medium Sequence, \texttt{deltaT = 50} ms}
+	\label{fig:MediumSequence_dT50_following_error_vs_time}
+\end{figure}
+\begin{figure}[!htp]
+	% Maximum length
+	\subfloat[Tracking Single Point]
+	{
+		\label{fig:MediumSequence_dT35_1Pt_following_error_vs_time}
+		\includegraphics[width=0.49\linewidth]{fig/MediumSequence_dT35_1Pt_following_error_vs_time.eps}
+	}\hfill
+	\subfloat[Tracking 3 Points]
+	{
+		\label{fig:MediumSequence_dT35_MPt_following_error_vs_time}
+		\includegraphics[width=0.49\linewidth]{fig/MediumSequence_dT35_MPt_following_error_vs_time.eps}
+	}%
+	\caption{Medium Sequence, \texttt{deltaT = 35} ms}
+	\label{fig:MediumSequence_dT35_following_error_vs_time}
+\end{figure}
+
+%% Fast Sequence
+Finally simulation for Fast sequence are plotted on the \ref{fig:FastSequence_dT100_following_error_vs_time} and \ref{fig:FastSequence_dT35_following_error_vs_time}.
+\begin{figure}[!htp]
+	% Maximum length
+	\subfloat[Tracking Single Point]
+	{
+		\label{fig:FastSequence_dT100_1Pt_following_error_vs_time}
+		\includegraphics[width=0.49\linewidth]{fig/FastSequence_dT100_1Pt_following_error_vs_time.eps}
+	}\hfill
+	\subfloat[Tracking 3 Points]
+	{
+		\label{fig:FastSequence_dT100_MPt_following_error_vs_time}
+		\includegraphics[width=0.49\linewidth]{fig/FastSequence_dT100_MPt_following_error_vs_time.eps}
+	}%
+	\caption{Fast Sequence, \texttt{deltaT = 100} ms}
+	\label{fig:FastSequence_dT100_following_error_vs_time}
+\end{figure}
+\begin{figure}[!htp]
+	% Maximum length
+	\subfloat[Tracking Single Point]
+	{
+		\label{fig:FastSequence_dT35_1Pt_following_error_vs_time}
+		\includegraphics[width=0.49\linewidth]{fig/FastSequence_dT35_1Pt_following_error_vs_time.eps}
+	}\hfill
+	\subfloat[Tracking 3 Points]
+	{
+		\label{fig:FastSequence_dT35_MPt_following_error_vs_time}
+		\includegraphics[width=0.49\linewidth]{fig/FastSequence_dT35_MPt_following_error_vs_time.eps}
+	}%
+	\caption{Fast Sequence, \texttt{deltaT = 35} ms}
+	\label{fig:FastSequence_dT35_following_error_vs_time}
+\end{figure}
+
+\subsubsection*{Scaled joint positions and velocities}
+
 \end{document}

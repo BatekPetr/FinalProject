@@ -22,7 +22,7 @@ ylabel('Sum of Euc. Dists.');
 title('Sum of Euclidean Distances of Errors');
 
 saveas(gcf,'MPt_following_error_vs_time','epsc');
-close all
+close all;
 %%
 Data = csvread('dUImage_1_Targ_Pt.csv',1);
 time = Data(:,1);

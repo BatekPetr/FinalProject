@@ -1,5 +1,5 @@
 deltaT[s], maxEuc_dU[pixels], max_dU[pixels], max_dV[pixels], Avg Inv Kinem Time [ms], Avg Img Rec Time [ms]
-0.02, 60, -56, 23, 0, 0
+0.02, 60, -56, 23, 0.08, 0
 0.019, 60, -56, 23, 0, 0
 0.018, 60, -56, 23, 0, 0
 0.017, 60, -56, 23, 0, 0
