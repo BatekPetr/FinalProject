@@ -1,3 +1,12 @@
+/*
+ *  ex3_template.cpp
+ *  Exercise 3 - The Frequency domain and filtering
+ *
+ *  Created by Stefan-Daniel Suvei on 19/09/16.
+ *  Copyright 2016 SDU Robotics. All rights reserved.
+ *
+ */
+
 #include <opencv2/opencv.hpp>
 #include <iostream>
 #include <sstream>
