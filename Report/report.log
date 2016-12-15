@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.3.9)  15 DEC 2016 21:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.3.9)  15 DEC 2016 23:49
 entering extended mode
 **./report.tex
 (report.tex
@@ -458,6 +458,10 @@ LaTeX Info: Redefining \cite on input line 302.
 LaTeX Info: Redefining \nocite on input line 332.
 Package: cite 2015/02/27  v 5.5
 )
+(C:\Users\Bjarki\AppData\Roaming\MiKTeX\2.9\tex\latex\url\url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\epstopdf.sty"
 Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
 
@@ -551,7 +555,7 @@ LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \macc@depth=\count104
 \c@MaxMatrixCols=\count105
-\dotsspace@=\muskip10
+\dotsspace@=\muskip11
 \c@parentequation=\count106
 \dspbrk@lvl=\count107
 \tag@help=\toks20
@@ -623,19 +627,19 @@ File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
 (report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 61.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 62.
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -659,34 +663,34 @@ Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count125
-LaTeX Font Info:    Try loading font information for OT1+lmss on input line 65.
+LaTeX Font Info:    Try loading font information for OT1+lmss on input line 66.
 
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\ot1lmss.fd"
 File: ot1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 65.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 66.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 65.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 66.
 
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 65.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 66.
 
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 65.
+(Font)              <14.4> on input line 66.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 65.
+(Font)              <10> on input line 66.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 65.
+(Font)              <7> on input line 66.
  [1
 
 
@@ -694,35 +698,35 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 <fig/marker1.png, id=9, 223.83624pt x 221.82875pt>
 File: fig/marker1.png Graphic file (type png)
  <use fig/marker1.png>
-Package pdftex.def Info: fig/marker1.png used on input line 79.
+Package pdftex.def Info: fig/marker1.png used on input line 81.
 (pdftex.def)             Requested size: 167.29967pt x 165.80247pt.
 
 [2 <./fig/marker1.png (PNG copy)>]
 <fig/hue0-1.png, id=13, 1027.84pt x 770.88pt>
 File: fig/hue0-1.png Graphic file (type png)
  <use fig/hue0-1.png>
-Package pdftex.def Info: fig/hue0-1.png used on input line 91.
+Package pdftex.def Info: fig/hue0-1.png used on input line 93.
 (pdftex.def)             Requested size: 292.7776pt x 219.58545pt.
 
 <fig/bin0-1.png, id=14, 1027.84pt x 770.88pt>
 File: fig/bin0-1.png Graphic file (type png)
  <use fig/bin0-1.png>
-Package pdftex.def Info: fig/bin0-1.png used on input line 98.
+Package pdftex.def Info: fig/bin0-1.png used on input line 100.
 (pdftex.def)             Requested size: 292.7776pt x 219.58545pt.
 
 <fig/src0-1.png, id=15, 1027.84pt x 770.88pt>
 File: fig/src0-1.png Graphic file (type png)
  <use fig/src0-1.png>
-Package pdftex.def Info: fig/src0-1.png used on input line 105.
+Package pdftex.def Info: fig/src0-1.png used on input line 107.
 (pdftex.def)             Requested size: 292.7776pt x 219.58545pt.
  [3 <./fig/hue0-1.png (PNG copy)>] [4 <./fig/bin0-1.png (PNG copy)> <./fig/src0
 -1.png (PNG copy)>] <fig/marker2b.png, id=22, 218.8175pt x 219.82124pt>
 File: fig/marker2b.png Graphic file (type png)
 
 <use fig/marker2b.png>
-Package pdftex.def Info: fig/marker2b.png used on input line 114.
+Package pdftex.def Info: fig/marker2b.png used on input line 116.
 (pdftex.def)             Requested size: 167.29967pt x 168.06877pt.
-LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 120
+LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 122
 .
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\ot1lmtt.fd"
@@ -731,47 +735,46 @@ File: ot1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 <fig/bin1-1.png, id=23, 1027.84pt x 770.88pt>
 File: fig/bin1-1.png Graphic file (type png)
  <use fig/bin1-1.png>
-Package pdftex.def Info: fig/bin1-1.png used on input line 127.
+Package pdftex.def Info: fig/bin1-1.png used on input line 129.
 (pdftex.def)             Requested size: 292.7776pt x 219.58545pt.
 
 <fig/lin1-1.png, id=24, 1027.84pt x 770.88pt>
 File: fig/lin1-1.png Graphic file (type png)
  <use fig/lin1-1.png>
-Package pdftex.def Info: fig/lin1-1.png used on input line 134.
+Package pdftex.def Info: fig/lin1-1.png used on input line 136.
 (pdftex.def)             Requested size: 292.7776pt x 219.58545pt.
 
 <fig/and1-1.png, id=25, 1027.84pt x 770.88pt>
 File: fig/and1-1.png Graphic file (type png)
  <use fig/and1-1.png>
-Package pdftex.def Info: fig/and1-1.png used on input line 141.
+Package pdftex.def Info: fig/and1-1.png used on input line 143.
 (pdftex.def)             Requested size: 292.7776pt x 219.58545pt.
 
 <fig/src1-1.png, id=26, 1027.84pt x 770.88pt>
 File: fig/src1-1.png Graphic file (type png)
  <use fig/src1-1.png>
-Package pdftex.def Info: fig/src1-1.png used on input line 148.
+Package pdftex.def Info: fig/src1-1.png used on input line 150.
 (pdftex.def)             Requested size: 292.7776pt x 219.58545pt.
 
 <fig/src1-63.png, id=27, 1027.84pt x 770.88pt>
 File: fig/src1-63.png Graphic file (type png)
  <use fig/src1-63.png>
-Package pdftex.def Info: fig/src1-63.png used on input line 155.
+Package pdftex.def Info: fig/src1-63.png used on input line 157.
 (pdftex.def)             Requested size: 292.7776pt x 219.58545pt.
  [5 <./fig/marker2b.png (PNG copy)>] [6 <./fig/bin1-1.png (PNG copy)> <./fig/li
 n1-1.png (PNG copy)>] [7 <./fig/and1-1.png (PNG copy)> <./fig/src1-1.png (PNG c
 opy)>]
 [8 <./fig/src1-63.png (PNG copy)>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 164.
+(Font)              <10.95> on input line 166.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 164.
+(Font)              <8> on input line 166.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 164.
+(Font)              <6> on input line 166.
 
-Overfull \hbox (18.35281pt too wide) in paragraph at lines 177--180
-\OT1/lmr/m/n/10.95 have im-ple-mented func-tion \OT1/lmtt/m/n/10.95 compute[]dQ
-[]LSM \OT1/lmr/m/n/10.95 which can be found in \OT1/lmtt/m/n/10.95 inverseKinem
-atics.cpp\OT1/lmr/m/n/10.95 . 
+Overfull \hbox (2.81165pt too wide) in paragraph at lines 172--173
+\OT1/lmr/m/n/10.95 or move of tar-get points $[][]$. We have pro-grammed the fu
+nc-tion \OT1/lmtt/m/n/10.95 calculate[]dUImage
  []
 
 [9
@@ -786,7 +789,7 @@ erted-to.pdf>
 (epstopdf)                    size: 21035 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/SlowSequence_joints_1_T
 arg_Pt-eps-converted-to.pdf fig/SlowSequence_joints_1_Targ_Pt.eps>
-(epstopdf)             \includegraphics on input line 204.
+(epstopdf)             \includegraphics on input line 206.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/SlowSequence_joints_1_Targ_Pt-eps-converted-to.pdf, id=53, 562.1pt x 421.5
@@ -795,7 +798,7 @@ File: fig/SlowSequence_joints_1_Targ_Pt-eps-converted-to.pdf Graphic file (type
  pdf)
  <use fig/SlowSequence_joints_1_Targ_Pt-eps-converted-to.pdf>
 Package pdftex.def Info: fig/SlowSequence_joints_1_Targ_Pt-eps-converted-to.pdf
- used on input line 204.
+ used on input line 206.
 (pdftex.def)             Requested size: 204.94751pt x 153.70955pt.
 Package epstopdf Info: Source file: <fig/SlowSequence_joints_M_Targ_Pts.eps>
 (epstopdf)                    date: 2016-12-15 18:14:52
@@ -806,7 +809,7 @@ verted-to.pdf>
 (epstopdf)                    size: 29906 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/SlowSequence_joints_M_T
 arg_Pts-eps-converted-to.pdf fig/SlowSequence_joints_M_Targ_Pts.eps>
-(epstopdf)             \includegraphics on input line 209.
+(epstopdf)             \includegraphics on input line 211.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/SlowSequence_joints_M_Targ_Pts-eps-converted-to.pdf, id=54, 562.1pt x 421.
@@ -815,10 +818,10 @@ File: fig/SlowSequence_joints_M_Targ_Pts-eps-converted-to.pdf Graphic file (typ
 e pdf)
  <use fig/SlowSequence_joints_M_Targ_Pts-eps-converted-to.pdf>
 Package pdftex.def Info: fig/SlowSequence_joints_M_Targ_Pts-eps-converted-to.pd
-f used on input line 209.
+f used on input line 211.
 (pdftex.def)             Requested size: 204.94751pt x 153.70955pt.
 
-Overfull \hbox (6.23944pt too wide) in paragraph at lines 204--210
+Overfull \hbox (6.23944pt too wide) in paragraph at lines 206--212
 [][] [] 
  []
 
@@ -831,7 +834,7 @@ onverted-to.pdf>
 (epstopdf)                    size: 19037 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/SlowSequence_tool_pose_
 1_Targ_Pt-eps-converted-to.pdf fig/SlowSequence_tool_pose_1_Targ_Pt.eps>
-(epstopdf)             \includegraphics on input line 221.
+(epstopdf)             \includegraphics on input line 223.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/SlowSequence_tool_pose_1_Targ_Pt-eps-converted-to.pdf, id=55, 562.1pt x 42
@@ -840,7 +843,7 @@ File: fig/SlowSequence_tool_pose_1_Targ_Pt-eps-converted-to.pdf Graphic file (t
 ype pdf)
  <use fig/SlowSequence_tool_pose_1_Targ_Pt-eps-converted-to.pdf>
 Package pdftex.def Info: fig/SlowSequence_tool_pose_1_Targ_Pt-eps-converted-to.
-pdf used on input line 221.
+pdf used on input line 223.
 (pdftex.def)             Requested size: 204.94751pt x 153.70955pt.
 Package epstopdf Info: Source file: <fig/SlowSequence_tool_pose_M_Targ_Pts.eps>
 
@@ -852,7 +855,7 @@ converted-to.pdf>
 (epstopdf)                    size: 26220 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/SlowSequence_tool_pose_
 M_Targ_Pts-eps-converted-to.pdf fig/SlowSequence_tool_pose_M_Targ_Pts.eps>
-(epstopdf)             \includegraphics on input line 226.
+(epstopdf)             \includegraphics on input line 228.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/SlowSequence_tool_pose_M_Targ_Pts-eps-converted-to.pdf, id=56, 562.1pt x 4
@@ -861,10 +864,10 @@ File: fig/SlowSequence_tool_pose_M_Targ_Pts-eps-converted-to.pdf Graphic file (
 type pdf)
  <use fig/SlowSequence_tool_pose_M_Targ_Pts-eps-converted-to.pdf>
 Package pdftex.def Info: fig/SlowSequence_tool_pose_M_Targ_Pts-eps-converted-to
-.pdf used on input line 226.
+.pdf used on input line 228.
 (pdftex.def)             Requested size: 204.94751pt x 153.70955pt.
 
-Overfull \hbox (6.23944pt too wide) in paragraph at lines 221--227
+Overfull \hbox (6.23944pt too wide) in paragraph at lines 223--229
 [][] [] 
  []
 
@@ -880,7 +883,7 @@ df>
 (epstopdf)                    size: 9787 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/SlowSequence_errors-eps
 -converted-to.pdf fig/SlowSequence_errors.eps>
-(epstopdf)             \includegraphics on input line 236.
+(epstopdf)             \includegraphics on input line 237.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/SlowSequence_errors-eps-converted-to.pdf, id=57, 421.575pt x 316.18124pt>
@@ -888,7 +891,7 @@ File: fig/SlowSequence_errors-eps-converted-to.pdf Graphic file (type pdf)
 
 <use fig/SlowSequence_errors-eps-converted-to.pdf>
 Package pdftex.def Info: fig/SlowSequence_errors-eps-converted-to.pdf used on i
-nput line 236.
+nput line 237.
 (pdftex.def)             Requested size: 292.7776pt x 219.58852pt.
 Package epstopdf Info: Source file: <fig/SlowSequence_low_dTs_errors.eps>
 (epstopdf)                    date: 2016-12-15 18:14:52
@@ -899,7 +902,7 @@ ted-to.pdf>
 (epstopdf)                    size: 9984 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/SlowSequence_low_dTs_er
 rors-eps-converted-to.pdf fig/SlowSequence_low_dTs_errors.eps>
-(epstopdf)             \includegraphics on input line 245.
+(epstopdf)             \includegraphics on input line 246.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/SlowSequence_low_dTs_errors-eps-converted-to.pdf, id=58, 370.38374pt x 301
@@ -908,7 +911,7 @@ File: fig/SlowSequence_low_dTs_errors-eps-converted-to.pdf Graphic file (type p
 df)
  <use fig/SlowSequence_low_dTs_errors-eps-converted-to.pdf>
 Package pdftex.def Info: fig/SlowSequence_low_dTs_errors-eps-converted-to.pdf u
-sed on input line 245.
+sed on input line 246.
 (pdftex.def)             Requested size: 292.7776pt x 238.03316pt.
  [10 <./fig/SlowSequence_joints_1_Targ_Pt-eps-converted-to.pdf> <./fig/SlowSequ
 ence_joints_M_Targ_Pts-eps-converted-to.pdf>]
@@ -921,7 +924,7 @@ nverted-to.pdf>
 (epstopdf)                    size: 13027 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/MediumSequence_joints_1
 _Targ_Pt-eps-converted-to.pdf fig/MediumSequence_joints_1_Targ_Pt.eps>
-(epstopdf)             \includegraphics on input line 269.
+(epstopdf)             \includegraphics on input line 270.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/MediumSequence_joints_1_Targ_Pt-eps-converted-to.pdf, id=79, 562.1pt x 421
@@ -930,7 +933,7 @@ File: fig/MediumSequence_joints_1_Targ_Pt-eps-converted-to.pdf Graphic file (ty
 pe pdf)
  <use fig/MediumSequence_joints_1_Targ_Pt-eps-converted-to.pdf>
 Package pdftex.def Info: fig/MediumSequence_joints_1_Targ_Pt-eps-converted-to.p
-df used on input line 269.
+df used on input line 270.
 (pdftex.def)             Requested size: 204.94751pt x 153.70955pt.
 Package epstopdf Info: Source file: <fig/MediumSequence_joints_M_Targ_Pts.eps>
 (epstopdf)                    date: 2016-12-15 18:14:52
@@ -941,7 +944,7 @@ onverted-to.pdf>
 (epstopdf)                    size: 15965 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/MediumSequence_joints_M
 _Targ_Pts-eps-converted-to.pdf fig/MediumSequence_joints_M_Targ_Pts.eps>
-(epstopdf)             \includegraphics on input line 274.
+(epstopdf)             \includegraphics on input line 275.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/MediumSequence_joints_M_Targ_Pts-eps-converted-to.pdf, id=80, 562.1pt x 42
@@ -950,10 +953,10 @@ File: fig/MediumSequence_joints_M_Targ_Pts-eps-converted-to.pdf Graphic file (t
 ype pdf)
  <use fig/MediumSequence_joints_M_Targ_Pts-eps-converted-to.pdf>
 Package pdftex.def Info: fig/MediumSequence_joints_M_Targ_Pts-eps-converted-to.
-pdf used on input line 274.
+pdf used on input line 275.
 (pdftex.def)             Requested size: 204.94751pt x 153.70955pt.
 
-Overfull \hbox (6.23944pt too wide) in paragraph at lines 269--275
+Overfull \hbox (6.23944pt too wide) in paragraph at lines 270--276
 [][] [] 
  []
 
@@ -967,7 +970,7 @@ Package epstopdf Info: Source file: <fig/MediumSequence_tool_pose_1_Targ_Pt.eps
 (epstopdf)                    size: 12114 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/MediumSequence_tool_pos
 e_1_Targ_Pt-eps-converted-to.pdf fig/MediumSequence_tool_pose_1_Targ_Pt.eps>
-(epstopdf)             \includegraphics on input line 285.
+(epstopdf)             \includegraphics on input line 286.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/MediumSequence_tool_pose_1_Targ_Pt-eps-converted-to.pdf, id=81, 562.1pt x 
@@ -976,7 +979,7 @@ File: fig/MediumSequence_tool_pose_1_Targ_Pt-eps-converted-to.pdf Graphic file
 (type pdf)
  <use fig/MediumSequence_tool_pose_1_Targ_Pt-eps-converted-to.pdf>
 Package pdftex.def Info: fig/MediumSequence_tool_pose_1_Targ_Pt-eps-converted-t
-o.pdf used on input line 285.
+o.pdf used on input line 286.
 (pdftex.def)             Requested size: 204.94751pt x 153.70955pt.
 Package epstopdf Info: Source file: <fig/MediumSequence_tool_pose_M_Targ_Pts.ep
 s>
@@ -988,7 +991,7 @@ s-converted-to.pdf>
 (epstopdf)                    size: 14643 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/MediumSequence_tool_pos
 e_M_Targ_Pts-eps-converted-to.pdf fig/MediumSequence_tool_pose_M_Targ_Pts.eps>
-(epstopdf)             \includegraphics on input line 290.
+(epstopdf)             \includegraphics on input line 291.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/MediumSequence_tool_pose_M_Targ_Pts-eps-converted-to.pdf, id=82, 562.1pt x
@@ -997,10 +1000,10 @@ File: fig/MediumSequence_tool_pose_M_Targ_Pts-eps-converted-to.pdf Graphic file
  (type pdf)
  <use fig/MediumSequence_tool_pose_M_Targ_Pts-eps-converted-to.pdf>
 Package pdftex.def Info: fig/MediumSequence_tool_pose_M_Targ_Pts-eps-converted-
-to.pdf used on input line 290.
+to.pdf used on input line 291.
 (pdftex.def)             Requested size: 204.94751pt x 153.70955pt.
 
-Overfull \hbox (6.23944pt too wide) in paragraph at lines 285--291
+Overfull \hbox (6.23944pt too wide) in paragraph at lines 286--292
 [][] [] 
  []
 
@@ -1013,7 +1016,7 @@ Package epstopdf Info: Source file: <fig/MediumSequence_errors.eps>
 (epstopdf)                    size: 9748 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/MediumSequence_errors-e
 ps-converted-to.pdf fig/MediumSequence_errors.eps>
-(epstopdf)             \includegraphics on input line 299.
+(epstopdf)             \includegraphics on input line 300.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/MediumSequence_errors-eps-converted-to.pdf, id=83, 488.82625pt x 384.43625
@@ -1021,7 +1024,7 @@ pt>
 File: fig/MediumSequence_errors-eps-converted-to.pdf Graphic file (type pdf)
  <use fig/MediumSequence_errors-eps-converted-to.pdf>
 Package pdftex.def Info: fig/MediumSequence_errors-eps-converted-to.pdf used on
- input line 299.
+ input line 300.
 (pdftex.def)             Requested size: 292.7776pt x 230.25876pt.
 Package epstopdf Info: Source file: <fig/MediumSequence_low_dTs_errors.eps>
 (epstopdf)                    date: 2016-12-15 18:14:52
@@ -1032,7 +1035,7 @@ erted-to.pdf>
 (epstopdf)                    size: 10365 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/MediumSequence_low_dTs_
 errors-eps-converted-to.pdf fig/MediumSequence_low_dTs_errors.eps>
-(epstopdf)             \includegraphics on input line 305.
+(epstopdf)             \includegraphics on input line 306.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/MediumSequence_low_dTs_errors-eps-converted-to.pdf, id=84, 492.84125pt x 3
@@ -1041,7 +1044,7 @@ File: fig/MediumSequence_low_dTs_errors-eps-converted-to.pdf Graphic file (type
  pdf)
  <use fig/MediumSequence_low_dTs_errors-eps-converted-to.pdf>
 Package pdftex.def Info: fig/MediumSequence_low_dTs_errors-eps-converted-to.pdf
- used on input line 305.
+ used on input line 306.
 (pdftex.def)             Requested size: 292.7776pt x 237.33218pt.
 
 [11 <./fig/SlowSequence_tool_pose_1_Targ_Pt-eps-converted-to.pdf> <./fig/SlowSe
@@ -1061,7 +1064,7 @@ erted-to.pdf>
 (epstopdf)                    size: 10095 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/FastSequence_joints_1_T
 arg_Pt-eps-converted-to.pdf fig/FastSequence_joints_1_Targ_Pt.eps>
-(epstopdf)             \includegraphics on input line 322.
+(epstopdf)             \includegraphics on input line 323.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/FastSequence_joints_1_Targ_Pt-eps-converted-to.pdf, id=178, 562.1pt x 421.
@@ -1070,7 +1073,7 @@ File: fig/FastSequence_joints_1_Targ_Pt-eps-converted-to.pdf Graphic file (type
  pdf)
  <use fig/FastSequence_joints_1_Targ_Pt-eps-converted-to.pdf>
 Package pdftex.def Info: fig/FastSequence_joints_1_Targ_Pt-eps-converted-to.pdf
- used on input line 322.
+ used on input line 323.
 (pdftex.def)             Requested size: 204.94751pt x 153.70955pt.
 Package epstopdf Info: Source file: <fig/FastSequence_joints_M_Targ_Pts.eps>
 (epstopdf)                    date: 2016-12-15 18:14:52
@@ -1081,7 +1084,7 @@ verted-to.pdf>
 (epstopdf)                    size: 10774 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/FastSequence_joints_M_T
 arg_Pts-eps-converted-to.pdf fig/FastSequence_joints_M_Targ_Pts.eps>
-(epstopdf)             \includegraphics on input line 327.
+(epstopdf)             \includegraphics on input line 328.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/FastSequence_joints_M_Targ_Pts-eps-converted-to.pdf, id=179, 562.1pt x 421
@@ -1090,10 +1093,10 @@ File: fig/FastSequence_joints_M_Targ_Pts-eps-converted-to.pdf Graphic file (typ
 e pdf)
  <use fig/FastSequence_joints_M_Targ_Pts-eps-converted-to.pdf>
 Package pdftex.def Info: fig/FastSequence_joints_M_Targ_Pts-eps-converted-to.pd
-f used on input line 327.
+f used on input line 328.
 (pdftex.def)             Requested size: 204.94751pt x 153.70955pt.
 
-Overfull \hbox (6.23944pt too wide) in paragraph at lines 322--328
+Overfull \hbox (6.23944pt too wide) in paragraph at lines 323--329
 [][] [] 
  []
 
@@ -1106,7 +1109,7 @@ onverted-to.pdf>
 (epstopdf)                    size: 9607 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/FastSequence_tool_pose_
 1_Targ_Pt-eps-converted-to.pdf fig/FastSequence_tool_pose_1_Targ_Pt.eps>
-(epstopdf)             \includegraphics on input line 338.
+(epstopdf)             \includegraphics on input line 339.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/FastSequence_tool_pose_1_Targ_Pt-eps-converted-to.pdf, id=180, 562.1pt x 4
@@ -1115,7 +1118,7 @@ File: fig/FastSequence_tool_pose_1_Targ_Pt-eps-converted-to.pdf Graphic file (t
 ype pdf)
  <use fig/FastSequence_tool_pose_1_Targ_Pt-eps-converted-to.pdf>
 Package pdftex.def Info: fig/FastSequence_tool_pose_1_Targ_Pt-eps-converted-to.
-pdf used on input line 338.
+pdf used on input line 339.
 (pdftex.def)             Requested size: 204.94751pt x 153.70955pt.
 Package epstopdf Info: Source file: <fig/FastSequence_tool_pose_M_Targ_Pts.eps>
 
@@ -1127,7 +1130,7 @@ converted-to.pdf>
 (epstopdf)                    size: 10196 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/FastSequence_tool_pose_
 M_Targ_Pts-eps-converted-to.pdf fig/FastSequence_tool_pose_M_Targ_Pts.eps>
-(epstopdf)             \includegraphics on input line 343.
+(epstopdf)             \includegraphics on input line 344.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/FastSequence_tool_pose_M_Targ_Pts-eps-converted-to.pdf, id=181, 562.1pt x 
@@ -1136,10 +1139,10 @@ File: fig/FastSequence_tool_pose_M_Targ_Pts-eps-converted-to.pdf Graphic file (
 type pdf)
  <use fig/FastSequence_tool_pose_M_Targ_Pts-eps-converted-to.pdf>
 Package pdftex.def Info: fig/FastSequence_tool_pose_M_Targ_Pts-eps-converted-to
-.pdf used on input line 343.
+.pdf used on input line 344.
 (pdftex.def)             Requested size: 204.94751pt x 153.70955pt.
 
-Overfull \hbox (6.23944pt too wide) in paragraph at lines 338--344
+Overfull \hbox (6.23944pt too wide) in paragraph at lines 339--345
 [][] [] 
  []
 
@@ -1152,7 +1155,7 @@ df>
 (epstopdf)                    size: 9833 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/FastSequence_errors-eps
 -converted-to.pdf fig/FastSequence_errors.eps>
-(epstopdf)             \includegraphics on input line 352.
+(epstopdf)             \includegraphics on input line 353.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/FastSequence_errors-eps-converted-to.pdf, id=182, 475.7775pt x 374.39874pt
@@ -1160,7 +1163,7 @@ Package epstopdf Info: Output file is already uptodate.
 File: fig/FastSequence_errors-eps-converted-to.pdf Graphic file (type pdf)
  <use fig/FastSequence_errors-eps-converted-to.pdf>
 Package pdftex.def Info: fig/FastSequence_errors-eps-converted-to.pdf used on i
-nput line 352.
+nput line 353.
 (pdftex.def)             Requested size: 292.7776pt x 230.39954pt.
 Package epstopdf Info: Source file: <fig/FastSequence_low_dTs_errors.eps>
 (epstopdf)                    date: 2016-12-15 18:14:52
@@ -1171,7 +1174,7 @@ ted-to.pdf>
 (epstopdf)                    size: 9984 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/FastSequence_low_dTs_er
 rors-eps-converted-to.pdf fig/FastSequence_low_dTs_errors.eps>
-(epstopdf)             \includegraphics on input line 359.
+(epstopdf)             \includegraphics on input line 360.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/FastSequence_low_dTs_errors-eps-converted-to.pdf, id=183, 370.38374pt x 30
@@ -1180,13 +1183,13 @@ File: fig/FastSequence_low_dTs_errors-eps-converted-to.pdf Graphic file (type p
 df)
  <use fig/FastSequence_low_dTs_errors-eps-converted-to.pdf>
 Package pdftex.def Info: fig/FastSequence_low_dTs_errors-eps-converted-to.pdf u
-sed on input line 359.
+sed on input line 360.
 (pdftex.def)             Requested size: 292.7776pt x 238.03316pt.
  [15 <./fig/FastSequence_joints_1_Targ_Pt-eps-converted-to.pdf> <./fig/FastSequ
 ence_joints_M_Targ_Pts-eps-converted-to.pdf> <./fig/FastSequence_tool_pose_1_Ta
 rg_Pt-eps-converted-to.pdf> <./fig/FastSequence_tool_pose_M_Targ_Pts-eps-conver
 ted-to.pdf>] [16 <./fig/FastSequence_errors-eps-converted-to.pdf> <./fig/FastSe
-quence_low_dTs_errors-eps-converted-to.pdf>]
+quence_low_dTs_errors-eps-converted-to.pdf>] [17]
 Package epstopdf Info: Source file: <fig/SlowSequence_dT50_1Pt_following_error_
 vs_time.eps>
 (epstopdf)                    date: 2016-12-15 18:14:52
@@ -1198,17 +1201,17 @@ vs_time-eps-converted-to.pdf>
 (epstopdf)             Command: <epstopdf --outfile=fig/SlowSequence_dT50_1Pt_f
 ollowing_error_vs_time-eps-converted-to.pdf fig/SlowSequence_dT50_1Pt_following
 _error_vs_time.eps>
-(epstopdf)             \includegraphics on input line 383.
+(epstopdf)             \includegraphics on input line 385.
 Package epstopdf Info: Output file is already uptodate.
 
-<fig/SlowSequence_dT50_1Pt_following_error_vs_time-eps-converted-to.pdf, id=238
+<fig/SlowSequence_dT50_1Pt_following_error_vs_time-eps-converted-to.pdf, id=241
 , 367.3725pt x 301.125pt>
 File: fig/SlowSequence_dT50_1Pt_following_error_vs_time-eps-converted-to.pdf Gr
 aphic file (type pdf)
 
 <use fig/SlowSequence_dT50_1Pt_following_error_vs_time-eps-converted-to.pdf>
 Package pdftex.def Info: fig/SlowSequence_dT50_1Pt_following_error_vs_time-eps-
-converted-to.pdf used on input line 383.
+converted-to.pdf used on input line 385.
 (pdftex.def)             Requested size: 204.94751pt x 167.99475pt.
 Package epstopdf Info: Source file: <fig/SlowSequence_dT50_MPt_following_error_
 vs_time.eps>
@@ -1221,20 +1224,20 @@ vs_time-eps-converted-to.pdf>
 (epstopdf)             Command: <epstopdf --outfile=fig/SlowSequence_dT50_MPt_f
 ollowing_error_vs_time-eps-converted-to.pdf fig/SlowSequence_dT50_MPt_following
 _error_vs_time.eps>
-(epstopdf)             \includegraphics on input line 388.
+(epstopdf)             \includegraphics on input line 390.
 Package epstopdf Info: Output file is already uptodate.
 
-<fig/SlowSequence_dT50_MPt_following_error_vs_time-eps-converted-to.pdf, id=239
+<fig/SlowSequence_dT50_MPt_following_error_vs_time-eps-converted-to.pdf, id=242
 , 374.39874pt x 301.125pt>
 File: fig/SlowSequence_dT50_MPt_following_error_vs_time-eps-converted-to.pdf Gr
 aphic file (type pdf)
 
 <use fig/SlowSequence_dT50_MPt_following_error_vs_time-eps-converted-to.pdf>
 Package pdftex.def Info: fig/SlowSequence_dT50_MPt_following_error_vs_time-eps-
-converted-to.pdf used on input line 388.
+converted-to.pdf used on input line 390.
 (pdftex.def)             Requested size: 204.94751pt x 164.83813pt.
 
-Overfull \hbox (6.23944pt too wide) in paragraph at lines 383--389
+Overfull \hbox (6.23944pt too wide) in paragraph at lines 385--391
 [][] [] 
  []
 
@@ -1249,17 +1252,17 @@ vs_time-eps-converted-to.pdf>
 (epstopdf)             Command: <epstopdf --outfile=fig/SlowSequence_dT35_1Pt_f
 ollowing_error_vs_time-eps-converted-to.pdf fig/SlowSequence_dT35_1Pt_following
 _error_vs_time.eps>
-(epstopdf)             \includegraphics on input line 398.
+(epstopdf)             \includegraphics on input line 400.
 Package epstopdf Info: Output file is already uptodate.
 
-<fig/SlowSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf, id=240
+<fig/SlowSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf, id=243
 , 499.8675pt x 399.4925pt>
 File: fig/SlowSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf Gr
 aphic file (type pdf)
 
 <use fig/SlowSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf>
 Package pdftex.def Info: fig/SlowSequence_dT35_1Pt_following_error_vs_time-eps-
-converted-to.pdf used on input line 398.
+converted-to.pdf used on input line 400.
 (pdftex.def)             Requested size: 204.94751pt x 163.79298pt.
 Package epstopdf Info: Source file: <fig/SlowSequence_dT35_MPt_following_error_
 vs_time.eps>
@@ -1272,25 +1275,23 @@ vs_time-eps-converted-to.pdf>
 (epstopdf)             Command: <epstopdf --outfile=fig/SlowSequence_dT35_MPt_f
 ollowing_error_vs_time-eps-converted-to.pdf fig/SlowSequence_dT35_MPt_following
 _error_vs_time.eps>
-(epstopdf)             \includegraphics on input line 403.
+(epstopdf)             \includegraphics on input line 405.
 Package epstopdf Info: Output file is already uptodate.
 
-<fig/SlowSequence_dT35_MPt_following_error_vs_time-eps-converted-to.pdf, id=241
+<fig/SlowSequence_dT35_MPt_following_error_vs_time-eps-converted-to.pdf, id=244
 , 372.39125pt x 301.125pt>
 File: fig/SlowSequence_dT35_MPt_following_error_vs_time-eps-converted-to.pdf Gr
 aphic file (type pdf)
 
 <use fig/SlowSequence_dT35_MPt_following_error_vs_time-eps-converted-to.pdf>
 Package pdftex.def Info: fig/SlowSequence_dT35_MPt_following_error_vs_time-eps-
-converted-to.pdf used on input line 403.
+converted-to.pdf used on input line 405.
 (pdftex.def)             Requested size: 204.94751pt x 165.72952pt.
 
-Overfull \hbox (6.23944pt too wide) in paragraph at lines 398--404
+Overfull \hbox (6.23944pt too wide) in paragraph at lines 400--406
 [][] [] 
  []
 
-[17 <./fig/SlowSequence_dT50_1Pt_following_error_vs_time-eps-converted-to.pdf> 
-<./fig/SlowSequence_dT50_MPt_following_error_vs_time-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <fig/MediumSequence_dT50_1Pt_following_erro
 r_vs_time.eps>
 (epstopdf)                    date: 2016-12-15 18:14:52
@@ -1302,17 +1303,17 @@ r_vs_time-eps-converted-to.pdf>
 (epstopdf)             Command: <epstopdf --outfile=fig/MediumSequence_dT50_1Pt
 _following_error_vs_time-eps-converted-to.pdf fig/MediumSequence_dT50_1Pt_follo
 wing_error_vs_time.eps>
-(epstopdf)             \includegraphics on input line 417.
+(epstopdf)             \includegraphics on input line 419.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/MediumSequence_dT50_1Pt_following_error_vs_time-eps-converted-to.pdf, id=2
-61, 367.3725pt x 301.125pt>
+45, 367.3725pt x 301.125pt>
 File: fig/MediumSequence_dT50_1Pt_following_error_vs_time-eps-converted-to.pdf 
 Graphic file (type pdf)
 
 <use fig/MediumSequence_dT50_1Pt_following_error_vs_time-eps-converted-to.pdf>
 Package pdftex.def Info: fig/MediumSequence_dT50_1Pt_following_error_vs_time-ep
-s-converted-to.pdf used on input line 417.
+s-converted-to.pdf used on input line 419.
 (pdftex.def)             Requested size: 204.94751pt x 167.99475pt.
 Package epstopdf Info: Source file: <fig/MediumSequence_dT50_MPt_following_erro
 r_vs_time.eps>
@@ -1325,20 +1326,20 @@ r_vs_time-eps-converted-to.pdf>
 (epstopdf)             Command: <epstopdf --outfile=fig/MediumSequence_dT50_MPt
 _following_error_vs_time-eps-converted-to.pdf fig/MediumSequence_dT50_MPt_follo
 wing_error_vs_time.eps>
-(epstopdf)             \includegraphics on input line 422.
+(epstopdf)             \includegraphics on input line 424.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/MediumSequence_dT50_MPt_following_error_vs_time-eps-converted-to.pdf, id=2
-62, 374.39874pt x 301.125pt>
+46, 374.39874pt x 301.125pt>
 File: fig/MediumSequence_dT50_MPt_following_error_vs_time-eps-converted-to.pdf 
 Graphic file (type pdf)
 
 <use fig/MediumSequence_dT50_MPt_following_error_vs_time-eps-converted-to.pdf>
 Package pdftex.def Info: fig/MediumSequence_dT50_MPt_following_error_vs_time-ep
-s-converted-to.pdf used on input line 422.
+s-converted-to.pdf used on input line 424.
 (pdftex.def)             Requested size: 204.94751pt x 164.83813pt.
 
-Overfull \hbox (6.23944pt too wide) in paragraph at lines 417--423
+Overfull \hbox (6.23944pt too wide) in paragraph at lines 419--425
 [][] [] 
  []
 
@@ -1353,17 +1354,17 @@ r_vs_time-eps-converted-to.pdf>
 (epstopdf)             Command: <epstopdf --outfile=fig/MediumSequence_dT35_1Pt
 _following_error_vs_time-eps-converted-to.pdf fig/MediumSequence_dT35_1Pt_follo
 wing_error_vs_time.eps>
-(epstopdf)             \includegraphics on input line 432.
+(epstopdf)             \includegraphics on input line 434.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/MediumSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf, id=2
-63, 499.8675pt x 399.4925pt>
+47, 499.8675pt x 399.4925pt>
 File: fig/MediumSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf 
 Graphic file (type pdf)
 
 <use fig/MediumSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf>
 Package pdftex.def Info: fig/MediumSequence_dT35_1Pt_following_error_vs_time-ep
-s-converted-to.pdf used on input line 432.
+s-converted-to.pdf used on input line 434.
 (pdftex.def)             Requested size: 204.94751pt x 163.79298pt.
 Package epstopdf Info: Source file: <fig/MediumSequence_dT35_MPt_following_erro
 r_vs_time.eps>
@@ -1376,20 +1377,20 @@ r_vs_time-eps-converted-to.pdf>
 (epstopdf)             Command: <epstopdf --outfile=fig/MediumSequence_dT35_MPt
 _following_error_vs_time-eps-converted-to.pdf fig/MediumSequence_dT35_MPt_follo
 wing_error_vs_time.eps>
-(epstopdf)             \includegraphics on input line 437.
+(epstopdf)             \includegraphics on input line 439.
 Package epstopdf Info: Output file is already uptodate.
 
 <fig/MediumSequence_dT35_MPt_following_error_vs_time-eps-converted-to.pdf, id=2
-64, 501.875pt x 399.4925pt>
+48, 501.875pt x 399.4925pt>
 File: fig/MediumSequence_dT35_MPt_following_error_vs_time-eps-converted-to.pdf 
 Graphic file (type pdf)
 
 <use fig/MediumSequence_dT35_MPt_following_error_vs_time-eps-converted-to.pdf>
 Package pdftex.def Info: fig/MediumSequence_dT35_MPt_following_error_vs_time-ep
-s-converted-to.pdf used on input line 437.
+s-converted-to.pdf used on input line 439.
 (pdftex.def)             Requested size: 204.94751pt x 163.14073pt.
 
-Overfull \hbox (6.23944pt too wide) in paragraph at lines 432--438
+Overfull \hbox (6.23944pt too wide) in paragraph at lines 434--440
 [][] [] 
  []
 
@@ -1404,17 +1405,17 @@ _vs_time-eps-converted-to.pdf>
 (epstopdf)             Command: <epstopdf --outfile=fig/FastSequence_dT100_1Pt_
 following_error_vs_time-eps-converted-to.pdf fig/FastSequence_dT100_1Pt_followi
 ng_error_vs_time.eps>
-(epstopdf)             \includegraphics on input line 450.
+(epstopdf)             \includegraphics on input line 452.
 Package epstopdf Info: Output file is already uptodate.
 
-<fig/FastSequence_dT100_1Pt_following_error_vs_time-eps-converted-to.pdf, id=26
-5, 488.82625pt x 399.4925pt>
+<fig/FastSequence_dT100_1Pt_following_error_vs_time-eps-converted-to.pdf, id=24
+9, 488.82625pt x 399.4925pt>
 File: fig/FastSequence_dT100_1Pt_following_error_vs_time-eps-converted-to.pdf G
 raphic file (type pdf)
 
 <use fig/FastSequence_dT100_1Pt_following_error_vs_time-eps-converted-to.pdf>
 Package pdftex.def Info: fig/FastSequence_dT100_1Pt_following_error_vs_time-eps
--converted-to.pdf used on input line 450.
+-converted-to.pdf used on input line 452.
 (pdftex.def)             Requested size: 204.94751pt x 167.4931pt.
 Package epstopdf Info: Source file: <fig/FastSequence_dT100_MPt_following_error
 _vs_time.eps>
@@ -1427,20 +1428,20 @@ _vs_time-eps-converted-to.pdf>
 (epstopdf)             Command: <epstopdf --outfile=fig/FastSequence_dT100_MPt_
 following_error_vs_time-eps-converted-to.pdf fig/FastSequence_dT100_MPt_followi
 ng_error_vs_time.eps>
-(epstopdf)             \includegraphics on input line 455.
+(epstopdf)             \includegraphics on input line 457.
 Package epstopdf Info: Output file is already uptodate.
 
-<fig/FastSequence_dT100_MPt_following_error_vs_time-eps-converted-to.pdf, id=26
-6, 491.8375pt x 399.4925pt>
+<fig/FastSequence_dT100_MPt_following_error_vs_time-eps-converted-to.pdf, id=25
+0, 491.8375pt x 399.4925pt>
 File: fig/FastSequence_dT100_MPt_following_error_vs_time-eps-converted-to.pdf G
 raphic file (type pdf)
 
 <use fig/FastSequence_dT100_MPt_following_error_vs_time-eps-converted-to.pdf>
 Package pdftex.def Info: fig/FastSequence_dT100_MPt_following_error_vs_time-eps
--converted-to.pdf used on input line 455.
+-converted-to.pdf used on input line 457.
 (pdftex.def)             Requested size: 204.94751pt x 166.46901pt.
 
-Overfull \hbox (6.23944pt too wide) in paragraph at lines 450--456
+Overfull \hbox (6.23944pt too wide) in paragraph at lines 452--458
 [][] [] 
  []
 
@@ -1455,17 +1456,17 @@ vs_time-eps-converted-to.pdf>
 (epstopdf)             Command: <epstopdf --outfile=fig/FastSequence_dT35_1Pt_f
 ollowing_error_vs_time-eps-converted-to.pdf fig/FastSequence_dT35_1Pt_following
 _error_vs_time.eps>
-(epstopdf)             \includegraphics on input line 465.
+(epstopdf)             \includegraphics on input line 467.
 Package epstopdf Info: Output file is already uptodate.
 
-<fig/FastSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf, id=267
+<fig/FastSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf, id=251
 , 499.8675pt x 399.4925pt>
 File: fig/FastSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf Gr
 aphic file (type pdf)
 
 <use fig/FastSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf>
 Package pdftex.def Info: fig/FastSequence_dT35_1Pt_following_error_vs_time-eps-
-converted-to.pdf used on input line 465.
+converted-to.pdf used on input line 467.
 (pdftex.def)             Requested size: 204.94751pt x 163.79298pt.
 Package epstopdf Info: Source file: <fig/FastSequence_dT35_MPt_following_error_
 vs_time.eps>
@@ -1478,28 +1479,32 @@ vs_time-eps-converted-to.pdf>
 (epstopdf)             Command: <epstopdf --outfile=fig/FastSequence_dT35_MPt_f
 ollowing_error_vs_time-eps-converted-to.pdf fig/FastSequence_dT35_MPt_following
 _error_vs_time.eps>
-(epstopdf)             \includegraphics on input line 470.
+(epstopdf)             \includegraphics on input line 472.
 Package epstopdf Info: Output file is already uptodate.
 
-<fig/FastSequence_dT35_MPt_following_error_vs_time-eps-converted-to.pdf, id=268
+<fig/FastSequence_dT35_MPt_following_error_vs_time-eps-converted-to.pdf, id=252
 , 501.875pt x 399.4925pt>
 File: fig/FastSequence_dT35_MPt_following_error_vs_time-eps-converted-to.pdf Gr
 aphic file (type pdf)
 
 <use fig/FastSequence_dT35_MPt_following_error_vs_time-eps-converted-to.pdf>
 Package pdftex.def Info: fig/FastSequence_dT35_MPt_following_error_vs_time-eps-
-converted-to.pdf used on input line 470.
+converted-to.pdf used on input line 472.
 (pdftex.def)             Requested size: 204.94751pt x 163.14073pt.
 
-Overfull \hbox (6.23944pt too wide) in paragraph at lines 465--471
+Overfull \hbox (6.23944pt too wide) in paragraph at lines 467--473
 [][] [] 
  []
 
-[18 <./fig/SlowSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf> 
+[18
+
+ <./fig/SlowSequence_dT50_1Pt_following_error_vs_time-eps-converted-to.pdf> <./
+fig/SlowSequence_dT50_MPt_following_error_vs_time-eps-converted-to.pdf>]
+[19 <./fig/SlowSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf> 
 <./fig/SlowSequence_dT35_MPt_following_error_vs_time-eps-converted-to.pdf> <./f
 ig/MediumSequence_dT50_1Pt_following_error_vs_time-eps-converted-to.pdf> <./fig
 /MediumSequence_dT50_MPt_following_error_vs_time-eps-converted-to.pdf>]
-[19 <./fig/MediumSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf
+[20 <./fig/MediumSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf
 > <./fig/MediumSequence_dT35_MPt_following_error_vs_time-eps-converted-to.pdf> 
 <./fig/FastSequence_dT100_1Pt_following_error_vs_time-eps-converted-to.pdf> <./
 fig/FastSequence_dT100_MPt_following_error_vs_time-eps-converted-to.pdf>]
@@ -1511,14 +1516,14 @@ Package epstopdf Info: Source file: <fig/onept.eps>
 (epstopdf)                    size: 12406 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/onept-eps-converted-to.
 pdf fig/onept.eps>
-(epstopdf)             \includegraphics on input line 481.
+(epstopdf)             \includegraphics on input line 484.
 Package epstopdf Info: Output file is already uptodate.
 
-<fig/onept-eps-converted-to.pdf, id=340, 1028.84375pt x 489.83pt>
+<fig/onept-eps-converted-to.pdf, id=343, 1028.84375pt x 489.83pt>
 File: fig/onept-eps-converted-to.pdf Graphic file (type pdf)
 
 <use fig/onept-eps-converted-to.pdf>
-Package pdftex.def Info: fig/onept-eps-converted-to.pdf used on input line 481.
+Package pdftex.def Info: fig/onept-eps-converted-to.pdf used on input line 484.
 
 (pdftex.def)             Requested size: 418.25555pt x 233.26959pt.
 Package epstopdf Info: Source file: <fig/threept.eps>
@@ -1529,27 +1534,35 @@ Package epstopdf Info: Source file: <fig/threept.eps>
 (epstopdf)                    size: 13865 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/threept-eps-converted-t
 o.pdf fig/threept.eps>
-(epstopdf)             \includegraphics on input line 487.
+(epstopdf)             \includegraphics on input line 490.
 Package epstopdf Info: Output file is already uptodate.
 
-<fig/threept-eps-converted-to.pdf, id=341, 1028.84375pt x 489.83pt>
+<fig/threept-eps-converted-to.pdf, id=344, 1028.84375pt x 489.83pt>
 File: fig/threept-eps-converted-to.pdf Graphic file (type pdf)
 
 <use fig/threept-eps-converted-to.pdf>
-Package pdftex.def Info: fig/threept-eps-converted-to.pdf used on input line 48
-7.
+Package pdftex.def Info: fig/threept-eps-converted-to.pdf used on input line 49
+0.
 (pdftex.def)             Requested size: 418.25555pt x 233.26959pt.
- [20 <./fig/FastSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf>
+ [21 <./fig/FastSequence_dT35_1Pt_following_error_vs_time-eps-converted-to.pdf>
  <./fig/FastSequence_dT35_MPt_following_error_vs_time-eps-converted-to.pdf>] [2
-1 <./fig/onept-eps-converted-to.pdf> <./fig/threept-eps-converted-to.pdf>] [22
+2 <./fig/onept-eps-converted-to.pdf> <./fig/threept-eps-converted-to.pdf>] [23
+
+] (report.bbl
+Underfull \hbox (badness 5175) in paragraph at lines 26--29
+[]\OT1/lmr/m/n/10.95 S.-D. Su-vei, ``ex7solution.cpp,'' 2016. [On-line]. Avail-
+
+ []
+
+) [24
 
 ] (report.aux) ) 
 Here is how much of TeX's memory you used:
- 8312 strings out of 493634
- 140260 string characters out of 3141312
- 316655 words of memory out of 3000000
- 11522 multiletter control sequences out of 15000+200000
- 56987 words of font info for 53 fonts, out of 3000000 for 9000
+ 8406 strings out of 493634
+ 141498 string characters out of 3141312
+ 318742 words of memory out of 3000000
+ 11608 multiletter control sequences out of 15000+200000
+ 61205 words of font info for 54 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  54i,20n,51p,8819b,404s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc
@@ -1565,13 +1578,14 @@ m Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmmi8.pfb><C:/Program Files (x86
 .9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
 e1/public/lm/lmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm
 /lmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr9.pfb><C:
-/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmssbx10.pfb><C:/Program 
-Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files (x86)
-/MiKTeX 2.9/fonts/type1/public/lm/lmsy8.pfb><C:/Program Files (x86)/MiKTeX 2.9/
-fonts/type1/public/lm/lmtt10.pfb>
-Output written on report.pdf (22 pages, 4505495 bytes).
+/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmri10.pfb><C:/Program Fi
+les (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmssbx10.pfb><C:/Program Files (x86)
+/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9
+/fonts/type1/public/lm/lmsy8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1
+/public/lm/lmtt10.pfb>
+Output written on report.pdf (24 pages, 4521851 bytes).
 PDF statistics:
- 432 PDF objects out of 1000 (max. 8388607)
+ 442 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  211 words of extra memory for PDF output out of 10000 (max. 10000000)
 

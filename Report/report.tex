@@ -11,6 +11,7 @@
 
 \usepackage{subfig}
 \usepackage{cite}
+\usepackage{url}
 \usepackage{epstopdf}
 \usepackage{float}
 
@@ -67,12 +68,13 @@
 
 \begin{abstract}
 \section*{Project Description}
-
+For this project we set up a simulated visual servoing system. The procedure was split into three parts: Feature extraction, image tracking kinematics and finally the combination and integration of the first two.\par
+The system uses a robot arm with a camera attached as well as visual feedback to follow a known marker. This involves computer vision in OpenCV for extracting key marker points, robot kinematics in RobWork to track the points and the software integration of the two parts.\par
 
 \end{abstract}
 
 \section{Feature Extraction}
-For the visual feature extraction we chose to use markers 1 and 2b shown in figures \ref{fig:mar1} and \ref{fig:mar2}, respectively. In this section we will discuss our approach to each marker.
+For the visual feature extraction we chose to use markers 1 and 2b shown in figures \ref{fig:mar1} and \ref{fig:mar2}, respectively. In this section we will discuss our approach to each marker. Snippets of code were used from the course's blackboard page as well as the OpenCV documentation\cite{stefan}\cite{opencv}.
 \subsection{Marker 1}
 \begin{figure}
 	\centering
@@ -159,34 +161,34 @@ The Hough transformation is appropriate for this problem due to the long, sharp 
 
 \clearpage
 \section{Tracking points using image Jacobian}
-We have implemented algorithm for visual servoing in this part. For this part we selected specific marker points as described in problem statement and use mathematical camera model to get image pixel coordinates of the points. Image recognition thus wasn't used in this part.
+We have implemented the algorithm for visual servoing in this part. For this part we selected specific marker points as described in the problem statement and used a mathematical camera model to get the image pixel coordinates of the points. Image recognition thus wasn't used in this part.
 
-To compute joint updates it was first needed to compose matrix $\boldsymbol{Z}_{image}$ as described in Robotics Notes:
+To compute joint updates we first needed to compose matrix $\boldsymbol{Z}_{image}$ as described in Robotics Notes:
 \begin{align}
 	\boldsymbol{Z}_{image}(\boldsymbol{q}) = \boldsymbol{J}_{image}\boldsymbol{S}(\boldsymbol{q})\boldsymbol{J}(\boldsymbol{q})\; 
 \end{align}
-where $\boldsymbol{J}(\boldsymbol{q})$ is manipulator Jacobian. For its computation we used function from RobWork library. $\boldsymbol{J}_{image}$ is image Jacobian matrix. We implemented function for its computation called \texttt{calculateImageJ} which can be found in the file \texttt{inverseKinematics.cpp}. We used fixed value for $z$ coordinate. Since we used frame \texttt{cameraSim} to model the camera we set $z\, = \, -0.5$ for every function call. Finally matrix $\boldsymbol{S}(\boldsymbol{q})$ was composed by inserting transpose of the rotational matrix $\boldsymbol{R}_{base}^{tool}$ twice to its diagonal.
+where $\boldsymbol{J}(\boldsymbol{q})$ is the manipulator Jacobian. For its computation we used a function from RobWork library. $\boldsymbol{J}_{image}$ is the image Jacobian matrix. We implemented a function for its computation called \texttt{calculateImageJ} which can be found in the file \texttt{inverseKinematics.cpp}. We used a fixed value for the $z$ coordinate. Since we used the frame \texttt{cameraSim} to model the camera we set $z\, = \, -0.5$ for every function call. Finally the matrix $\boldsymbol{S}(\boldsymbol{q})$ was composed by inserting the transpose of the rotational matrix $\boldsymbol{R}_{base}^{tool}$ twice to its diagonal.
 
-The next information necessary to compute joints updates is difference or move of target points $\overrightarrow{\boldsymbol{dU}}_{image}$. We have programmed function \texttt{calculate\_dUImage} to solve for $\overrightarrow{\boldsymbol{dU}}_{image}$.
+The next piece of information necessary to compute the joints updates is the difference or move of target points $\overrightarrow{\boldsymbol{dU}}_{image}$. We have programmed the function \texttt{calculate\_dUImage} to solve for $\overrightarrow{\boldsymbol{dU}}_{image}$.
 
-Having matrix $\boldsymbol{Z}_{image}$ and $\overrightarrow{\boldsymbol{dU}}_{image}$ it was possible to solve for joint positional update ${\boldsymbol{dq}}$ using method of Linear Least Squares.
+Having the matrixes $\boldsymbol{Z}_{image}$ and $\overrightarrow{\boldsymbol{dU}}_{image}$ it was possible to solve for the joint positional update ${\boldsymbol{dq}}$ using the method of Linear Least Squares.
 
-We adapted two equations from robotics notes into single expression for ${\boldsymbol{dq}}$ computation:
+We adapted two equations from the robotics notes into single expression for ${\boldsymbol{dq}}$ computation:
 \begin{align}
 	\boldsymbol{dq} = \boldsymbol{Z}^T\left(\boldsymbol{Z}\boldsymbol{Z}^T\right)^{-1} \overrightarrow{\boldsymbol{dU}}_{image}
 \end{align}
 In this equation we used $\boldsymbol{Z}$ to denote $\boldsymbol{Z}_{image}$.
-For this solving of this LSM problem we have implemented function \texttt{compute\_dQ\_LSM} which can be found in \texttt{inverseKinematics.cpp}.
+For solving this LSM problem we have implemented the function \texttt{compute\_dQ\_LSM} which can be found in \texttt{inverseKinematics.cpp}.
 
-\texttt{algorithm2} is the function, where are all of described functions organized together to compute joint updates $\boldsymbol{dq}$ base on the manipulator state and the error in image coordinates $\overrightarrow{\boldsymbol{dU}}_{image}$.
+\texttt{algorithm2} is the function, where are all of the described functions are organized together to compute joint updates $\boldsymbol{dq}$ based on the manipulator state and the error in image coordinates $\overrightarrow{\boldsymbol{dU}}_{image}$.
 
-We have implemented $J_{image}$ and $\overrightarrow{\boldsymbol{dU}}_{image}$ composition in a scalable way, so the same functions can be used to track one or multiple target points.
+We have implemented the $J_{image}$ and $\overrightarrow{\boldsymbol{dU}}_{image}$ composition in a scalable way, so the same functions can be used to track one or multiple target points.
 
-Model of the robot manipulator has velocity limits on joint movements, so it was necessary to check if the limits were satisfied before joint updates. We did so by measuring time for inverse kinematics computations $\tau_1$, subtracting this time from workcell update period specified by $\Delta T \longleftrightarrow$ \texttt{deltaT} and finally we divided update $\boldsymbol{dq}$ by the result of subtraction. Velocity of joint movement is the result of the operation:
+The model of the robot manipulator has velocity limits on its joint movements, so it was necessary to check if the limits were satisfied before joint updates. We did so by measuring time for inverse kinematics computations $\tau_1$, subtracting this time from the workcell update period specified by $\Delta T \longleftrightarrow$ \texttt{deltaT} and finally we divided the update $\boldsymbol{dq}$ by the result of the subtraction. The velocity of joint movement is the result of the operation:
 \begin{align}
 	\boldsymbol{\dot{q}} = \frac{\boldsymbol{dq}}{dt} = \frac{\boldsymbol{dq}}{\Delta T\, -\, \tau_1}
 \end{align}
-By comparing the actual velocity with manipulator limits it was possible to find out if the limits are satisfied. If they aren't algorithm simply saturate joint movement in order to hold all conditions. For comparison and saturation, function \texttt{saturateDQ} was implemented.
+By comparing the actual velocity with manipulator limits it was possible to find out if the limits are satisfied. If they aren't the algorithm simply saturates joint movement in order to hold all conditions. For comparison and saturation, the function \texttt{saturateDQ} was implemented.
 
 In the following section we provide simulation results from tests of inverse kinematics.
 
@@ -210,7 +212,7 @@ $\overrightarrow{\boldsymbol{dU}}_{image}$
 	\caption{Joint configurations}
 	\label{fig:SlowSequenceJoints}
 \end{figure}
-There are differences between joint coordinates for tracking single and 3 target points in the graphs \ref{fig:Slow1PointJoints} and \ref{fig:Slow3PointsJoints}. The reason behind this is following. When the manipulator is tracking single point, it just follow its position. There is no orientation information about the marker when using single tracking point. Whereas during following of 3 target points, orientation of the marker gains important role, as the manipulator is trying to rotate its tool/camera frame to align its position and orientation with the marker. 
+There are differences between joint coordinates for tracking single and 3 target points in the graphs \ref{fig:Slow1PointJoints} and \ref{fig:Slow3PointsJoints}. The reason behind this is the following. When the manipulator is tracking a single point, it just follows its position. There is no orientation information about the marker when using a single tracking point. Whereas during following of 3 target points, the orientation of the marker gains an important role, as the manipulator is trying to rotate its tool/camera frame to align its position and orientation with the marker. 
 
 \begin{figure}[!h]
 	% Maximum length
@@ -227,7 +229,7 @@ There are differences between joint coordinates for tracking single and 3 target
 	\caption{Tool pose transformations}
 	\label{fig:SlowSequenceToolPose}
 \end{figure}
-In figure \ref{fig:Slow1PointToolPose} and \ref{fig:Slow3PointsToolPose} are apparent jumps in roll angle around $z$ axis. This however doesn't imply jumps in tool orientation. Abrupt jumps in the graphs were caused because of switching between $-\pi$ and $\pi$ rad angle. In the real world, change in orientation is small. Implementation of Robwork transformations probably keeps all orientation angles in the interval $ \langle -\pi, \; \pi \rangle $.
+In figure \ref{fig:Slow1PointToolPose} and \ref{fig:Slow3PointsToolPose} are apparent jumps in roll angle around $z$ axis. This however doesn't imply jumps in tool orientation. The abrupt jumps in the graphs were caused because of switching between angles of $-\pi$ and $\pi$ rad. In the real world, the change in orientation is small. The implementation of Robwork transformations probably keeps all orientation angles in the interval $ \langle -\pi, \; \pi \rangle $.
 
 \vspace{0.5cm}
 \begin{figure}
@@ -248,17 +250,17 @@ In figure \ref{fig:Slow1PointToolPose} and \ref{fig:Slow3PointsToolPose} are app
 
 There are plotted maximum pixel errors on the figure \ref{fig:SlowSequence_errors}.
 
-For timing purposes we used C++ Chrono library, for taking time instant of start of the computation of updates and the end instant. For differentiation of joint updates and subsequently getting of velocity, we used difference of these two time stamps divided time which left for joints update. 
+For timing purposes we used the C++ Chrono library, for taking time instant of the start of the computation of updates and the end instant. For differentiation of joint updates and subsequently getting of velocity, we used the difference of these two time stamps divided by the time left for the joints update. 
 
-As you can see on the figure \ref{fig:SlowSequence_errors} we didn't reach manipulator velocity limits in the interval $\Delta T \, \in \langle0.05, 1\rangle \, [s]$ as was described in the problem statement.
+As you can see on figure \ref{fig:SlowSequence_errors} we didn't reach manipulator velocity limits in the interval $\Delta T \, \in \langle0.05, 1\rangle \, [s]$ as was described in the problem statement.
 
-For this reason we lowered the interval to the $\Delta T \, \in \langle0.005, 0.02\rangle \, [s]$. And in this case, there is apparent increase in the maximum errors for low $\Delta T$. Results are plotted in the figure \ref{fig:SlowSequence_low_dTs_errors}.
+For this reason we lowered the interval to $\Delta T \, \in \langle0.005, 0.02\rangle \, [s]$. And in this case, there is an apparent increase in maximum errors for low $\Delta T$. The results are plotted in figure \ref{fig:SlowSequence_low_dTs_errors}.
 
-Due to non-real time OS, results might be different for each simulation and doesn't offer precise information. However for the purpose of the school exercise, we were able to limit joints speed velocities according to problem statement.
+Due to non-real-time OS, results might be different for each simulation and don't offer precise information. However for the purpose of the school exercise, we were able to limit joints speed velocities according to the problem statement.
 
 
 \subsubsection*{Medium Marker Sequence}
-The same problems and explanation apply for the Medium marker sequence. Joint coordinates and tool positions are plotted on the graphs \ref{fig:MediumSequenceJoints} and \ref{fig:MediumSequenceToolPose}. Only difference from Slow sequence is in the time axis. Due to faster and larger movements time span is shorter.
+The same problems and explanation apply for the Medium marker sequence. Joint coordinates and tool positions are plotted on the graphs \ref{fig:MediumSequenceJoints} and \ref{fig:MediumSequenceToolPose}. Only difference from Slow sequence is in the time axis. Due to faster and larger movements the time span is shorter.
 \begin{figure}[!htp]
 	% Maximum length
 	\subfloat[Tracking Single Point]
@@ -305,12 +307,12 @@ The same problems and explanation apply for the Medium marker sequence. Joint co
 	\caption{Maximum errors during Medium Sequence Marker following}
 	\label{fig:MediumSequence_low_dTs_errors}
 \end{figure}
-There are plotted maximum pixel errors on the figure \ref{fig:MediumSequence_errors}. Again, we didn't reach manipulator velocity limits in the original interval. Results after lowering the interval of $\Delta T$ are plotted in the figure \ref{fig:MediumSequence_low_dTs_errors}.
+There are plotted maximum pixel errors on figure \ref{fig:MediumSequence_errors}. Again, we didn't reach the manipulator's velocity limits in the original interval. Results after lowering the interval of $\Delta T$ are plotted in figure \ref{fig:MediumSequence_low_dTs_errors}.
 
-We have to state the same as for the preceding test. All timing tests were performed on the regular laptop PC, running non-real time operating system. So results from another tests can differ.
+We have to state the same as for the preceding test. All timing tests were performed on a regular laptop PC, running non-real time operating system. So results from another tests can differ.
 
 \subsubsection*{Fast Marker Sequence}
-Joint coordinates and tool positions are plotted on the graphs \ref{fig:FastSequenceJoints} and \ref{fig:FastSequenceToolPose}. Span of time axis is again shorter.
+Joint coordinates and tool positions are plotted on graphs \ref{fig:FastSequenceJoints} and \ref{fig:FastSequenceToolPose}. The span of the time axis is again shorter.
 
 \begin{figure}[!htp]
 	% Maximum length
@@ -360,18 +362,19 @@ Joint coordinates and tool positions are plotted on the graphs \ref{fig:FastSequ
 	\label{fig:FastSequence_low_dTs_errors}
 \end{figure}
 
-There are plotted maximum pixel errors on the figure \ref{fig:FastSequence_errors} for original interval. Results from simulations for lower interval are plotted on the figure \ref{fig:FastSequence_low_dTs_errors}.
+There are plotted maximum pixel errors on figure \ref{fig:FastSequence_errors} for the original interval. Results from simulations for the lower interval are plotted on figure \ref{fig:FastSequence_low_dTs_errors}.
 
 \subsubsection*{Conclusion for different speed sequences}
 Even though timing and velocity computation during test simulations wasn't precise due to non-realtime of the OS, we can conclude some final facts. 
-Manipulator was able to follow the marker for each sequence with \texttt{deltaT} $ >\, 0.01 s$. The reason behind these results is probably very short time needed for inverse kinematics computations. We found out is in the order of microseconds, whereas simulation were performed for $\Delta T$s which were one order in magnitude larger (miliseconds). These results will be also different when simulated on different computer.
+The manipulator was able to follow the marker for each sequence with \texttt{deltaT} $ >\, 0.01 s$. The reason behind these results is probably the very short time needed for inverse kinematics computations. We found them to be in the order of microseconds, whereas simulation were performed for $\Delta T$s which were an order of magnitude larger (milliseconds). These results will be also different when simulated on a different computer.
 
+\clearpage
 \section{Combining feature extraction and tracking} 
-For the last part of the project we have chosen the Marker 1 for image recognition. Image recognition was integrated into Robwork project. All the image recognition function are in the file \texttt{marker1.cpp}. For proper tracking of multiple points, it was necessary to sort the detected points in consistent order for every detection.
+For the last part of the project we have chosen Marker 1 for image recognition. Image recognition was integrated into the Robwork project. All these image recognition function are in the file \texttt{marker1.cpp}. For proper tracking of multiple points, it was necessary to sort the detected points in a consistent order for every detection.
 
-After performing of several tests we have found, that recognition time varies among different machines. Average time for one of our computer was around 30 ms whereas on the second one it was just around 25 ms.
+After performing several tests we have found that the recognition time varies among different machines. The average time for one of our computer was around 30 ms whereas on the second one it was just around 25 ms.
 
-For further plots we have chosen one \texttt{deltaT} which don't cause any problems during following. And the second one, which is too short and unsaturated joints velocities are larger than limits.
+For further plots we have chosen a value for \texttt{deltaT} which did not cause any problems during following. Thehe second one is too short and the unsaturated joints velocities are larger than their limits.
 
 \begin{figure}[!htp]
 	% Maximum length
@@ -403,9 +406,9 @@ For further plots we have chosen one \texttt{deltaT} which don't cause any probl
 	\caption{Slow Sequence, \texttt{deltaT = 35} ms}
 	\label{fig:SlowSequence_dT35_following_error_vs_time}
 \end{figure}
-It is possible to see, that tracking error is generally larger on the figure \ref{fig:SlowSequence_dT35_following_error_vs_time} than on the \ref{fig:SlowSequence_dT50_following_error_vs_time}. The reason is that the velocity limits were violated several times for \texttt{deltaT} = 35 ms. Another interesting find out about errors is the shape of the errors in the figure \ref{fig:SlowSequence_dT50_following_error_vs_time}. The error signal shapes rectangular function. The error is larger during following the linear movement of the marker than during rotational times.
+It is possible to see, that the tracking error is generally larger on figure \ref{fig:SlowSequence_dT35_following_error_vs_time} than on figure \ref{fig:SlowSequence_dT50_following_error_vs_time}. The reason is that the velocity limits were violated several times for \texttt{deltaT = 35} ms. Another interesting find about errors is the shape of the errors in the figure \ref{fig:SlowSequence_dT50_following_error_vs_time}. The error signal shapes a rectangular function. The error is larger during following the linear movement of the marker than during rotational times.
 
-Similar reasoning applies also for marker Medium sequence on the figures \ref{fig:MediumSequence_dT50_following_error_vs_time} and \ref{fig:MediumSequence_dT35_following_error_vs_time}.
+Similar reasoning applies also for the medium marker sequence on figures \ref{fig:MediumSequence_dT50_following_error_vs_time} and \ref{fig:MediumSequence_dT35_following_error_vs_time}.
 
 \begin{figure}[!htp]
 	% Maximum length
@@ -439,7 +442,7 @@ Similar reasoning applies also for marker Medium sequence on the figures \ref{fi
 \end{figure}
 
 %% Fast Sequence
-Finally simulation for Fast sequence are plotted on the \ref{fig:FastSequence_dT100_following_error_vs_time} and \ref{fig:FastSequence_dT35_following_error_vs_time}.
+Finally the simulations for the fast sequence are plotted on figures \ref{fig:FastSequence_dT100_following_error_vs_time} and \ref{fig:FastSequence_dT35_following_error_vs_time}.
 \begin{figure}[!htp]
 	% Maximum length
 	\subfloat[Tracking Single Point]
@@ -472,9 +475,10 @@ Finally simulation for Fast sequence are plotted on the \ref{fig:FastSequence_dT
 \end{figure}
 
 \subsubsection*{Scaled joint positions and velocities}
-Figures \ref{fig:onept} and \ref{fig:threept} show joint positions and velocities scaled to their respective limits. The data is collected from simulated visual servoing with two different values of \texttt{deltaT}, 100 and 30 ms. Figure \ref{fig:onept} shows these values for single-point tracking and figure \ref{fig:threept} shows them for three-point tracking. In both figures, the left two plots show the results after setting \texttt{deltaT = 100} ms and the right two plots show runs for \texttt{deltaT = 30} ms.\par
+Figures \ref{fig:onept} and \ref{fig:threept} show joint positions and velocities scaled to their respective limits. The data is collected from simulated visual servoing using the fast sequence with two different values of \texttt{deltaT}, 100 and 30 ms. Figure \ref{fig:onept} shows these values for single-point tracking and figure \ref{fig:threept} shows them for three-point tracking. In both figures, the left two plots show the results after setting \texttt{deltaT = 100} ms and the right two plots show runs for \texttt{deltaT = 30} ms.\par
 From figure \ref{fig:onept} we see that when \texttt{deltaT = 100} ms, the robot has plenty of time to react and its joint velocities are well within limits. When \texttt{deltaT = 30} ms, the velocities come close to their limits but are mostly unsaturated. \par
 From figure \ref{fig:threept} we see again that at \texttt{deltaT = 100} ms, the robot has plenty of time to react. At \texttt{deltaT = 30} ms it has little time to react and its velocities are frequently saturated. One data point has also been lost due to the fact that the feature extraction took longer than 30 ms.\par
+Similar plots for the medium and slow sequences were omitted as they provided no additional insights
 \begin{figure}
 	\centering
 	\includegraphics[width=1\linewidth, trim = 75 0 75 0]{fig/onept.eps}
@@ -490,9 +494,12 @@ From figure \ref{fig:threept} we see again that at \texttt{deltaT = 100} ms, the
 \clearpage
 \section{Conclusion}
 For feature extraction we chose markers 1 and 2b. For marker 1 we used color segmentation and picked the three roundest blue shapes in the image. This solution was very successful and found the desired points in each image from the corresponding sequence with high accuracy.\par
-For marker 2 we used hough lines and filtered out false positives by dilating and ANDing with the edges in the image. We then found the largest rectangle in the resulting image. This solution also worked for all images in the corresponding sequences but the rectangle detection was suboptimal and highly sensitive to out-of-plane rotations, resulting in a loss of precision.\par
-In the robotics part we have successfully implemented visual servoing for the manipulator. By using mathematical model for the camera and prespecified marker target points we validated inverse kinematics computations. Even though we tried the whole sequence for the $\Delta T$ from the problem description we haven't had any problems during marker following. No adjustment of joint velocities was needed and so the maximum errors has been the same for all $\Delta T$ from the sequence. To make sure that our velocity adjustments function properly we decided to run test for even smaller values of $\Delta T$. Finally we reached a point when the marker following wasn't possible because of joint limits.
+For marker 2b we used hough lines and filtered out false positives by dilating and ANDing with the edges in the image. We then found the largest rectangle in the resulting image. This solution also worked for all images in the corresponding sequences but the rectangle detection was suboptimal and highly sensitive to out-of-plane rotations, resulting in a loss of precision.\par
+In the robotics part we have successfully implemented visual servoing for the manipulator. By using a mathematical model for the camera and prespecified marker target points we validated the inverse kinematics computations. Even though we tried the whole sequence for the $\Delta T$ from the problem description we haven't had any problems during marker following. No adjustment of joint velocities was needed and so the maximum errors has been the same for all $\Delta T$ from the sequence. To make sure that our velocity adjustments function properly we decided to run test for even smaller values of $\Delta T$. Finally we reached a point when the marker following wasn't possible because of joint limits.\par
+In the last part of the project we have successfully combined the image recognition with the visual servoing. During tests on two different computers, we have found that computation time wans't the same. This isn't really surprising, but it is an important fact to mention.  
 
-In the last part of the project we have successfully combined the image recognition with the visual servoing. During tests on two different computers, we have found that computation time wans't the same. This isn't really surprising, but it is important fact to be mentioned.  
+\clearpage
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,refs}
 
 \end{document}
