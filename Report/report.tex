@@ -116,7 +116,9 @@ The color segmentation approach is appropriate for this problem due to the sharp
 	\label{fig:mar2}
 \end{figure}
 For this marker we used the Hough transformation to find lines in the image. Our target points were the four corners of the white rectangle in the center of the marker.\par
-We began by using the Canny algorithm to detect edges in the image as shown in figure \ref{fig:bin2}. We also used the Hough transform to detect the lines as shown in figure \ref{fig:lin2}. We dilated the edges as well as the lines and then combined them using logical AND as seen in figure \ref{fig:and2}. The resulting image shows the marker's lines relatively clearly with some background noise as well. From here we wanted to detect the innermost rectangle in the marker. We made the assumption that this rectangle is the largest one in this binary image. As for the first marker, we found the contours and this time their minimum enclosing rotated rectangle. This is quite a big approximation as it loses precision very quickly for out-of-plane rotations. To make sure we detect a rectangle, we compute a value which quantitatively describes how well the enclosing rectangle fits its corresponding contour. This eliminates most contours apart from the white rectangles in the marker. Finally, we pick the largest remaining rectangle which is our desired one. See figure \ref{fig:src2}.\par
+We began by using the Canny algorithm to detect edges in the image as shown in figure \ref{fig:bin2}. We also used the Hough transform to detect the lines as shown in figure \ref{fig:lin2}. We dilated the edges as well as the lines and then combined them using logical AND as seen in figure \ref{fig:and2}. The resulting image shows the marker's lines relatively clearly with some background noise as well. From here we wanted to detect the innermost rectangle in the marker. We made the assumption that this rectangle is the largest one in this binary image. As for the first marker, we found the contours and this time their minimum enclosing rotated rectangle. This is quite a big approximation as it loses precision very quickly for out-of-plane rotations. To make sure we detect a rectangle, we compute a value which quantitatively describes how well the enclosing rectangle fits its corresponding contour. This value is given by \\
+\centerline{\texttt{diff = abs( area - mu[i].m00 ) / area;}}\\
+ and describes, in terms of percentage, how much of the bounding rectangle is not covered by the contour. This eliminates most contours apart from the white rectangles in the marker. Finally, we pick the largest remaining rectangle which is our desired one. See figure \ref{fig:src2}.\par
 This algorithm finds the desired rectangle for each image in the provided sequences but its precision is subpar for out-of-plane rotations as seen in figure \ref{fig:err2}. The algorithm handles scaling and in-plane rotation but needs to find a closed contour around the desired rectangle. This makes it sensitive to sharp noise around the edges.\par
 The Hough transformation is appropriate for this problem due to the long, sharp edges on the marker. We have chosen parameters for the line detection to maximize our chances to find the lines in the marker. We deal with the large number of false positives by ignoring the lines which don't correspond to edges in the image.\par
 
@@ -228,7 +230,6 @@ There are differences between joint coordinates for tracking single and 3 target
 In figure \ref{fig:Slow1PointToolPose} and \ref{fig:Slow3PointsToolPose} are apparent jumps in roll angle around $z$ axis. This however doesn't imply jumps in tool orientation. Abrupt jumps in the graphs were caused because of switching between $-\pi$ and $\pi$ rad angle. In the real world, change in orientation is small. Implementation of Robwork transformations probably keeps all orientation angles in the interval $ \langle -\pi, \; \pi \rangle $.
 
 \vspace{0.5cm}
-\textbf{Simulation for different $\Delta T$s} \\
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{fig/SlowSequence_errors.eps}
@@ -486,5 +487,12 @@ From figure \ref{fig:threept} we see again that at \texttt{deltaT = 100} ms, the
 	\caption{Joint positions and velocities for three-point tracking with two different \texttt{deltaT} values.}
 	\label{fig:threept}
 \end{figure}
+\clearpage
+\section{Conclusion}
+For feature extraction we chose markers 1 and 2b. For marker 1 we used color segmentation and picked the three roundest blue shapes in the image. This solution was very successful and found the desired points in each image from the corresponding sequence with high accuracy.\par
+For marker 2 we used hough lines and filtered out false positives by dilating and ANDing with the edges in the image. We then found the largest rectangle in the resulting image. This solution also worked for all images in the corresponding sequences but the rectangle detection was suboptimal and highly sensitive to out-of-plane rotations, resulting in a loss of precision.\par
+In the robotics part we have successfully implemented visual servoing for the manipulator. By using mathematical model for the camera and prespecified marker target points we validated inverse kinematics computations. Even though we tried the whole sequence for the $\Delta T$ from the problem description we haven't had any problems during marker following. No adjustment of joint velocities was needed and so the maximum errors has been the same for all $\Delta T$ from the sequence. To make sure that our velocity adjustments function properly we decided to run test for even smaller values of $\Delta T$. Finally we reached a point when the marker following wasn't possible because of joint limits.
+
+In the last part of the project we have successfully combined the image recognition with the visual servoing. During tests on two different computers, we have found that computation time wans't the same. This isn't really surprising, but it is important fact to be mentioned.  
 
 \end{document}
