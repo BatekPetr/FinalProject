@@ -11,6 +11,8 @@
 
 \usepackage{subfig}
 \usepackage{cite}
+\usepackage{epstopdf}
+\usepackage{float}
 
 \usepackage{amsmath}
 
@@ -68,6 +70,83 @@
 
 \end{abstract}
 
+\section{Feature Extraction}
+\subsection{Marker 1}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.4\linewidth]{fig/marker1.png}
+	\caption{Marker 1.}
+	\label{fig:mar1}
+\end{figure}
+For this marker we decided to use color segmentation as our approach. The points we extracted were the centers of the three blue circles.\par
+We began by converting the image to HSV colour space, splitting its channels and looking at the hue channel as seen in figure \ref{fig:hue1}. We then took the hue value for the blue areas in the original marker as a reference. We used this value to compute a binary image showing only areas with a hue value very close to the desired blue one. The resulting binary image is shown in figure \ref{fig:bin1}. This isolated the the blue circles from the marker very nicely but left some noise from the blue background elements. To ignore this noise, we took advantage of the circles' shape. We found the contours in this binary image and the radius of their minimum enclosing circle. By comparing this radius to the contour's area, we got a value which quantitatively described the roundness of the contour. By selecting the three roundest contours in the binary image, we obtained the three circles in the marker as seen in figure \ref{fig:src1}.\par
+We used this marker to test the simulated visual servoing system. In order for the robot to follow the marker's orientation, the three extracted points must be sorted in a consistent manner. To implement this, we first made the assumption that the points form a triangle whose longest side is always the same one. While this is not true for all out-of-plane rotations, it holds for all the projections in the provided sequences. Following this assumption, we used the point opposite the long side as the first element and used the cross product of the two short sides to sort the remaining two points clockwise.\par
+This algorithm finds the points with high precision on each image in the provided sequences. It handles in-plane and out-of-plane rotations and scaling but the colors are somewhat sensitive to ambient light changes. A blue ball or similar in the background would also be very troublesome.\par
+The color segmentation approach is appropriate for this problem due to the sharp colors on the marker. Our method for circle detection is also quite robust for this problem due to the fact that the circles are well isolated and that we know beforehand how many to look for.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{fig/hue0-1.png}
+	\caption{Hue channel of the first image in the color marker sequence.}
+	\label{fig:hue1}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{fig/bin0-1.png}
+	\caption{Figure \ref{fig:hue1} after hue thresholding.}
+	\label{fig:bin1}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{fig/src0-1.png}
+	\caption{Extracted points.}
+	\label{fig:src1}
+\end{figure}
+
+\newpage
+\subsection{Marker 2b}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.4\linewidth]{fig/marker2b.png}
+	\caption{Marker 2b.}
+	\label{fig:mar2}
+\end{figure}
+For this marker we used the Hough transformation to find lines in the image. Our target points were the four corners of the white rectangle in the center of the marker.\par
+We began by using the Canny algorithm to detect edges in the image as shown in figure \ref{fig:bin2}. We also used the Hough transform to detect the lines as shown in figure \ref{fig:lin2}. We dilated the edges as well as the lines and then combined them using logical AND as seen in figure \ref{fig:and2}. The resulting image shows the marker's lines relatively clearly with some background noise as well. From here we wanted to detect the innermost rectangle in the marker. We made the assumption that this rectangle is the largest one in this binary image. As for the first marker, we found the contours and this time their minimum enclosing rotated rectangle. This is quite a big approximation as it loses precision very quickly for out-of-plane rotations. To make sure we detect a rectangle, we compute a value which quantitatively describes how well the enclosing rectangle fits its corresponding contour. This eliminates most contours apart from the white rectangles in the marker. Finally, we pick the largest remaining rectangle which is our desired one. See figure \ref{fig:src2}.\par
+This algorithm finds the desired rectangle for each image in the provided sequences but its precision is subpar for out-of-plane rotations as seen in [REFERENCE FIGURE]. The algorithm handles scaling and in-plane rotation but needs to find a closed contour around the desired rectangle. This makes it sensitive to sharp noise around the edges.\par
+The Hough transformation is appropriate for this problem due to the long, sharp edges on the marker. We have chosen parameters for the line detection to maximize our chances to find the lines in the marker. We deal with the large number of false positives by ignoring the lines which don't correspond to edges in the image.\par
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{fig/bin1-1.png}
+	\caption{Edges from the first image in the thickline marker sequence.}
+	\label{fig:bin2}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{fig/lin1-1.png}
+	\caption{Hough lines from figure \ref{fig:bin2}.}
+	\label{fig:lin2}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{fig/and1-1.png}
+	\caption{Logical AND of figures \ref{fig:bin2} and \ref{fig:lin2}.}
+	\label{fig:and2}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{fig/src1-1.png}
+	\caption{Rectangle consisting of the four extracted points.}
+	\label{fig:src2}
+\end{figure}
+
+\clearpage
 \section{Tracking points using image Jacobian}
 We have implemented algorithm for visual servoing in this part. For this part we selected specific marker points as described in problem statement and use mathematical camera model to get image pixel coordinates of the points. Image recognition thus wasn't used in this part.
 
