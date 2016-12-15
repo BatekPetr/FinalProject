@@ -68,6 +68,7 @@
 \begin{abstract}
 \section*{Project Description}
 
+
 \end{abstract}
 
 \section{Feature Extraction}
@@ -470,5 +471,20 @@ Finally simulation for Fast sequence are plotted on the \ref{fig:FastSequence_dT
 \end{figure}
 
 \subsubsection*{Scaled joint positions and velocities}
+Figures \ref{fig:onept} and \ref{fig:threept} show joint positions and velocities scaled to their respective limits. The data is collected from simulated visual servoing with two different values of \texttt{deltaT}, 100 and 30 ms. Figure \ref{fig:onept} shows these values for single-point tracking and figure \ref{fig:threept} shows them for three-point tracking. In both figures, the left two plots show the results after setting \texttt{deltaT = 100} ms and the right two plots show runs for \texttt{deltaT = 30} ms.\par
+From figure \ref{fig:onept} we see that when \texttt{deltaT = 100} ms, the robot has plenty of time to react and its joint velocities are well within limits. When \texttt{deltaT = 30} ms, the velocities come close to their limits but are mostly unsaturated. \par
+From figure \ref{fig:threept} we see again that at \texttt{deltaT = 100} ms, the robot has plenty of time to react. At \texttt{deltaT = 30} ms it has little time to react and its velocities are frequently saturated. One data point has also been lost due to the fact that the feature extraction took longer than 30 ms.\par
+\begin{figure}
+	\centering
+	\includegraphics[width=1\linewidth, trim = 75 0 75 0]{fig/onept.eps}
+	\caption{Joint positions and velocities for single-point tracking with two different \texttt{deltaT} values.}
+	\label{fig:onept}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=1\linewidth, trim = 75 0 75 0]{fig/threept.eps}
+	\caption{Joint positions and velocities for three-point tracking with two different \texttt{deltaT} values.}
+	\label{fig:threept}
+\end{figure}
 
 \end{document}
