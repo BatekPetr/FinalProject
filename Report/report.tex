@@ -71,6 +71,7 @@
 \end{abstract}
 
 \section{Feature Extraction}
+For the visual feature extraction we chose to use markers 1 and 2b shown in figures \ref{fig:mar1} and \ref{fig:mar2}, respectively. In this section we will discuss our approach to each marker.
 \subsection{Marker 1}
 \begin{figure}
 	\centering
@@ -115,7 +116,7 @@ The color segmentation approach is appropriate for this problem due to the sharp
 \end{figure}
 For this marker we used the Hough transformation to find lines in the image. Our target points were the four corners of the white rectangle in the center of the marker.\par
 We began by using the Canny algorithm to detect edges in the image as shown in figure \ref{fig:bin2}. We also used the Hough transform to detect the lines as shown in figure \ref{fig:lin2}. We dilated the edges as well as the lines and then combined them using logical AND as seen in figure \ref{fig:and2}. The resulting image shows the marker's lines relatively clearly with some background noise as well. From here we wanted to detect the innermost rectangle in the marker. We made the assumption that this rectangle is the largest one in this binary image. As for the first marker, we found the contours and this time their minimum enclosing rotated rectangle. This is quite a big approximation as it loses precision very quickly for out-of-plane rotations. To make sure we detect a rectangle, we compute a value which quantitatively describes how well the enclosing rectangle fits its corresponding contour. This eliminates most contours apart from the white rectangles in the marker. Finally, we pick the largest remaining rectangle which is our desired one. See figure \ref{fig:src2}.\par
-This algorithm finds the desired rectangle for each image in the provided sequences but its precision is subpar for out-of-plane rotations as seen in [REFERENCE FIGURE]. The algorithm handles scaling and in-plane rotation but needs to find a closed contour around the desired rectangle. This makes it sensitive to sharp noise around the edges.\par
+This algorithm finds the desired rectangle for each image in the provided sequences but its precision is subpar for out-of-plane rotations as seen in figure \ref{fig:err2}. The algorithm handles scaling and in-plane rotation but needs to find a closed contour around the desired rectangle. This makes it sensitive to sharp noise around the edges.\par
 The Hough transformation is appropriate for this problem due to the long, sharp edges on the marker. We have chosen parameters for the line detection to maximize our chances to find the lines in the marker. We deal with the large number of false positives by ignoring the lines which don't correspond to edges in the image.\par
 
 \begin{figure}
@@ -144,6 +145,13 @@ The Hough transformation is appropriate for this problem due to the long, sharp 
 	\includegraphics[width=0.7\linewidth]{fig/src1-1.png}
 	\caption{Rectangle consisting of the four extracted points.}
 	\label{fig:src2}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{fig/src1-63.png}
+	\caption{Precision error for out-of-plane rotation.}
+	\label{fig:err2}
 \end{figure}
 
 \clearpage
