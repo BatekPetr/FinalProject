@@ -10,7 +10,9 @@ double euclDist(int x1, int y1, int x2, int y2) {
 }
 
 void sortTriangle(std::vector<rw::math::Vector2D<int> >& vec) {
-    double maxDist = 0, curDist;
+    
+	/// Find long edge and select opposite corner as first element
+	double maxDist = 0, curDist;
     size_t maxIndex, maxJndex;
     for (size_t i = 0; i < 3; ++i) {
         for (size_t j = i; j < 3; ++j) {
@@ -25,6 +27,7 @@ void sortTriangle(std::vector<rw::math::Vector2D<int> >& vec) {
     size_t first = (3 - maxIndex - maxJndex) % 3;
     swap(vec[0], vec[first]);
 
+	/// Arrange remaining two corners clockwise
     int xprod = (vec[1][0] - vec[0][0]) * (vec[2][1] - vec[0][1]) - (vec[2][0] - vec[0][0]) * (vec[1][1] - vec[0][1]);
     if (xprod < 0) swap(vec[1], vec[2]);
 }
@@ -96,34 +99,12 @@ std::vector<rw::math::Vector2D<int> > marker1(Mat src, NoOfTargets No) {
 
     }
 
-
-
+    /// Sort the resulting triangle for consistency in orientation
     vector<Vector2D<int> > tri;
     for (size_t i = 0; i < 3; ++i) {
         tri.push_back(rw::math::Vector2D<int>(maxCenter[i].x, maxCenter[i].y));
     }
     sortTriangle(tri);
-
-    for(int i = 0; i < 3; ++i){
-        maxCenter[i] = Point2f(tri[i][0], tri[i][1]);
-    }
-
-    vector<Scalar> color;
-    color.push_back(Scalar(255, 0, 0));
-    color.push_back(Scalar(0, 255, 0));
-    color.push_back(Scalar(255, 255, 255));
-    /// Draw marker positions onto original image and display
-    for(int i = 0; i < 3; ++i){
-        circle( src,
-                maxCenter[i],
-                3,
-                color[i],
-                5,
-                8 );
-    }
-    //namedWindow("points", WINDOW_NORMAL);
-    //resizeWindow("points", 640, 480);
-    //imshow("points", src);
 
     int cols = src.cols;
     int rows = src.rows;
@@ -132,7 +113,7 @@ std::vector<rw::math::Vector2D<int> > marker1(Mat src, NoOfTargets No) {
         tri[i][1]= tri[i][1] - rows/2;
     }
 
-    // Return specified noOfTargs coordinates
+    /// Return specified noOfTargs coordinates
     std::vector<Vector2D<int>>::const_iterator first = tri.begin();
     std::vector<Vector2D<int>>::const_iterator last = tri.begin() + No;
 
